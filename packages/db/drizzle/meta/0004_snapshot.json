@@ -1,0 +1,420 @@
+{
+  "id": "b25071d2-2824-41e8-baf5-4efd78bdfedb",
+  "prevId": "e4723956-8472-4cbd-9d05-c48541731a1c",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.availability_slots": {
+      "name": "availability_slots",
+      "schema": "",
+      "columns": {
+        "room_id": {
+          "name": "room_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "start_time": {
+          "name": "start_time",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "end_time": {
+          "name": "end_time",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "raw_label": {
+          "name": "raw_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "availability_slots_date": {
+          "name": "availability_slots_date",
+          "columns": [
+            {
+              "expression": "date",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "availability_slots_room_id_rooms_id_fk": {
+          "name": "availability_slots_room_id_rooms_id_fk",
+          "tableFrom": "availability_slots",
+          "tableTo": "rooms",
+          "columnsFrom": [
+            "room_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "availability_slots_room_id_date_start_time_pk": {
+          "name": "availability_slots_room_id_date_start_time_pk",
+          "columns": [
+            "room_id",
+            "date",
+            "start_time"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.availability_snapshots": {
+      "name": "availability_snapshots",
+      "schema": "",
+      "columns": {
+        "room_id": {
+          "name": "room_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "covered_from": {
+          "name": "covered_from",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "covered_through": {
+          "name": "covered_through",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fetched_at": {
+          "name": "fetched_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_error": {
+          "name": "last_error",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_error_at": {
+          "name": "last_error_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "availability_snapshots_room_id_rooms_id_fk": {
+          "name": "availability_snapshots_room_id_rooms_id_fk",
+          "tableFrom": "availability_snapshots",
+          "tableTo": "rooms",
+          "columnsFrom": [
+            "room_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.policy_evidences": {
+      "name": "policy_evidences",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "room_id": {
+          "name": "room_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "occurred_on": {
+          "name": "occurred_on",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "result": {
+          "name": "result",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "instruments": {
+          "name": "instruments",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::text[]"
+        },
+        "note": {
+          "name": "note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_url": {
+          "name": "source_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reported_by": {
+          "name": "reported_by",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "seed_key": {
+          "name": "seed_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "policy_evidences_room": {
+          "name": "policy_evidences_room",
+          "columns": [
+            {
+              "expression": "room_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "policy_evidences_room_id_rooms_id_fk": {
+          "name": "policy_evidences_room_id_rooms_id_fk",
+          "tableFrom": "policy_evidences",
+          "tableTo": "rooms",
+          "columnsFrom": [
+            "room_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "policy_evidences_seed_key_unique": {
+          "name": "policy_evidences_seed_key_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "seed_key"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "policy_evidences_kind": {
+          "name": "policy_evidences_kind",
+          "value": "\"policy_evidences\".\"kind\" in ('usage', 'inquiry', 'document')"
+        },
+        "policy_evidences_result": {
+          "name": "policy_evidences_result",
+          "value": "\"policy_evidences\".\"result\" in ('allowed', 'conditional', 'prohibited')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.rooms": {
+      "name": "rooms",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "municipality": {
+          "name": "municipality",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "facility_name": {
+          "name": "facility_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "room_name": {
+          "name": "room_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "facility_name_en": {
+          "name": "facility_name_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "room_name_en": {
+          "name": "room_name_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "capacity": {
+          "name": "capacity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "capacity_source": {
+          "name": "capacity_source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nearest_station": {
+          "name": "nearest_station",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "adapter_id": {
+          "name": "adapter_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "adapter_facility_code": {
+          "name": "adapter_facility_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "adapter_room_names": {
+          "name": "adapter_room_names",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "rooms_identity": {
+          "name": "rooms_identity",
+          "columns": [
+            {
+              "expression": "municipality",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "facility_name",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "room_name",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

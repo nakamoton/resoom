@@ -126,6 +126,56 @@ export const T = {
     '同じ自治体・施設・部屋名の部屋がすでに登録されています',
   ),
 
+  // ナビゲーション
+  navSearch: t('Search availability', '空き状況を検索'),
+  navCatalog: t('Facility Catalog', '施設台帳'),
+
+  // 空き状況の検索（ログインなしで使えるページ）
+  searchTitle: t('Search availability', '空き状況を検索'),
+  searchLead: t(
+    'Find open rooms across cities. No sign-in needed. Data is collected automatically from the official booking sites.',
+    '自治体をまたいで、空いている部屋を探せます。ログインは不要です。空き状況は公式の予約サイトから自動で集めています。',
+  ),
+  fromDate: t('From', '開始日'),
+  toDate: t('To', '終了日'),
+  daysOfWeek: t('Days of the week', '曜日'),
+  timeOfDay: t('Time of day', '時間帯'),
+  needInstruments: t('Instruments you need', '使いたい楽器'),
+  includeUnknown: t('Also show rooms where this is not yet known', '可否が未確認の部屋も含める'),
+  municipalities: t('Cities', '自治体'),
+  anyHint: t('Leave all unchecked to include everything.', 'すべて外すと、すべてを対象にします。'),
+  search: t('Search', '検索'),
+  searchInvalidDates: t(
+    'Check the dates. The end date must be on or after the start date, within 400 days.',
+    '日付を確認してください。終了日は開始日以降、400日以内にしてください。',
+  ),
+  noData: t(
+    'No availability data yet. It is collected automatically several times a day.',
+    'まだ空き状況のデータがありません。1日に数回、自動で集めています。',
+  ),
+  daysFound: (n: number): LocalizedText => t(`${n} ${plural(n, 'day', 'days')} with open rooms`, `空きのある日: ${n}日`),
+  noOpenSlots: t('No open rooms match these conditions.', '条件に合う空きはありません。'),
+  book: t('Booking site', '予約サイト'),
+  roomDetails: t('Room details', '部屋の詳細'),
+  checkYourself: t('Check these rooms yourself', '各自で確認する部屋'),
+  checkYourselfHint: t(
+    'These rooms match your conditions, but we do not collect their availability automatically (the site does not allow it, or it is not supported yet).',
+    '条件に合う部屋ですが、空き状況を自動で集めていません（サイトが機械的なアクセスを認めていない、またはまだ対応していないため）。',
+  ),
+  coverage: t('Data coverage', '照会できた範囲'),
+  dataUntil: t('Data until', 'データの範囲'),
+  updatedAt: t('Updated', '取得日時'),
+  lastError: t('Last update failed', '前回の取得に失敗'),
+  notOpenYet: t('Not open for booking yet', 'まだ照会できません'),
+  searchDisclaimer: t(
+    'Availability may have changed since it was collected. Always confirm and book on the official booking site.',
+    '空き状況は集めた後に変わっていることがあります。必ず公式の予約サイトで確認して予約してください。',
+  ),
+  coverageHint: t(
+    'Each city opens bookings on its own schedule, so dates after “Data until” cannot be searched yet.',
+    '自治体ごとに受付の開始時期が違うため、「データの範囲」より後の日はまだ検索できません。',
+  ),
+
   // その他
   notFoundTitle: t('Page not found', 'ページが見つかりません'),
   notFoundLead: t('The room may have been removed, or the URL may be wrong.', '部屋が削除されたか、URLが間違っている可能性があります。'),

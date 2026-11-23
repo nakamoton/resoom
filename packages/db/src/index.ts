@@ -11,4 +11,14 @@ export {
   type RoomWithEvidences,
   type SeedRoom,
 } from './rooms';
-export { policyEvidences, rooms, type PolicyEvidence, type Room } from './schema';
+export {
+  availabilitySlots,
+  availabilitySnapshots,
+  policyEvidences,
+  rooms,
+  type AvailabilitySlotRow,
+  type AvailabilitySnapshot,
+  type PolicyEvidence,
+  type Room,
+} from './schema';
+export { loadAvailability, recordAvailabilityError, saveAvailability, type SaveAvailabilityInput } from './availability';

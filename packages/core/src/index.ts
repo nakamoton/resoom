@@ -2,3 +2,4 @@ export * from './i18n';
 export * from './policy';
 export * from './validation';
 export * from './capacity';
+export * from './availability';

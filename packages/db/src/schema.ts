@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
-import { check, date, index, integer, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
-import type { EvidenceKind, InstrumentClass, PolicyResult } from '@resoom/core';
+import { check, date, index, integer, pgTable, primaryKey, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
+import type { EvidenceKind, InstrumentClass, PolicyResult, SlotStatus } from '@resoom/core';
 
 /** 施設台帳の部屋。 */
 export const rooms = pgTable(
@@ -59,5 +59,42 @@ export const policyEvidences = pgTable(
   ],
 );
 
+/** 定期実行の取得処理が保存した、部屋ごとの空き状況（1日・1コマ）。検索ページはこれだけを読む。 */
+export const availabilitySlots = pgTable(
+  'availability_slots',
+  {
+    roomId: uuid('room_id')
+      .notNull()
+      .references(() => rooms.id, { onDelete: 'cascade' }),
+    date: date('date', { mode: 'string' }).notNull(),
+    /** HH:MM */
+    start: text('start_time').notNull(),
+    /** HH:MM */
+    end: text('end_time').notNull(),
+    status: text('status').$type<SlotStatus>().notNull(),
+    /** 自治体サイトの表示そのまま */
+    rawLabel: text('raw_label').notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.roomId, t.date, t.start] }), index('availability_slots_date').on(t.date)],
+);
+
+/** 部屋ごとの、最後に取得した空き状況の範囲と時刻、失敗の記録。 */
+export const availabilitySnapshots = pgTable('availability_snapshots', {
+  roomId: uuid('room_id')
+    .primaryKey()
+    .references(() => rooms.id, { onDelete: 'cascade' }),
+  /** 最後に成功した取得で照会した最初の日 */
+  coveredFrom: date('covered_from', { mode: 'string' }),
+  /** 最後に成功した取得で照会できた最後の日。照会できる期間がなければ null */
+  coveredThrough: date('covered_through', { mode: 'string' }),
+  /** 最後に成功した取得の時刻 */
+  fetchedAt: timestamp('fetched_at', { withTimezone: true }),
+  /** 最後の取得が失敗したときのメッセージ。成功したら null に戻す */
+  lastError: text('last_error'),
+  lastErrorAt: timestamp('last_error_at', { withTimezone: true }),
+});
+
 export type Room = typeof rooms.$inferSelect;
 export type PolicyEvidence = typeof policyEvidences.$inferSelect;
+export type AvailabilitySlotRow = typeof availabilitySlots.$inferSelect;
+export type AvailabilitySnapshot = typeof availabilitySnapshots.$inferSelect;

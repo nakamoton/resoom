@@ -12,7 +12,8 @@
     "db:seed": "tsx scripts/db-seed.ts",
     "dev": "pnpm --filter @resoom/web dev",
     "build": "pnpm --filter @resoom/web build",
-    "availability": "tsx scripts/availability-search.ts"
+    "availability": "tsx scripts/availability-search.ts",
+    "crawl": "tsx scripts/crawl.ts"
   },
   "dependencies": {
     "@resoom/adapters": "workspace:*",

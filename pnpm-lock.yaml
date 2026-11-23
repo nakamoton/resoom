@@ -64,6 +64,9 @@ importers:
 
   packages/adapters:
     dependencies:
+      '@resoom/core':
+        specifier: workspace:*
+        version: link:../core
       cheerio:
         specifier: ^1.2.0
         version: 1.2.0

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-import { Bi } from './_i18n/Bi';
+import { NavLinks } from './_i18n/NavLinks';
 import { T } from './_i18n/texts';
 import './globals.css';
 
@@ -19,9 +19,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <header className="site-header">
           <div className="container">
-            <Link href="/rooms" className="brand">
-              resoom <Bi text={T.appName} />
+            <Link href="/search" className="brand">
+              resoom
             </Link>
+            <NavLinks />
           </div>
         </header>
         <main className="container">{children}</main>

@@ -29,6 +29,13 @@
       "when": 1795403192140,
       "tag": "0003_english_names",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1795404031685,
+      "tag": "0004_availability",
+      "breakpoints": true
     }
   ]
 }
