@@ -272,7 +272,39 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 4580
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "16:00",
+          "yen": 4580
+        },
+        {
+          "label": "夜間",
+          "start": "17:00",
+          "end": "21:00",
+          "yen": 6110
+        }
+      ],
+      "note": {
+        "en": "Rate for the 2F hall (capacity 210). Mon–Sat (except holidays) only the evening slot can be booked; Sundays and holidays all day. No extra charge for non-residents. A fee increase is planned for April 2027.",
+        "ja": "2階ホール（定員210人）の料金。月〜土（祝日を除く）は夜間のみ、日曜・祝日は終日貸し出し。市外の加算なし。2027年4月から値上げの予定。"
+      },
+      "sources": [
+        "https://csw-kawasaki.or.jp/rousen/kawasaki-center/kawasaki-koryu/",
+        "https://reiki.city.kawasaki.jp/kawasaki/d1w_reiki/H417901010078/H417901010078_j.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -310,7 +342,39 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2240
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "16:00",
+          "yen": 2240
+        },
+        {
+          "label": "夜間",
+          "start": "17:00",
+          "end": "21:00",
+          "yen": 3050
+        }
+      ],
+      "note": {
+        "en": "Tatami room (capacity 72). Mon–Sat (except holidays) only the evening slot can be booked; Sundays and holidays all day. No extra charge for non-residents. A fee increase is planned for April 2027.",
+        "ja": "畳敷き（定員72人）。月〜土（祝日を除く）は夜間のみ、日曜・祝日は終日貸し出し。市外の加算なし。2027年4月から値上げの予定。"
+      },
+      "sources": [
+        "https://csw-kawasaki.or.jp/rousen/kawasaki-center/kawasaki-koryu/",
+        "https://reiki.city.kawasaki.jp/kawasaki/d1w_reiki/H417901010078/H417901010078_j.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -352,7 +416,59 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1930
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "16:30",
+          "yen": 2340
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:30",
+          "yen": 2640
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2310
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "16:30",
+          "yen": 2800
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:30",
+          "yen": 3160
+        }
+      ],
+      "note": {
+        "en": "Weekends and holidays cost 20% more. Whole day (9:00–21:30) is ¥6,210 on weekdays and ¥7,450 on holidays. No extra charge for non-residents.",
+        "ja": "土日祝は2割増。全日（9:00〜21:30）は平日6,210円・土日祝7,450円。市外の加算なし。"
+      },
+      "sources": [
+        "https://culttz.city.kawasaki.jp/cms/wp-content/uploads/2026/08/06a492242e314c476b30be5abf2cce23.pdf",
+        "https://reiki.city.kawasaki.jp/kawasaki/d1w_reiki/H426901010006/H426901010006_j.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -394,7 +510,60 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1780
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2000
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 2680
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2136
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2400
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 3216
+        }
+      ],
+      "note": {
+        "en": "Combined rate for Study Rooms 1 and 2. Weekends and holidays cost 20% more. No extra charge for non-residents. Only quiet singing and playing (no taiko, drum kit or amplifiers; homes upstairs). New rates for applications from April 2027.",
+        "ja": "第1・第2学習室を合わせた料金。土日祝は2割増。市外の加算なし。小音量の歌・演奏のみ（上階が住宅のため、和太鼓・ドラム・アンプは不可）。2027年4月以降の申請分から新料金。"
+      },
+      "sources": [
+        "https://www.city.kawasaki.jp/kawasaki/page/0000156401.html",
+        "https://reiki.city.kawasaki.jp/kawasaki/d1w_reiki/H342901010018/H342901010018_j.html",
+        "https://www.city.kawasaki.jp/kawasaki/page/0000191343.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -436,7 +605,59 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2120
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2680
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 3470
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2544
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 3216
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 4164
+        }
+      ],
+      "note": {
+        "en": "Weekends and holidays cost 20% more. No extra charge for non-residents. Only quiet playing (no electric instruments). Fees may change in April 2027.",
+        "ja": "土日祝は2割増。市外の加算なし。演奏は小音量（電気楽器は不可）。2027年4月に変わる可能性があります。"
+      },
+      "sources": [
+        "https://www.nakahara-shiminkan.jp/guide/floor/audiovisual-2",
+        "https://reiki.city.kawasaki.jp/kawasaki/d1w_reiki/H347901010038/H347901010038_j.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -478,7 +699,59 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2120
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2680
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 3470
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2544
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 3216
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 4164
+        }
+      ],
+      "note": {
+        "en": "Weekends and holidays cost 20% more. No extra charge for non-residents. Only quiet playing (no electric instruments). Fees may change in April 2027.",
+        "ja": "土日祝は2割増。市外の加算なし。演奏は小音量（電気楽器は不可）。2027年4月に変わる可能性があります。"
+      },
+      "sources": [
+        "https://www.nakahara-shiminkan.jp/guide/floor/music",
+        "https://reiki.city.kawasaki.jp/kawasaki/d1w_reiki/H347901010038/H347901010038_j.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -486,8 +759,8 @@
     "facilityNameEn": "Tama Civic Center",
     "roomName": "大会議室",
     "roomNameEn": "Large Conference Room",
-    "capacity": null,
-    "capacitySource": null,
+    "capacity": 200,
+    "capacitySource": "Kawasaki City page for Tama Civic Center, 2026-11-23 / 川崎市の多摩市民館の施設案内（2026-11-23）",
     "nearestStation": null,
     "adapter": {
       "id": "kawasaki",
@@ -506,7 +779,60 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3920
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 5480
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 7050
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 4704
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 6576
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 8460
+        }
+      ],
+      "note": {
+        "en": "Weekends and holidays cost 20% more. No extra charge for non-residents. From the city page before the change of operator in April 2026 (the operator says the rates are unchanged). Fees may change in April 2027.",
+        "ja": "土日祝は2割増。市外の加算なし。2026年4月の指定管理への移行前の市の案内による（料金は従来どおりとの説明あり）。2027年4月に変わる可能性があります。"
+      },
+      "sources": [
+        "https://www.city.kawasaki.jp/tama/page/0000031985.html",
+        "https://www.city.kawasaki.jp/tama/cmsfiles/contents/0000181/181846/tama-setumeikai.pdf",
+        "https://reiki.city.kawasaki.jp/kawasaki/d1w_reiki/H347901010038/H347901010038_j.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -514,8 +840,8 @@
     "facilityNameEn": "Miyamae Civic Center",
     "roomName": "視聴覚室",
     "roomNameEn": "Audiovisual Room",
-    "capacity": null,
-    "capacitySource": null,
+    "capacity": 40,
+    "capacitySource": "Kawasaki City page for Miyamae Civic Center, 2026-11-23 / 川崎市の宮前市民館の施設案内（2026-11-23）",
     "nearestStation": "宮前平",
     "adapter": {
       "id": "kawasaki",
@@ -548,7 +874,59 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2120
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2680
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 3470
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2544
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 3216
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 4164
+        }
+      ],
+      "note": {
+        "en": "Weekends and holidays cost 20% more. No extra charge for non-residents. Upright piano. New rates (¥2,330 / ¥2,940 / ¥3,810) for applications from April 2027.",
+        "ja": "土日祝は2割増。市外の加算なし。アップライトピアノあり。2027年4月以降の申請分から新料金（2,330円・2,940円・3,810円）。"
+      },
+      "sources": [
+        "https://www.city.kawasaki.jp/miyamae/category/117-11-3-1-0-0-0-0-0-0.html",
+        "https://www.city.kawasaki.jp/miyamae/page/0000191296.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -590,7 +968,59 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2120
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2680
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 3470
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2544
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 3216
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 4164
+        }
+      ],
+      "note": {
+        "en": "Closed for renovation from September 2026 until October 2028 or later. Weekends and holidays cost 20% more. No extra charge for non-residents.",
+        "ja": "改修のため2026年9月から2028年10月以降まで休止中。土日祝は2割増。市外の加算なし。"
+      },
+      "sources": [
+        "https://www.city.kawasaki.jp/saiwai/cmsfiles/contents/0000149/149343/050401siyouryou.pdf",
+        "https://www.city.kawasaki.jp/saiwai/page/0000174456.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -632,7 +1062,59 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2120
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2680
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 3470
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2544
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 3216
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 4164
+        }
+      ],
+      "note": {
+        "en": "Weekends and holidays cost 20% more. No extra charge for non-residents. Pay in advance at the counter. New rates for applications from April 2027 (to be announced).",
+        "ja": "土日祝は2割増。市外の加算なし。利用前に窓口で前納。2027年4月以降の申請分から新料金（公表待ち）。"
+      },
+      "sources": [
+        "https://www.kawasaki-takatsu.jp/assets/uploads/2025/03/m000_shin_riyoryo.pdf",
+        "https://www.kawasaki-takatsu.jp/shiminkan/news/3950/"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -674,7 +1156,59 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2120
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2680
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 3470
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2544
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 3216
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 4164
+        }
+      ],
+      "note": {
+        "en": "Weekends and holidays cost 20% more. No extra charge for non-residents. Pay in advance at the counter. New rates for applications from April 2027 (to be announced).",
+        "ja": "土日祝は2割増。市外の加算なし。利用前に窓口で前納。2027年4月以降の申請分から新料金（公表待ち）。"
+      },
+      "sources": [
+        "https://www.kawasaki-takatsu.jp/assets/uploads/2025/03/m000_shin_riyoryo.pdf",
+        "https://www.kawasaki-takatsu.jp/shiminkan/news/3950/"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -682,8 +1216,8 @@
     "facilityNameEn": "Asao Civic Center",
     "roomName": "視聴覚室",
     "roomNameEn": "Audiovisual Room",
-    "capacity": null,
-    "capacitySource": null,
+    "capacity": 45,
+    "capacitySource": "Asao Civic Center room guide, 2026-11-23 / 麻生市民館の施設案内（2026-11-23）",
     "nearestStation": null,
     "adapter": {
       "id": "kawasaki",
@@ -702,7 +1236,59 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2120
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2680
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 3470
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2544
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 3216
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:00",
+          "yen": 4164
+        }
+      ],
+      "note": {
+        "en": "Weekends and holidays cost 20% more. No extra charge for non-residents. New rates from April 2027 (to be announced).",
+        "ja": "土日祝は2割増。市外の加算なし。2027年4月から新料金（公表待ち）。"
+      },
+      "sources": [
+        "https://asao-mirai.com/wp-content/uploads/2026/03/A01_riyoryo.pdf",
+        "https://asao-mirai.com/asao/hall-guide/"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
