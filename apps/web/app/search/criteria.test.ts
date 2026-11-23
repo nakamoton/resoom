@@ -5,13 +5,14 @@ const TODAY = '2026-11-23';
 const CITIES = ['大田区', '渋谷区'];
 
 describe('parseSearch', () => {
-  it('何も指定しなければ、今日から31日間・和太鼓以外の楽器・可否が未確認の部屋も含めて検索する', () => {
-    const { criteria, invalidDates, invalidPeople } = parseSearch({}, TODAY, CITIES);
+  it('何も指定しなければ、今日から31日間・土日祝・和太鼓以外の楽器・可否が未確認の部屋も含め・全自治体で検索する', () => {
+    const { criteria, form, invalidDates, invalidPeople } = parseSearch({}, TODAY, CITIES);
 
     expect(criteria).toEqual({
       from: '2026-11-23',
       to: '2026-12-23',
-      weekdays: null,
+      weekdays: [0, 6],
+      holidays: true,
       timesOfDay: null,
       people: null,
       needs: ['wind', 'small_percussion', 'drum_set', 'large_percussion'],
@@ -19,6 +20,27 @@ describe('parseSearch', () => {
       municipalities: null,
     });
     expect([invalidDates, invalidPeople]).toEqual([false, false]);
+    // 入力欄では、土・日・祝とすべての自治体にチェックが入る
+    expect([form.days, form.holidays, form.municipalities]).toEqual([[0, 6], true, ['大田区', '渋谷区']]);
+  });
+
+  it('フォームから送られたときは、曜日・祝日・自治体をすべて外した状態をそのまま読む（すべての日・自治体が対象）', () => {
+    const { criteria, form } = parseSearch({ s: '1' }, TODAY, CITIES);
+
+    expect([criteria.weekdays, criteria.holidays, criteria.municipalities]).toEqual([null, false, null]);
+    expect([form.days, form.holidays, form.municipalities]).toEqual([[], false, []]);
+  });
+
+  it('祝日だけ・自治体を1つだけ選んだ指定を読む', () => {
+    const { criteria } = parseSearch({ s: '1', d: 'h', m: '渋谷区' }, TODAY, CITIES);
+
+    expect([criteria.weekdays, criteria.holidays, criteria.municipalities]).toEqual([null, true, ['渋谷区']]);
+  });
+
+  it('自治体をすべて選んだときは、自治体で絞らない', () => {
+    const { criteria, form } = parseSearch({ s: '1', m: ['大田区', '渋谷区'] }, TODAY, CITIES);
+
+    expect([criteria.municipalities, form.municipalities]).toEqual([null, ['大田区', '渋谷区']]);
   });
 
   it('フォームから送られたときは、楽器をすべて外した・未確認を含めない、をそのまま読む', () => {
@@ -51,6 +73,7 @@ describe('parseSearch', () => {
       from: '2026-12-01',
       to: '2026-12-31',
       weekdays: [0, 6],
+      holidays: false,
       timesOfDay: ['evening'],
       people: 45,
       needs: ['drum_set'],

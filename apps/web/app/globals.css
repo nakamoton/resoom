@@ -749,6 +749,35 @@ fieldset.form-row > .row-body {
   margin: 0 0 6px;
 }
 
+.last-fetched {
+  margin: -2px 0 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.day h3 .holiday-name {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* 条件を変えたあと、結果が更新されるまでは薄く表示する */
+.updating {
+  margin: 0;
+  min-height: 0;
+  font-size: 12px;
+  color: var(--accent);
+}
+
+.updating:empty {
+  display: none;
+}
+
+body:has(form[aria-busy='true']) .results,
+body:has(form[aria-busy='true']) .manual-panel {
+  opacity: 0.55;
+  transition: opacity 0.15s;
+}
+
 /* 日付の目次 */
 .day-index {
   display: flex;

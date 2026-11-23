@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { roomMatches, searchAvailability, timeOfDayOf, type SearchCriteria, type SearchSlot } from '../src/availability';
+import { dayMatches, roomMatches, searchAvailability, timeOfDayOf, type SearchCriteria, type SearchSlot } from '../src/availability';
 import type { EvidenceLike } from '../src/policy';
 
 const evidence = (result: EvidenceLike['result'], instruments: EvidenceLike['instruments'] = []): EvidenceLike => ({
@@ -30,6 +30,7 @@ const criteria = (overrides: Partial<SearchCriteria> = {}): SearchCriteria => ({
   from: '2026-12-01',
   to: '2026-12-31',
   weekdays: null,
+  holidays: false,
   timesOfDay: null,
   people: null,
   needs: [],
@@ -49,6 +50,28 @@ describe('timeOfDayOf', () => {
     ['18:30', 'evening'],
   ])('%s は %s', (start, expected) => {
     expect(timeOfDayOf(start)).toBe(expected);
+  });
+});
+
+describe('dayMatches', () => {
+  // 2026-11-21 土、11-22 日、11-23 月（勤労感謝の日）、11-24 火
+  it('曜日も祝日も指定がなければ、すべての日が合う', () => {
+    expect(['2026-11-21', '2026-11-23', '2026-11-24'].every((d) => dayMatches(d, { weekdays: null, holidays: false }))).toBe(true);
+  });
+
+  it('土・日・祝を選ぶと、土日と祝日（月曜の祝日を含む）が合い、平日は合わない', () => {
+    const c = { weekdays: [6, 0], holidays: true };
+    expect(['2026-11-21', '2026-11-22', '2026-11-23', '2026-11-24'].map((d) => dayMatches(d, c))).toEqual([true, true, true, false]);
+  });
+
+  it('祝日だけを選ぶと、祝日だけが合う', () => {
+    const c = { weekdays: null, holidays: true };
+    expect(['2026-11-21', '2026-11-23', '2026-05-06'].map((d) => dayMatches(d, c))).toEqual([false, true, true]);
+  });
+
+  it('祝日を選ばなければ、祝日でも曜日で決まる', () => {
+    expect(dayMatches('2026-11-23', { weekdays: [6, 0], holidays: false })).toBe(false);
+    expect(dayMatches('2026-11-23', { weekdays: [1], holidays: false })).toBe(true);
   });
 });
 

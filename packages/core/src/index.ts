@@ -4,3 +4,4 @@ export * from './validation';
 export * from './capacity';
 export * from './availability';
 export * from './members';
+export * from './holidays';

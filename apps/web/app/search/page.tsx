@@ -8,6 +8,7 @@ import {
   can,
   capacityLabel,
   effectivePolicy,
+  japaneseHoliday,
   roomMatches,
   searchAvailability,
   timeOfDayOf,
@@ -21,7 +22,8 @@ import { Bi, Municipality, RoomName, plain } from '../_i18n/Bi';
 import { T } from '../_i18n/texts';
 import { StatusLegend, StatusMark } from '../rooms/_components/StatusChip';
 import { BOOKING_SITES } from './booking-sites';
-import { SUBMITTED_PARAM, parseSearch, type RawParams } from './criteria';
+import { AutoSearchForm } from './AutoSearchForm';
+import { HOLIDAY_VALUE, SUBMITTED_PARAM, parseSearch, type RawParams } from './criteria';
 import { NOT_SEARCHED_REASONS, byReason, groupNotSearched, searchableMunicipalities } from './not-searched';
 
 export const metadata: Metadata = { title: `${T.searchTitle.en} · ${T.searchTitle.ja}` };
@@ -60,7 +62,9 @@ const shortDate = (date: string): string =>
   new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${date}T00:00:00Z`)).replace(',', '');
 /** 土日を色分けするための曜日（0 = 日曜）。 */
 const weekdayOf = (date: string): number => new Date(`${date}T00:00:00Z`).getUTCDay();
-const dayClass = (date: string): string => (weekdayOf(date) === 6 ? 'sat' : weekdayOf(date) === 0 ? 'sun' : '');
+/** 土曜は青、日曜と祝日は赤で示すためのクラス。 */
+const dayClass = (date: string): string =>
+  weekdayOf(date) === 0 || japaneseHoliday(date) ? 'sun' : weekdayOf(date) === 6 ? 'sat' : '';
 const timestampText = (at: Date | null): string =>
   at
     ? `${new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(at)} JST`
@@ -83,6 +87,11 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const snapshotOf = new Map<string, AvailabilitySnapshot>(snapshots.map((s) => [s.roomId, s]));
   const shown = criteria.needs.length > 0 ? criteria.needs : DEFAULT_SHOWN;
   const hasData = snapshots.some((s) => s.coveredThrough !== null);
+  // 情報の最終取得時刻（空き状況を集めた時刻のうち、いちばん新しいもの）
+  const lastFetchedAt = snapshots.reduce<Date | null>(
+    (latest, s) => (s.fetchedAt && (!latest || s.fetchedAt > latest) ? s.fetchedAt : latest),
+    null,
+  );
   // 自動で検索していない部屋（条件にかかわらず、ページ上部の案内に使う）
   const untracked = rooms.filter((room) => !tracked.has(room.id));
   const notSearched = byReason(groupNotSearched(untracked));
@@ -135,7 +144,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         </section>
       ) : null}
 
-      <form className="card search-form" action="/search" method="get">
+      <AutoSearchForm action="/search" className="card search-form" updatingLabel={<Bi text={T.updating} />}>
         <input type="hidden" name={SUBMITTED_PARAM} value="1" />
         {invalidDates ? (
           <p className="notice error" role="status">
@@ -194,6 +203,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                 <Bi text={d.label} />
               </label>
             ))}
+            <label className="sun">
+              <input type="checkbox" name="d" value={HOLIDAY_VALUE} defaultChecked={form.holidays} />
+              <Bi text={T.holidays} />
+            </label>
             <span className="hint">
               <Bi text={T.anyHint} />
             </span>
@@ -256,7 +269,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             <Bi text={T.searchDisclaimer} />
           </span>
         </div>
-      </form>
+      </AutoSearchForm>
 
       {!hasData ? (
         <p className="empty">
@@ -270,6 +283,11 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             </h2>
             {result.days.length > 0 ? <StatusLegend /> : null}
           </div>
+          {lastFetchedAt ? (
+            <p className="last-fetched">
+              <Bi text={T.lastFetched} />: {timestampText(lastFetchedAt)}
+            </p>
+          ) : null}
           {result.days.length > 1 ? (
             <nav className="day-index" aria-label={plain(T.jumpToDay)}>
               {result.days.map((day) => (
@@ -283,6 +301,11 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             <section key={day.date} className="day" id={`day-${day.date}`}>
               <h3 className={dayClass(day.date)}>
                 <Bi text={dateText(day.date)} />
+                {japaneseHoliday(day.date) ? (
+                  <span className="holiday-name">
+                    <Bi text={japaneseHoliday(day.date)!} />
+                  </span>
+                ) : null}
                 <span className="count">
                   <Bi text={T.roomCount(day.rooms.length)} />
                 </span>

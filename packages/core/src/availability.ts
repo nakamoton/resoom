@@ -1,3 +1,4 @@
+import { isJapaneseHoliday } from './holidays';
 import type { InstrumentClass, PolicyStatus } from './policy';
 import { effectivePolicy, type EvidenceLike } from './policy';
 
@@ -28,8 +29,10 @@ export interface SearchCriteria {
   from: string;
   /** YYYY-MM-DD（この日を含む） */
   to: string;
-  /** 曜日（0 = 日曜）。null ならすべて */
+  /** 曜日（0 = 日曜）。null なら曜日では絞らない */
   weekdays: number[] | null;
+  /** 祝日（振替休日・国民の休日を含む）も対象にするか。weekdays のどれか、または祝日に当てはまる日を残す */
+  holidays: boolean;
   /** 時間帯。null ならすべて */
   timesOfDay: TimeOfDay[] | null;
   /** 人数。定員がこれに満たない部屋を除く（定員が未登録の部屋は残す）。null なら絞らない */
@@ -79,6 +82,12 @@ export interface SearchResult<R> {
 
 const weekdayOf = (date: string): number => new Date(`${date}T00:00:00Z`).getUTCDay();
 
+/** 日付が、曜日・祝日の条件に合うか。どちらも指定がなければすべての日が合う。 */
+export function dayMatches(date: string, criteria: Pick<SearchCriteria, 'weekdays' | 'holidays'>): boolean {
+  if (criteria.weekdays === null && !criteria.holidays) return true;
+  return (criteria.weekdays?.includes(weekdayOf(date)) ?? false) || (criteria.holidays && isJapaneseHoliday(date));
+}
+
 /** 部屋が、人数・楽器・自治体の条件に合うか。 */
 export function roomMatches(room: SearchRoom, criteria: SearchCriteria): boolean {
   if (criteria.municipalities && !criteria.municipalities.includes(room.municipality)) return false;
@@ -112,7 +121,7 @@ export function searchAvailability<R extends SearchRoom>(
   for (const slot of slots) {
     if (slot.status !== 'available' || !byId.has(slot.roomId)) continue;
     if (slot.date < criteria.from || slot.date > criteria.to) continue;
-    if (criteria.weekdays && !criteria.weekdays.includes(weekdayOf(slot.date))) continue;
+    if (!dayMatches(slot.date, criteria)) continue;
     if (criteria.timesOfDay && !criteria.timesOfDay.includes(timeOfDayOf(slot.start))) continue;
     const day = days.get(slot.date) ?? new Map<string, SearchSlot[]>();
     days.set(slot.date, day);
