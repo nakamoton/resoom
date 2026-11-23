@@ -275,7 +275,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             <thead>
               <tr>
                 <th scope="col">
-                  <Bi text={T.navCatalog} />
+                  <Bi text={T.room} />
                 </th>
                 <th scope="col">
                   <Bi text={T.dataUntil} />

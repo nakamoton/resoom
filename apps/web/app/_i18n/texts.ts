@@ -163,6 +163,7 @@ export const T = {
     '条件に合う部屋ですが、空き状況を自動で集めていません（サイトが機械的なアクセスを認めていない、またはまだ対応していないため）。',
   ),
   coverage: t('Data coverage', '照会できた範囲'),
+  room: t('Room', '部屋'),
   dataUntil: t('Data until', 'データの範囲'),
   updatedAt: t('Updated', '取得日時'),
   lastError: t('Last update failed', '前回の取得に失敗'),
