@@ -86,6 +86,8 @@ const LABEL_EN: ReadonlyArray<[string, string]> = [
 
 /** 料金表の区分の名前を英語と日本語にする（例: 午後1 → Afternoon 1）。知らない名前は日本語のまま。 */
 export function feeLabel(label: string): LocalizedText {
+  const numbered = /^第(\d+)区分$/.exec(label);
+  if (numbered) return { en: `Slot ${numbered[1]}`, ja: label };
   for (const [ja, en] of LABEL_EN) {
     if (label.startsWith(ja)) {
       const rest = label.slice(ja.length).trim();

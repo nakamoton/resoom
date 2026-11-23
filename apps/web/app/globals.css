@@ -4,32 +4,52 @@
  * 一覧性を優先して、余白と文字は小さめにしている。
  */
 :root {
-  --bg: #f6f7f4;
+  /*
+   * 配色: 吹奏楽の楽器から。真鍮（トランペット・ホルン）の金、黒檀（クラリネット）の黒、
+   * フルートの銀、演奏会のステージの濃紺、小太鼓の赤。真鍮色の文字は白地でも読める濃さにする。
+   */
+  --bg: #f4f2ec;
   --surface: #ffffff;
-  --text: #1c2321;
-  --muted: #5d6965;
+  --text: #1d1b19;
+  --muted: #5f5a52;
   /* 文言の日本語（補助） */
-  --ja: #6f7a76;
-  --border: #dfe4e1;
-  --border-strong: #aab4af;
-  --accent: #1f6f5c;
-  --accent-soft: #eef7f4;
-  --accent-text: #ffffff;
-  --ok-bg: #dff3e6;
-  --ok-text: #14532d;
-  --cond-bg: #fdf0c8;
-  --cond-text: #6b4a00;
-  --ng-bg: #fbdcdc;
-  --ng-text: #7f1d1d;
-  --unknown-bg: #eceeed;
-  --unknown-text: #4b5551;
-  --error: #b42318;
-  --info-bg: #eaf1fb;
-  --info-border: #3d6bb3;
-  --info-text: #1d3557;
-  --panel-bg: #eef0ee;
-  --sat: #1d4ed8;
-  --sun: #b42318;
+  --ja: #77706a;
+  --border: #e3ddd1;
+  --border-strong: #b8ae9c;
+  /* 真鍮 */
+  --brass: #c9a24a;
+  --brass-hi: #ecd48f;
+  --brass-lo: #a67c24;
+  --accent: #7a5a12;
+  --accent-soft: #faf3e0;
+  --accent-text: #1a1406;
+  /* ステージ（濃紺） */
+  --stage: #131b2e;
+  --stage-2: #1f2a47;
+  --stage-text: #ece8df;
+  --stage-muted: #a9a59c;
+  /* フルートの銀 */
+  --silver: #eef0f3;
+  --silver-line: #d7dbe1;
+  /* 空きコマ */
+  --open: #1b5e3b;
+  --open-bg: #e9f4ee;
+  --ok-bg: #e1f1e7;
+  --ok-text: #1b5e3b;
+  --cond-bg: #fbefd0;
+  --cond-text: #7a4f00;
+  --ng-bg: #f8dcd7;
+  --ng-text: #8a2216;
+  --unknown-bg: #eceae5;
+  --unknown-text: #4f4a44;
+  --error: #a8261b;
+  --info-bg: #eef1f8;
+  --info-border: #2c3e6b;
+  --info-text: #1b2a4a;
+  --panel-bg: #efeee9;
+  --sat: #23479a;
+  /* 小太鼓の赤 */
+  --sun: #a8261b;
 }
 
 * {
@@ -188,8 +208,25 @@ h1 .name.stack .name-ja {
 /* ---- 画面上部 ---- */
 
 .site-header {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  position: relative;
+  background: linear-gradient(180deg, var(--stage-2), var(--stage));
+  color: var(--stage-text);
+}
+
+/* ステージの縁の真鍮の線 */
+.site-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brass-lo), var(--brass-hi) 45%, var(--brass) 70%, var(--brass-lo));
+}
+
+.site-header .bi .ja,
+.site-header .name-ja {
+  color: var(--stage-muted);
 }
 
 .site-header .container {
@@ -200,12 +237,19 @@ h1 .name.stack .name-ja {
 }
 
 .brand {
-  display: inline-block;
-  padding: 8px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 0 10px;
   font-weight: 700;
-  font-size: 17px;
-  color: var(--text);
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  color: var(--brass-hi);
   text-decoration: none;
+}
+
+.brand svg {
+  display: block;
 }
 
 .site-nav ul {
@@ -219,15 +263,20 @@ h1 .name.stack .name-ja {
 
 .site-nav a {
   display: inline-block;
-  padding: 9px 0 7px;
-  color: var(--text);
+  padding: 10px 0 8px;
+  color: var(--stage-text);
   font-size: 14px;
   text-decoration: none;
   border-bottom: 2px solid transparent;
 }
 
+.site-nav a:hover {
+  color: #ffffff;
+}
+
 .site-nav a[aria-current='page'] {
-  border-bottom-color: var(--accent);
+  border-bottom-color: var(--brass-hi);
+  color: #ffffff;
   font-weight: 600;
 }
 
@@ -240,13 +289,14 @@ h1 .name.stack .name-ja {
   font-size: 13px;
 }
 
-a.user-menu {
-  color: var(--accent);
+a.user-menu,
+.site-header .link-button {
+  color: var(--brass-hi);
   font-weight: 600;
 }
 
 .user-menu .who {
-  color: var(--muted);
+  color: var(--stage-muted);
 }
 
 /* ---- 部品 ---- */
@@ -256,19 +306,26 @@ a.user-menu {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 14px;
+  box-shadow: 0 1px 2px rgba(29, 27, 25, 0.04);
 }
 
+/* 真鍮のボタン */
 .button {
   display: inline-block;
   padding: 7px 16px;
-  border: 1px solid var(--accent);
+  border: 1px solid var(--brass-lo);
   border-radius: 6px;
-  background: var(--accent);
+  background: linear-gradient(180deg, var(--brass-hi), var(--brass) 55%, var(--brass-lo));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 1px 2px rgba(29, 27, 25, 0.15);
   color: var(--accent-text);
   font: inherit;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  filter: brightness(1.05);
 }
 
 .button:disabled {
@@ -277,7 +334,9 @@ a.user-menu {
 }
 
 .button.secondary {
+  border-color: var(--brass);
   background: var(--surface);
+  box-shadow: none;
   color: var(--accent);
 }
 
@@ -345,9 +404,9 @@ a.user-menu {
 }
 
 .tabs a[aria-current='page'] {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--accent-text);
+  border-color: var(--stage);
+  background: var(--stage);
+  color: #ffffff;
 }
 
 .tabs a[aria-current='page'] .name-ja {
@@ -483,7 +542,7 @@ textarea:focus-visible,
 select:focus-visible,
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid #7cc4b1;
+  outline: 3px solid var(--brass-hi);
   outline-offset: 2px;
 }
 
@@ -523,9 +582,13 @@ input::placeholder {
 }
 
 .choices label:has(input:checked) {
-  border-color: var(--accent);
-  box-shadow: inset 0 0 0 1px var(--accent);
+  border-color: var(--brass-lo);
+  box-shadow: inset 0 0 0 1px var(--brass-lo);
   background: var(--accent-soft);
+}
+
+.choices input {
+  accent-color: var(--brass-lo);
 }
 
 .choices input {
@@ -855,10 +918,11 @@ body:has(form[aria-busy='true']) .manual-panel {
   gap: 0 10px;
   margin: 0;
   padding: 4px 10px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--silver-line);
+  border-left: 3px solid var(--brass);
   border-bottom: 0;
   border-radius: 8px 8px 0 0;
-  background: #eef1ee;
+  background: linear-gradient(180deg, #f6f7f9, var(--silver));
   font-size: 14px;
 }
 
@@ -985,9 +1049,9 @@ a.room-title:hover {
 
 .slot {
   padding: 0 7px;
-  border: 1px solid var(--accent);
+  border: 1px solid var(--open);
   border-radius: 4px;
-  background: var(--accent-soft);
+  background: var(--open-bg);
   font-size: 13px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -1009,7 +1073,7 @@ a.room-title:hover {
 .manual-panel {
   margin-top: 24px;
   padding: 10px 14px;
-  border: 1px dashed #9aa5a0;
+  border: 1px dashed var(--border-strong);
   border-radius: 8px;
   background: var(--panel-bg);
   font-size: 13px;
@@ -1074,8 +1138,8 @@ a.room-title:hover {
 .candidates .rows {
   border-radius: 8px;
   border-style: solid;
-  border-color: #c9d6e8;
-  background: #f7f9fd;
+  border-color: #e6d4a3;
+  background: #fdf9ee;
 }
 
 .slot .slot-date {
@@ -1130,8 +1194,8 @@ a.room-title:hover {
 
 .notice.candidate-notice {
   margin-top: 6px;
-  background: #eef3fb;
-  color: #2c4a7a;
+  background: var(--accent-soft);
+  color: var(--accent);
   font-weight: 400;
   font-size: 13px;
 }
@@ -1140,10 +1204,10 @@ a.room-title:hover {
   display: inline-block;
   margin-left: 6px;
   padding: 0 6px;
-  border: 1px solid #c9d6e8;
+  border: 1px solid #e6d4a3;
   border-radius: 4px;
-  background: #eef3fb;
-  color: #2c4a7a;
+  background: var(--accent-soft);
+  color: var(--accent);
   font-size: 11px;
   font-weight: 600;
   vertical-align: middle;
@@ -1227,7 +1291,8 @@ details.coverage summary {
 
 .list-table thead th {
   border-top: 0;
-  background: #eef1ee;
+  border-bottom: 2px solid var(--brass);
+  background: var(--silver);
   font-size: 12px;
   font-weight: 600;
   line-height: 1.3;
@@ -1235,7 +1300,7 @@ details.coverage summary {
 }
 
 .list-table tbody tr:hover {
-  background: #f8faf9;
+  background: #faf7ef;
 }
 
 .list-table .num {

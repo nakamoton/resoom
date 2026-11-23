@@ -49,5 +49,6 @@ describe('料金', () => {
     expect(feeLabel('午後A')).toEqual({ en: 'Afternoon A', ja: '午後A' });
     expect(feeLabel('夕方')).toEqual({ en: 'Early evening', ja: '夕方' });
     expect(feeLabel('第1部')).toEqual({ en: '第1部', ja: '第1部' });
+    expect(feeLabel('第3区分')).toEqual({ en: 'Slot 3', ja: '第3区分' });
   });
 });

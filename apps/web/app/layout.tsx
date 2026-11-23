@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { can } from '@resoom/core';
 import { getCurrentMember } from '@/lib/session';
+import { BrandMark } from './_i18n/BrandMark';
 import { NavLinks } from './_i18n/NavLinks';
 import { UserMenu } from './_i18n/UserMenu';
 import { T } from './_i18n/texts';
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#131b2e' };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const member = await getCurrentMember();
@@ -29,6 +30,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <header className="site-header">
           <div className="container">
             <Link href="/search" className="brand">
+              <BrandMark />
               resoom
             </Link>
             <NavLinks items={items} />

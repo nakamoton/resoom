@@ -2724,7 +2724,39 @@
       "id": "shinagawa",
       "facilityCode": "1100_4020"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2300
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 3400
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:30",
+          "yen": 4700
+        }
+      ],
+      "note": {
+        "en": "Ward-resident rate. Non-residents pay ¥3,500 / ¥5,100 / ¥7,100. Soundproofed (NC-25), upright piano.",
+        "ja": "区民の料金。区民以外は3,500円・5,100円・7,100円。防音（NC-25）、アップライトピアノあり。"
+      },
+      "sources": [
+        "https://www.shinagawa-culture.or.jp/square/facility/cultural/price-list/facility.html",
+        "https://www.city.shinagawa.tokyo.jp/shisetsu/bunkasportsshisetsu/1008222/1008231.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "品川区",
@@ -2740,7 +2772,38 @@
       "id": "shinagawa",
       "facilityCode": "1300_2010"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 4700
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "16:30",
+          "yen": 6900
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:30",
+          "yen": 9400
+        }
+      ],
+      "note": {
+        "en": "Ward-resident rate. Non-residents pay ¥5,600 / ¥8,300 / ¥11,300. For instrumental music and dance; grand piano.",
+        "ja": "区民の料金。区民以外は5,600円・8,300円・11,300円。楽器演奏・ダンス向け、グランドピアノあり。"
+      },
+      "sources": [
+        "https://www.city.shinagawa.tokyo.jp/shisetsu/bunkasportsshisetsu/1008222/1011097/1008226.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "品川区",
@@ -2756,7 +2819,38 @@
       "id": "shinagawa",
       "facilityCode": "1300_2010"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3800
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "16:30",
+          "yen": 5500
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:30",
+          "yen": 7500
+        }
+      ],
+      "note": {
+        "en": "Ward-resident rate. Non-residents pay ¥4,600 / ¥6,600 / ¥9,000. Upright piano and mirrors.",
+        "ja": "区民の料金。区民以外は4,600円・6,600円・9,000円。アップライトピアノ・鏡あり。"
+      },
+      "sources": [
+        "https://www.city.shinagawa.tokyo.jp/shisetsu/bunkasportsshisetsu/1008222/1011097/1008226.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "品川区",
@@ -2772,7 +2866,38 @@
       "id": "shinagawa",
       "facilityCode": "1500_2190"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1700
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "16:30",
+          "yen": 2500
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:30",
+          "yen": 3500
+        }
+      ],
+      "note": {
+        "en": "Ward-resident rate. Non-residents pay ¥2,100 / ¥3,000 / ¥4,100. Light soundproofing only: very loud playing that disturbs others is not allowed. Grand piano ¥2,500.",
+        "ja": "区民の料金。区民以外は2,100円・3,000円・4,100円。軽防音のため、ほかの利用者に影響する大音量は不可。グランドピアノは2,500円。"
+      },
+      "sources": [
+        "https://www.city.shinagawa.tokyo.jp/shisetsu/bunkasportsshisetsu/1008222/1008223/1010864.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "品川区",
@@ -2788,7 +2913,38 @@
       "id": "shinagawa",
       "facilityCode": "1500_2180"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1200
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "16:30",
+          "yen": 1800
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:30",
+          "yen": 2400
+        }
+      ],
+      "note": {
+        "en": "Ward-resident rate. Non-residents pay ¥1,400 / ¥2,200 / ¥2,900. Piano (extra charge).",
+        "ja": "区民の料金。区民以外は1,400円・2,200円・2,900円。ピアノあり（有料）。"
+      },
+      "sources": [
+        "https://www.city.shinagawa.tokyo.jp/_res/projects/default_project/_page_/001/008/162/20260105094637_1.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "世田谷区",
@@ -2804,7 +2960,50 @@
       "id": "setagaya",
       "facilityCode": "烏山区民センター"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "第1区分",
+          "start": "09:00",
+          "end": "11:00",
+          "yen": 1080
+        },
+        {
+          "label": "第2区分",
+          "start": "11:30",
+          "end": "13:30",
+          "yen": 1080
+        },
+        {
+          "label": "第3区分",
+          "start": "14:00",
+          "end": "16:00",
+          "yen": 1080
+        },
+        {
+          "label": "第4区分",
+          "start": "16:30",
+          "end": "18:30",
+          "yen": 1080
+        },
+        {
+          "label": "第5区分",
+          "start": "19:00",
+          "end": "22:00",
+          "yen": 1620
+        }
+      ],
+      "note": {
+        "en": "Rates revised on 1 October 2025. Fees add up when you book several slots. Upright and electric pianos.",
+        "ja": "2025年10月1日改定の料金。複数の区分を使うときは合計します。アップライトピアノ・電子ピアノあり。"
+      },
+      "sources": [
+        "https://www.city.setagaya.lg.jp/02226/8548.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "世田谷区",
@@ -2820,7 +3019,50 @@
       "id": "setagaya",
       "facilityCode": "尾山台地区会館"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1050
+        },
+        {
+          "label": "午後A",
+          "start": "12:30",
+          "end": "14:30",
+          "yen": 700
+        },
+        {
+          "label": "午後B",
+          "start": "15:00",
+          "end": "17:00",
+          "yen": 700
+        },
+        {
+          "label": "夕方",
+          "start": "17:30",
+          "end": "19:30",
+          "yen": 700
+        },
+        {
+          "label": "夜間",
+          "start": "20:00",
+          "end": "22:00",
+          "yen": 700
+        }
+      ],
+      "note": {
+        "en": "Fees add up when you book several slots. Grand piano.",
+        "ja": "複数の区分を使うときは合計します。グランドピアノあり。"
+      },
+      "sources": [
+        "https://www.city.setagaya.lg.jp/02212/8575.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "大田区",
@@ -2836,7 +3078,59 @@
       "id": "ota",
       "facilityCode": "131113_001_18"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3200
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 6200
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 9400
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3800
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 7400
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 11200
+        }
+      ],
+      "note": {
+        "en": "Ward-resident rate. Non-residents pay about 20% more. No amplified music; timpani and percussion may not be possible depending on other rooms.",
+        "ja": "区内の料金。区外は約2割増。アンプを使う演奏は不可。ティンパニーや打楽器は、ほかの部屋の状況により使えないことがあります。"
+      },
+      "sources": [
+        "https://www.city.ota.tokyo.jp/shisetsu/plaza/otakuminplaza_rehearsal.html",
+        "https://www.city.ota.tokyo.jp/shisetsu/plaza/ryoukin.files/2026plaza_kunai.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "大田区",
@@ -2852,7 +3146,51 @@
       "id": "ota",
       "facilityCode": "131113_001_19"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "第1区分",
+          "start": "09:30",
+          "end": "11:30",
+          "yen": 4300
+        },
+        {
+          "label": "第2区分",
+          "start": "12:00",
+          "end": "14:00",
+          "yen": 4300
+        },
+        {
+          "label": "第3区分",
+          "start": "14:30",
+          "end": "16:30",
+          "yen": 4300
+        },
+        {
+          "label": "第4区分",
+          "start": "17:00",
+          "end": "19:00",
+          "yen": 4300
+        },
+        {
+          "label": "第5区分",
+          "start": "19:30",
+          "end": "21:30",
+          "yen": 4300
+        }
+      ],
+      "note": {
+        "en": "Ward-resident rate per 2-hour slot (non-residents ¥5,200). For orchestra, choir and band practice; piano and 40 music stands.",
+        "ja": "区内の料金（2時間ごと。区外は5,200円）。オーケストラ・コーラス・バンドの練習向け。ピアノ、譜面台40台。"
+      },
+      "sources": [
+        "https://www.ota-bunka.or.jp/facilities/aprico/halls/studio_ab/studio_ab01",
+        "https://www.ota-bunka.or.jp/files/aprico-price-list_2026.04.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "大田区",
@@ -2868,7 +3206,59 @@
       "id": "ota",
       "facilityCode": "131113_001_19"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 7700
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 15400
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 23100
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 9300
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 18500
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 27800
+        }
+      ],
+      "note": {
+        "en": "Ward-resident rate for performances and meetings. Uguisu-net shows availability only: apply at the facility. No taiko.",
+        "ja": "区内の料金（公演・集会）。うぐいすネットは空き状況のみで、申込は施設で。和太鼓は不可。"
+      },
+      "sources": [
+        "https://www.ota-bunka.or.jp/facilities/aprico/halls/second_hall/second_hall01",
+        "https://www.ota-bunka.or.jp/files/aprico-price-list_2026.04.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "大田区",
@@ -2884,7 +3274,38 @@
       "id": "ota",
       "facilityCode": "131113_001_28"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1900
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2500
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 2500
+        }
+      ],
+      "note": {
+        "en": "Only ward residents, workers and students (or their groups) can use culture centers. Soundproofed, piano and mirrors.",
+        "ja": "文化センターは区内在住・在勤・在学者（とその団体）だけが利用できます。防音設備・ピアノ・鏡あり。"
+      },
+      "sources": [
+        "https://www.city.ota.tokyo.jp/shisetsu/bunkacenter/kojiyabunkacenter.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "江東区",
