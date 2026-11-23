@@ -1,5 +1,6 @@
 import type { PoliteSessionOptions } from './http';
 import { KawasakiClient } from './kawasaki/client';
+import { KotoClient } from './koto/client';
 import { OtaClient } from './ota/client';
 import { SetagayaClient } from './setagaya/client';
 import { ShibuyaClient } from './shibuya/client';
@@ -22,6 +23,8 @@ const ENTRIES: Record<string, AdapterEntry> = {
     enabledByDefault: false,
     note: '送信元のIPアドレスが変わる環境では失敗します。固定のIPアドレスから使ってください',
   },
+  // robots.txt なし（404）。ログインなしの空き照会は財団が「どなたでも」と案内している。docs/koto-investigation.md
+  koto: { create: (options) => new KotoClient(options), enabledByDefault: true },
   ota: { create: (options) => new OtaClient(options), enabledByDefault: true },
   // robots.txt は 403（空）。RFC 9309 では 4xx は「robots.txt なし（制限なし）」として扱う
   setagaya: { create: (options) => new SetagayaClient(options), enabledByDefault: true },

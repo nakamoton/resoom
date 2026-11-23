@@ -30,7 +30,6 @@ const REASON_BY_MUNICIPALITY: Record<string, NotSearchedReason> = {
   目黒区: 'robots',
   文京区: 'robots', // docs/bunkyo-investigation.md
   川崎市: 'paused',
-  江東区: 'unsupported', // 対応できる見込み。docs/koto-investigation.md
 };
 
 export interface NotSearchedCity<R> {

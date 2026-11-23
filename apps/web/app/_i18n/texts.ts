@@ -45,6 +45,22 @@ export const T = {
     t(`${n} ${plural(n, 'record', 'records')} (latest ${latest})`, `記録 ${n}件（最新 ${latest}）`),
   noRecordsShort: t('No records', '記録なし'),
   records: t('Records', '記録'),
+  fee: t('Fee', '料金'),
+  unknownShort: t('Unknown', '不明'),
+  fees: t('Fees', '利用料金'),
+  feeUnknown: t('Fee unknown', '料金 不明'),
+  feeWeekday: t('Weekdays', '平日'),
+  feeHoliday: t('Sat, Sun & holidays', '土日祝'),
+  feeAllDays: t('All days', '全日'),
+  feeSlot: t('Slot', '区分'),
+  feeTime: t('Time', '時間'),
+  feeGeneral: t(
+    'General rate without discounts, copied from the official fee table. Always check the official site before booking.',
+    '割引のない一般の料金です（公式の料金表から）。予約の前に公式のサイトで確認してください。',
+  ),
+  feeChecked: (date: string): LocalizedText => t(`Checked on ${date}`, `${date} に確認`),
+  feeSources: t('Sources', '出典'),
+  feePerHour: t('per hour', '1時間あたり'),
 
   // 部屋のページ
   basicInfo: t('Basic information', '基本情報'),

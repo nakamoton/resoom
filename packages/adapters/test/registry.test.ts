@@ -19,8 +19,8 @@ describe('アダプタの登録', () => {
     expect(adapterNote('kawasaki')).toContain('固定のIPアドレス');
   });
 
-  it('大田区・渋谷区・世田谷区・品川区は既定の検索対象', () => {
-    expect(DEFAULT_ADAPTER_IDS).toEqual(expect.arrayContaining(['ota', 'shibuya', 'setagaya', 'shinagawa']));
+  it('大田区・渋谷区・世田谷区・品川区・江東区は既定の検索対象', () => {
+    expect(DEFAULT_ADAPTER_IDS).toEqual(expect.arrayContaining(['ota', 'shibuya', 'setagaya', 'shinagawa', 'koto']));
     expect(adapterNote('shinagawa')).toBeNull();
     expect(adapterNote('ota')).toBeNull();
   });

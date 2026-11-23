@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { EVIDENCE_KIND_LABELS, INSTRUMENT_CLASSES, INSTRUMENT_LABELS, can, capacityLabel, effectivePolicy } from '@resoom/core';
+import { EVIDENCE_KIND_LABELS, INSTRUMENT_CLASSES, INSTRUMENT_LABELS, can, capacityLabel, effectivePolicy, feeLabel, yenText, type RoomFees } from '@resoom/core';
 import { getDb, getRoom } from '@resoom/db';
 import { getCurrentMember, requirePermission } from '@/lib/session';
 import { Bi, Municipality, RoomName } from '../../_i18n/Bi';
@@ -100,6 +100,13 @@ export default async function RoomPage({ params }: Props) {
       ) : null}
 
       <h2>
+        <Bi text={T.fees} />
+      </h2>
+      <div className="card">
+        <FeeTable fees={room.fees} />
+      </div>
+
+      <h2>
         <Bi text={T.currentStatus} />
       </h2>
       <div className="card">
@@ -193,6 +200,84 @@ export default async function RoomPage({ params }: Props) {
           ))}
         </ol>
       )}
+    </>
+  );
+}
+
+/** 料金表。土日祝で料金が違えば、平日と土日祝を並べる。分からなければ「不明」。 */
+function FeeTable({ fees }: { fees: RoomFees | null }) {
+  if (!fees) {
+    return (
+      <p className="empty">
+        <Bi text={T.feeUnknown} />
+      </p>
+    );
+  }
+  const holiday = fees.holidaySlots && fees.holidaySlots.length > 0 ? fees.holidaySlots : null;
+  return (
+    <>
+      <table className="fee-table">
+        <thead>
+          <tr>
+            <th scope="col">
+              <Bi text={T.feeSlot} />
+            </th>
+            <th scope="col">
+              <Bi text={T.feeTime} />
+            </th>
+            <th scope="col">
+              <Bi text={holiday ? T.feeWeekday : T.feeAllDays} />
+            </th>
+            {holiday ? (
+              <th scope="col">
+                <Bi text={T.feeHoliday} />
+              </th>
+            ) : null}
+          </tr>
+        </thead>
+        <tbody>
+          {fees.slots.map((slot, i) => (
+            <tr key={`${slot.start}-${slot.end}`}>
+              <th scope="row">
+                <Bi text={feeLabel(slot.label)} />
+              </th>
+              <td>
+                {slot.start}–{slot.end}
+              </td>
+              <td className="yen">
+                {yenText(slot.yen)}
+                {fees.unit === 'hour' ? (
+                  <>
+                    {' '}
+                    <Bi text={T.feePerHour} />
+                  </>
+                ) : null}
+              </td>
+              {holiday ? <td className="yen">{holiday[i] ? yenText(holiday[i].yen) : '—'}</td> : null}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {fees.note ? (
+        <p className="fee-meta">
+          <Bi text={fees.note} />
+        </p>
+      ) : null}
+      <p className="fee-meta">
+        <Bi text={T.feeGeneral} /> <Bi text={T.feeChecked(fees.checkedOn)} />
+      </p>
+      <p className="fee-meta">
+        <Bi text={T.feeSources} />:{' '}
+        {fees.sources.map((url, i) => (
+          <span key={url}>
+            {i > 0 ? ' · ' : null}
+            <a href={url} rel="noopener noreferrer" target="_blank">
+              {new URL(url).hostname}
+              {new URL(url).pathname.length > 1 ? '/…' : ''}
+            </a>
+          </span>
+        ))}
+      </p>
     </>
   );
 }

@@ -110,7 +110,7 @@ deploy              Google Cloud への公開スクリプト（Cloud Shell で�
 .github/workflows   main に入った変更のテストと自動公開
 packages/core       楽器の可否の判定、入力の検証
 packages/db         データベースの定義と読み書き
-packages/adapters   自治体ごとの空き照会（いまは大田区）
+packages/adapters   自治体ごとの空き照会（大田区・渋谷区・世田谷区・品川区・江東区。川崎市は停止中）
 scripts             コマンド（初期データの取り込み、空き検索）
 data/seed           初期データ
 docs                設計書と調査メモ

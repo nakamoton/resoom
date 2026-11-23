@@ -304,8 +304,9 @@ cmd_deploy() {
   [ -n "${SERVICE_URL:-}" ] || die "最初の公開が終わっていません。bash deploy/cloudshell.sh init を実行してください"
   build_image
   update_jobs
-  say "データベースにマイグレーションを当てます"
+  say "データベースにマイグレーションを当て、初期データを取り込みます"
   gcloud run jobs execute resoom-migrate --region "$REGION" --wait
+  gcloud run jobs execute resoom-seed --region "$REGION" --wait
   deploy_service
   printf '\n更新しました: %s\n' "$SERVICE_URL"
 }

@@ -27,5 +27,9 @@ done
 say "データベースにマイグレーションを当てます"
 gcloud run jobs execute resoom-migrate --region "$REGION" --wait
 
+# 初期データ（施設台帳の部屋・料金・取得の設定）を取り込む。何度動かしても同じ結果で、画面で直した値は上書きしない
+say "初期データを取り込みます"
+gcloud run jobs execute resoom-seed --region "$REGION" --wait
+
 say "画面（Cloud Run サービス）を更新します"
 gcloud run deploy "$SERVICE" --region "$REGION" --image "$IMAGE" --quiet

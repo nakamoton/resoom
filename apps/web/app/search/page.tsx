@@ -8,6 +8,8 @@ import {
   can,
   capacityLabel,
   effectivePolicy,
+  feeForSlot,
+  feeSummary,
   japaneseHoliday,
   refreshAvailability,
   roomMatches,
@@ -16,6 +18,7 @@ import {
   type InstrumentClass,
   type LocalizedText,
   type TimeOfDay,
+  yenText,
 } from '@resoom/core';
 import { getDb, listRooms, loadAvailability, loadRefreshState, type AvailabilitySnapshot, type RoomWithEvidences } from '@resoom/db';
 import { getCurrentMember } from '@/lib/session';
@@ -338,6 +341,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                         <span className={`capacity ${room.capacity === null ? 'unknown' : ''}`}>
                           <Bi text={capacityLabel(room.capacity)} />
                         </span>
+                        <FeeSummary room={room} />
                       </p>
                     </div>
                     <div className="row-info">
@@ -345,6 +349,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                         {roomSlots.map((slot) => (
                           <li key={slot.start} className="slot" title={`${TIME_LABELS[timeOfDayOf(slot.start)].en} / ${TIME_LABELS[timeOfDayOf(slot.start)].ja}`}>
                             {slot.start}–{slot.end}
+                            <SlotFee room={room} date={day.date} start={slot.start} end={slot.end} />
                           </li>
                         ))}
                       </ul>
@@ -390,6 +395,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                     <span className="capacity">
                       <Bi text={capacityLabel(room.capacity)} />
                     </span>
+                    <FeeSummary room={room} />
                   </li>
                 ))}
               </ul>
@@ -458,6 +464,27 @@ function toRefreshView(availability: ReturnType<typeof refreshAvailability>): Re
     default:
       return { kind: availability.kind };
   }
+}
+
+/** 料金のまとめ（例: Fee 料金 ¥1,900–2,600）。分からなければ「料金 不明」。 */
+function FeeSummary({ room }: { room: RoomWithEvidences }) {
+  return (
+    <span className={room.fees ? 'fee' : 'fee unknown'}>
+      {room.fees ? (
+        <>
+          <Bi text={T.fee} /> <span className="fee-value">{feeSummary(room.fees)}</span>
+        </>
+      ) : (
+        <Bi text={T.feeUnknown} />
+      )}
+    </span>
+  );
+}
+
+/** 空きコマの料金（料金表の区分とコマが合うときだけ）。 */
+function SlotFee({ room, date, start, end }: { room: RoomWithEvidences; date: string; start: string; end: string }) {
+  const yen = room.fees ? feeForSlot(room.fees, date, start, end) : null;
+  return yen === null ? null : <span className="slot-fee">{yenText(yen)}</span>;
 }
 
 /** 楽器ごとの可否。記録の文面や記録者は出さない（このページはログインなしで見られるため）。 */

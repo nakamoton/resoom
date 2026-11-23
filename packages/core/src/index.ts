@@ -6,3 +6,4 @@ export * from './availability';
 export * from './members';
 export * from './holidays';
 export * from './refresh';
+export * from './fees';

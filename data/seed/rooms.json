@@ -39,7 +39,54 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:30",
+          "end": "11:30",
+          "yen": 3800
+        },
+        {
+          "label": "午後1",
+          "start": "12:00",
+          "end": "14:00",
+          "yen": 3800
+        },
+        {
+          "label": "午後2",
+          "start": "14:30",
+          "end": "16:30",
+          "yen": 3800
+        },
+        {
+          "label": "夜間1",
+          "start": "17:00",
+          "end": "19:00",
+          "yen": 3800
+        },
+        {
+          "label": "夜間2",
+          "start": "19:30",
+          "end": "21:30",
+          "yen": 3800
+        }
+      ],
+      "note": {
+        "en": "Ward-resident rate per 2-hour slot. Non-residents pay about 20% more (¥4,600).",
+        "ja": "区内の料金（2時間ごと）。区外は約2割増（4,600円）。"
+      },
+      "sources": [
+        "https://www.city.ota.tokyo.jp/shisetsu/plaza/otakuminplaza_studio.html",
+        "https://www.city.ota.tokyo.jp/shisetsu/plaza/ryoukin.html",
+        "https://www.city.ota.tokyo.jp/shisetsu/plaza/ryoukin.files/2026plaza_kunai.pdf",
+        "https://www.city.ota.tokyo.jp/shisetsu/plaza/ryoukin.files/2026plaza_kugai.pdf",
+        "https://www.city.ota.tokyo.jp/shisetsu/uguisunet_annai/shisetsushiyouryounokaitei.files/uguisunettaishoushisetsushiyouryoukaitei.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "大田区",
@@ -79,7 +126,40 @@
         "sourceUrl": null,
         "reportedBy": "Booking manager / 予約担当"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2200
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2900
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 2900
+        }
+      ],
+      "note": {
+        "en": "Only ward residents, workers and students (or their groups) can use culture centers. Not soundproof: instruments and numbers are limited.",
+        "ja": "文化センターは区内在住・在勤・在学者（とその団体）だけが利用できます。防音ではないため、楽器と人数に制限があります。"
+      },
+      "sources": [
+        "https://www.city.ota.tokyo.jp/shisetsu/bunkacenter/minemachibunkacenter.html",
+        "https://www.city.ota.tokyo.jp/shisetsu/bunkacenter/index.html",
+        "https://www.city.ota.tokyo.jp/shisetsu/uguisunet_annai/shisetsushiyouryounokaitei.files/uguisunettaishoushisetsushiyouryoukaitei.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "大田区",
@@ -121,7 +201,40 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1900
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2600
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 2600
+        }
+      ],
+      "note": {
+        "en": "Only ward residents, workers and students (or their groups) can use culture centers. Simple soundproofing and a piano.",
+        "ja": "文化センターは区内在住・在勤・在学者（とその団体）だけが利用できます。簡易防音、ピアノあり。"
+      },
+      "sources": [
+        "https://www.city.ota.tokyo.jp/shisetsu/bunkacenter/ikegamibunkacenter.html",
+        "https://www.city.ota.tokyo.jp/shisetsu/bunkacenter/index.html",
+        "https://www.city.ota.tokyo.jp/shisetsu/uguisunet_annai/shisetsushiyouryounokaitei.files/uguisunettaishoushisetsushiyouryoukaitei.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "川崎市",
@@ -617,7 +730,46 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 7500
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 4200
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 4200
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 6400
+        }
+      ],
+      "note": {
+        "en": "Same rate for groups from outside the ward (\"other groups\"), but they cannot enter the lottery. No evening slot on Sundays. Grand piano ¥1,000 per slot.",
+        "ja": "区外の団体（その他団体等）も同じ料金ですが、抽選には申し込めません。日曜は夜間なし。グランドピアノは1区分1,000円。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/koryu-center/koryu_ebisu.html",
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/koryu-center/center_riyo_annai.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -659,7 +811,46 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 6400
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 3600
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 3600
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 5500
+        }
+      ],
+      "note": {
+        "en": "Soundproof hall with a stage. Same rate for groups from outside the ward, but they cannot enter the lottery. No evening slot on Sundays.",
+        "ja": "ステージ付きで防音。区外の団体も同じ料金ですが、抽選には申し込めません。日曜は夜間なし。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/koryu-center/koryu_shinbashi.html",
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/koryu-center/center_riyo_annai.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -701,7 +892,46 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 3400
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 1900
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 1900
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 2900
+        }
+      ],
+      "note": {
+        "en": "Soundproof room with mirrors. Senior groups have priority from morning to afternoon 2. No evening slot on Sundays.",
+        "ja": "防音・ミラーあり。午前〜午後2はシニア団体が優先です。日曜は夜間なし。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/koryu-center/koryu_shinbashi.html",
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/koryu-center/center_riyo_annai.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/60e256355a754dafbd457672695ce832/tiikikouryuusennta-riyouannnai.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -771,7 +1001,40 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3500
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 4600
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 4600
+        }
+      ],
+      "note": {
+        "en": "Same rate for groups from outside the ward (no lottery). Grand piano ¥3,000 per slot, music stand ¥100 each.",
+        "ja": "区外の団体も同じ料金（抽選は不可）。グランドピアノは1区分3,000円、譜面台は1台100円。"
+      },
+      "sources": [
+        "https://shibu-cul.jp/renshu/kashikan_renshu",
+        "https://shibu-cul.jp/cms/wp-content/uploads/2025/07/renshu_usage_guide2025.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -813,7 +1076,40 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1400
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 1900
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 1900
+        }
+      ],
+      "note": {
+        "en": "Same rate for groups from outside the ward (no lottery). Grand piano ¥3,000 per slot.",
+        "ja": "区外の団体も同じ料金（抽選は不可）。グランドピアノは1区分3,000円。"
+      },
+      "sources": [
+        "https://shibu-cul.jp/renshu/kashikan_renshu",
+        "https://shibu-cul.jp/cms/wp-content/uploads/2025/07/renshu_usage_guide2025.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "江戸川区",
@@ -851,7 +1147,40 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3570
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "16:30",
+          "yen": 3570
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:30",
+          "yen": 3570
+        }
+      ],
+      "note": {
+        "en": "Edogawa resident rate. Non-residents pay the general rate, ¥5,355 per slot (50% more). Piano ¥1,050 per slot.",
+        "ja": "江戸川区民の料金。区外の人は一般料金で各区分5,355円（5割増）。ピアノは1区分1,050円。"
+      },
+      "sources": [
+        "https://www.towerhall.jp/price/",
+        "https://www.city.edogawa.tokyo.jp/text/sihiyouryou_t.html",
+        "https://www.city.edogawa.tokyo.jp/documents/62396/jourei.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "江戸川区",
@@ -875,7 +1204,53 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3680
+        },
+        {
+          "label": "午後1",
+          "start": "12:45",
+          "end": "14:45",
+          "yen": 1840
+        },
+        {
+          "label": "午後2",
+          "start": "15:00",
+          "end": "17:00",
+          "yen": 1840
+        },
+        {
+          "label": "夜間1",
+          "start": "17:30",
+          "end": "19:30",
+          "yen": 1840
+        },
+        {
+          "label": "夜間2",
+          "start": "19:45",
+          "end": "21:45",
+          "yen": 1840
+        }
+      ],
+      "note": {
+        "en": "Closed for renovation from April 2026 until about November 2027. No extra charge for non-residents.",
+        "ja": "改修工事のため2026年4月から2027年11月ごろまで休館中。区外の加算なし。"
+      },
+      "sources": [
+        "https://edogawa-bunkacenter.jp/rental/price/",
+        "https://www.city.edogawa.tokyo.jp/text/sihiyouryou_t.html",
+        "https://edogawa-bunkacenter.jp/news/2025/03/472/",
+        "https://www.city.edogawa.tokyo.jp/documents/62403/jourei.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "品川区",
@@ -903,7 +1278,40 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1800
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "16:30",
+          "yen": 2700
+        },
+        {
+          "label": "夜間",
+          "start": "17:30",
+          "end": "21:30",
+          "yen": 3700
+        }
+      ],
+      "note": {
+        "en": "Ward-resident rate. Non-residents pay about 20% more (¥2,200 / ¥3,200 / ¥4,400). Whole day (9:00–21:30) ¥8,200.",
+        "ja": "区内の料金。区外は約2割増（2,200円・3,200円・4,400円）。全日（9:00〜21:30）は8,200円。"
+      },
+      "sources": [
+        "https://www.city.shinagawa.tokyo.jp/shisetsu/chiikishisetsu/1008298/1008302.html",
+        "https://www.city.shinagawa.tokyo.jp/_res/projects/default_project/_page_/001/008/302/hpg000000079_10.pdf",
+        "https://www.city.shinagawa.tokyo.jp/reiki/H406901010028/H406901010028_j.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "文京区",
@@ -941,7 +1349,39 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 2500
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:30",
+          "yen": 3200
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:30",
+          "yen": 2500
+        }
+      ],
+      "note": {
+        "en": "No extra charge for non-residents is listed. Equipment costs extra (piano ¥400, timpani set ¥600).",
+        "ja": "区外の加算の記載なし。附帯設備は別料金（ピアノ400円、ティンパニーセット600円など）。"
+      },
+      "sources": [
+        "https://www.city.bunkyo.lg.jp/b014/p006741.html",
+        "https://www.city.bunkyo.lg.jp/b014/p006734/index.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "江東区",
@@ -949,8 +1389,8 @@
     "facilityNameEn": "Morishita Culture Center",
     "roomName": "AVホール",
     "roomNameEn": "AV Hall",
-    "capacity": null,
-    "capacitySource": null,
+    "capacity": 140,
+    "capacitySource": "Facility page of the Koto culture foundation, 2026-11-23 / 江東区文化コミュニティ財団の施設詳細ページ（2026-11-23）",
     "nearestStation": null,
     "evidences": [
       {
@@ -965,7 +1405,67 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "adapter": {
+      "id": "koto",
+      "facilityCode": "1010-1050-5",
+      "rooms": [
+        "ＡＶ・ホール"
+      ]
+    },
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 5000
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 10200
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 12650
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 6000
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 12050
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 14900
+        }
+      ],
+      "note": {
+        "en": "No extra charge for non-residents. Up to 50% more if you charge admission.",
+        "ja": "区外の加算なし。入場料などを取る場合は5割増になることがあります。"
+      },
+      "sources": [
+        "https://www.kcf.or.jp/morishita/shisetsu/fee/",
+        "https://www.kcf.or.jp/morishita/shisetsu/ichiran/detail/?id=46",
+        "https://www.kcf.or.jp/morishita/shisetsu/apply/"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "目黒区",
@@ -989,7 +1489,40 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1600
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 2800
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 3300
+        }
+      ],
+      "note": {
+        "en": "General group rate; no extra charge for non-residents. Whole day (9:00–22:00) ¥7,700. Loud percussion such as a bass drum may not be allowed.",
+        "ja": "一般団体の料金。区外の加算なし。全日（9:00〜22:00）は7,700円。大太鼓などの大音量の打楽器は使えないことがあります。"
+      },
+      "sources": [
+        "https://www.persimmon.or.jp/use/fee.html",
+        "https://www.persimmon.or.jp/use/usage_others.html",
+        "https://www.city.meguro.tokyo.jp/documents/631/r70401_shiyouryou_ichiran.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "目黒区",
@@ -997,8 +1530,8 @@
     "facilityNameEn": "Meguro Persimmon Hall",
     "roomName": "リハーサル室",
     "roomNameEn": "Rehearsal Room",
-    "capacity": null,
-    "capacitySource": null,
+    "capacity": 40,
+    "capacitySource": "Persimmon Hall rental guide, 2026-11-23 / めぐろパーシモンホールの利用案内（2026-11-23）",
     "nearestStation": "都立大学",
     "evidences": [
       {
@@ -1013,7 +1546,40 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2200
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 3800
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 4500
+        }
+      ],
+      "note": {
+        "en": "General group rate; no extra charge for non-residents. Whole day (9:00–22:00) ¥10,500. Loud percussion such as a bass drum may not be allowed.",
+        "ja": "一般団体の料金。区外の加算なし。全日（9:00〜22:00）は10,500円。大太鼓などの大音量の打楽器は使えないことがあります。"
+      },
+      "sources": [
+        "https://www.persimmon.or.jp/use/fee.html",
+        "https://www.persimmon.or.jp/use/usage_others.html",
+        "https://www.city.meguro.tokyo.jp/documents/631/r70401_shiyouryou_ichiran.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "目黒区",
@@ -1063,7 +1629,46 @@
         "sourceUrl": "https://www.city.meguro.tokyo.jp/shougaigakushuu/shisetsu/bunkakouryuu/kyoiku_megurohonmachi.html",
         "reportedBy": "Official website import / 公式ページからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1400
+        },
+        {
+          "label": "午後1",
+          "start": "12:30",
+          "end": "15:00",
+          "yen": 1500
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "18:00",
+          "yen": 1500
+        },
+        {
+          "label": "夜間",
+          "start": "18:30",
+          "end": "21:00",
+          "yen": 1500
+        }
+      ],
+      "note": {
+        "en": "Rate for registered ward groups. Other groups pay about twice as much. Drums are not allowed (simple soundproofing).",
+        "ja": "区民団体として登録した団体の料金。それ以外の団体は約2倍。簡易防音のため太鼓などは使えません。"
+      },
+      "sources": [
+        "https://www.city.meguro.tokyo.jp/shougaigakushuu/shisetsu/bunkakouryuu/kyoiku_megurohonmachi.html",
+        "https://www.city.meguro.tokyo.jp/documents/631/r70401_shiyouryou_ichiran.pdf",
+        "https://www.city.meguro.tokyo.jp/toubu/kusei/keikaku/community.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "目黒区",
@@ -1087,7 +1692,46 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1900
+        },
+        {
+          "label": "午後1",
+          "start": "12:30",
+          "end": "15:00",
+          "yen": 2000
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "18:00",
+          "yen": 2000
+        },
+        {
+          "label": "夜間",
+          "start": "18:30",
+          "end": "21:00",
+          "yen": 2000
+        }
+      ],
+      "note": {
+        "en": "Rate for registered ward groups. Other groups pay about twice as much. Piano ¥500.",
+        "ja": "区民団体として登録した団体の料金。それ以外の団体は約2倍。ピアノは500円。"
+      },
+      "sources": [
+        "https://www.city.meguro.tokyo.jp/chuuou/shisetsu/koukyoushisetsu/kamime.html",
+        "https://www.city.meguro.tokyo.jp/documents/631/r70401_shiyouryou_ichiran.pdf",
+        "https://www.city.meguro.tokyo.jp/toubu/kusei/keikaku/community.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "目黒区",
@@ -1125,7 +1769,46 @@
         "sourceUrl": "https://www.city.meguro.tokyo.jp/shougaigakushuu/shisetsu/bunkakouryuu/kyoiku_midorigaoka.html",
         "reportedBy": "Official website import / 公式ページからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2200
+        },
+        {
+          "label": "午後1",
+          "start": "12:30",
+          "end": "15:00",
+          "yen": 2300
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "18:00",
+          "yen": 2300
+        },
+        {
+          "label": "夜間",
+          "start": "18:30",
+          "end": "21:00",
+          "yen": 2300
+        }
+      ],
+      "note": {
+        "en": "Rate for registered ward groups. Other groups pay about twice as much. Drums and amplified instruments are not allowed.",
+        "ja": "区民団体として登録した団体の料金。それ以外の団体は約2倍。太鼓や増幅器を使う楽器は使えません。"
+      },
+      "sources": [
+        "https://www.city.meguro.tokyo.jp/shougaigakushuu/shisetsu/bunkakouryuu/kyoiku_midorigaoka.html",
+        "https://www.city.meguro.tokyo.jp/documents/631/r70401_shiyouryou_ichiran.pdf",
+        "https://www.city.meguro.tokyo.jp/toubu/kusei/keikaku/community.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "世田谷区",
@@ -1153,6 +1836,51 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 1620
+        },
+        {
+          "label": "午後A",
+          "start": "12:30",
+          "end": "14:30",
+          "yen": 1080
+        },
+        {
+          "label": "午後B",
+          "start": "15:00",
+          "end": "17:00",
+          "yen": 1080
+        },
+        {
+          "label": "夕方",
+          "start": "17:30",
+          "end": "19:30",
+          "yen": 1080
+        },
+        {
+          "label": "夜間",
+          "start": "20:00",
+          "end": "22:00",
+          "yen": 1080
+        }
+      ],
+      "note": {
+        "en": "Music rooms are for ward groups only (at least half of members live in the ward, 5 or more people). Fees add up when you book several slots.",
+        "ja": "音楽室は区民の団体（構成員の半数以上が区内在住・5人以上）だけが利用できます。複数の区分を使うときは合計します。"
+      },
+      "sources": [
+        "https://www.city.setagaya.lg.jp/02072/8538.html",
+        "https://www.city.setagaya.lg.jp/documents/23999/02-1kumincenter2.pdf",
+        "https://www.city.setagaya.lg.jp/documents/21168/0204_1g15.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   }
 ]

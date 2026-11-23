@@ -5,6 +5,7 @@ import {
   INSTRUMENT_SHORT_LABELS,
   can,
   effectivePolicy,
+  feeSummary,
   filterByCapacity,
   parsePeople,
 } from '@resoom/core';
@@ -161,6 +162,9 @@ function RoomList({ rooms }: { rooms: RoomWithEvidences[] }) {
             <th scope="col" className="num">
               <Bi text={T.capacity} />
             </th>
+            <th scope="col" className="num">
+              <Bi text={T.fee} />
+            </th>
             {INSTRUMENT_CLASSES.map((cls) => (
               <th key={cls} scope="col" className="mark-col">
                 <Bi text={INSTRUMENT_SHORT_LABELS[cls]} stack />
@@ -187,6 +191,9 @@ function RoomList({ rooms }: { rooms: RoomWithEvidences[] }) {
                 </td>
                 <td className={`num capacity ${room.capacity === null ? 'unknown' : ''}`}>
                   {room.capacity ?? '—'}
+                </td>
+                <td className={`num fee ${room.fees ? '' : 'unknown'}`}>
+                  {room.fees ? feeSummary(room.fees) : <Bi text={T.unknownShort} />}
                 </td>
                 {INSTRUMENT_CLASSES.map((cls) => (
                   <td key={cls} className="mark-col">

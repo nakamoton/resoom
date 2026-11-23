@@ -1,5 +1,5 @@
 import { asc, desc, eq, sql } from 'drizzle-orm';
-import type { NewEvidenceInput, NewRoomInput, RoomBasicsInput } from '@resoom/core';
+import type { NewEvidenceInput, NewRoomInput, RoomBasicsInput, RoomFees } from '@resoom/core';
 import type { Db } from './client';
 import { policyEvidences, rooms, type PolicyEvidence, type Room } from './schema';
 
@@ -69,19 +69,22 @@ export async function addEvidence(db: Db, roomId: string, input: NewEvidenceInpu
 export interface SeedRoom extends NewRoomInput {
   /** rooms は自治体サイトでの部屋名。省略すると台帳の部屋名を使う */
   adapter?: { id: string; facilityCode: string; rooms?: string[] };
+  /** 利用料金。公式の料金表から写したもの（画面からは編集しないので、取り込むたびに初期データの内容にする） */
+  fees?: RoomFees | null;
   evidences: Array<NewEvidenceInput & { key: string }>;
 }
 
 /**
  * 初期データを取り込む。何度実行しても同じ結果になる。
- * すでにある部屋は照会の設定だけ更新する。英語名・定員・最寄駅は、まだ空のときだけ埋める
+ * すでにある部屋は照会の設定と料金を更新する。英語名・定員・最寄駅は、まだ空のときだけ埋める
  * （画面から入力・修正した値を上書きしない）。画面から追加された記録にも触れない。
  */
 export async function importSeed(db: Db, seed: SeedRoom[]): Promise<{ rooms: number; evidences: number }> {
   let evidenceCount = 0;
-  for (const { adapter, evidences, ...room } of seed) {
+  for (const { adapter, evidences, fees, ...room } of seed) {
     const values = {
       ...room,
+      fees: fees ?? null,
       adapterId: adapter?.id ?? null,
       adapterFacilityCode: adapter?.facilityCode ?? null,
       adapterRoomNames: adapter?.rooms ?? null,
@@ -100,6 +103,7 @@ export async function importSeed(db: Db, seed: SeedRoom[]): Promise<{ rooms: num
           adapterId: sql`excluded.adapter_id`,
           adapterFacilityCode: sql`excluded.adapter_facility_code`,
           adapterRoomNames: sql`excluded.adapter_room_names`,
+          fees: sql`excluded.fees`,
         },
       })
       .returning({ id: rooms.id });
