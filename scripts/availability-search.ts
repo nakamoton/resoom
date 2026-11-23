@@ -95,7 +95,7 @@ const siteRoomsOf = (room: RoomWithEvidences): string[] => room.adapterRoomNames
 /** 例: 「定員 50人 / 小物打楽器:可 / ドラムセット:不可 / 大型打楽器:可」 */
 function roomLabel(room: RoomWithEvidences): string {
   const policy = effectivePolicy(room.evidences);
-  return [capacityLabel(room.capacity), ...PERCUSSION.map((cls) => `${INSTRUMENT_LABELS[cls]}:${STATUS_LABELS[policy[cls].status]}`)].join(' / ');
+  return [capacityLabel(room.capacity).ja, ...PERCUSSION.map((cls) => `${INSTRUMENT_LABELS[cls].ja}:${STATUS_LABELS[policy[cls].status].ja}`)].join(' / ');
 }
 
 // アダプタと会館ごとにまとめて問い合わせる。

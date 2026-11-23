@@ -1,0 +1,133 @@
+import type { LocalizedText } from '@resoom/core';
+
+const t = (en: string, ja: string): LocalizedText => ({ en, ja });
+const plural = (n: number, one: string, many: string): string => (n === 1 ? one : many);
+
+/** 画面の文言。英語を主に、日本語を併記する。 */
+export const T = {
+  appName: t('Facility Catalog', '施設台帳'),
+  backToCatalog: t('← Back to Facility Catalog', '施設台帳へ戻る'),
+  optional: t('Optional', '任意'),
+  unknown: t('Unknown', '未登録'),
+
+  // 一覧
+  catalogLead: t(
+    'Which instruments each room allows, and how we know. Open a room to add a record.',
+    '部屋ごとに、楽器の可否とその根拠を記録します。部屋を選ぶと記録を追加できます。',
+  ),
+  addRoom: t('Add room', '部屋を追加'),
+  filterByMunicipality: t('Filter by municipality', '自治体で絞り込む'),
+  all: t('All', 'すべて'),
+  people: t('People', '人数'),
+  peopleOrMore: t('or more can fit', '人以上が入れる部屋'),
+  filter: t('Filter', '絞り込む'),
+  clearPeople: t('Clear', '人数の指定をやめる'),
+  peopleHint: t(
+    "Filters by the facility's official capacity. Rooms with unknown capacity are listed separately.",
+    '施設の公式の定員で絞り込みます。定員が分からない部屋は、別にまとめて表示します。',
+  ),
+  peopleInvalid: t('Enter a number from 1 to 9999.', '人数は1〜9999の数字で入力してください。'),
+  peopleResult: (people: number, fits: number, tooSmall: number): LocalizedText =>
+    t(
+      `Capacity ${people} or more: ${fits} ${plural(fits, 'room', 'rooms')}` +
+        (tooSmall > 0 ? ` (${tooSmall} ${plural(tooSmall, 'room', 'rooms')} too small left out)` : ''),
+      `定員 ${people}人以上: ${fits}部屋` + (tooSmall > 0 ? `（定員が足りない ${tooSmall}部屋を除きました）` : ''),
+    ),
+  noRooms: t('No rooms yet. Use “Add room” to register one.', 'まだ部屋がありません。「部屋を追加」から登録してください。'),
+  noMatch: t('No rooms match.', '条件に合う部屋はありません。'),
+  unknownCapacityHeading: (n: number): LocalizedText => t(`Rooms with unknown capacity (${n})`, `定員が未登録の部屋（${n}部屋）`),
+  unknownCapacityHint: t(
+    "We can't tell whether these rooms fit. You can add the capacity on the room page.",
+    '入れるかどうか判断できない部屋です。部屋のページで定員を登録できます。',
+  ),
+  instrumentsAria: t('Instruments allowed', '楽器ごとの可否'),
+  recordCount: (n: number, latest: string): LocalizedText =>
+    t(`${n} ${plural(n, 'record', 'records')} (latest ${latest})`, `記録 ${n}件（最新 ${latest}）`),
+  noRecordsShort: t('No records', '記録なし'),
+
+  // 部屋のページ
+  basicInfo: t('Basic information', '基本情報'),
+  capacity: t('Capacity', '定員'),
+  capacityPeople: (n: number): LocalizedText => t(`${n} people`, `${n}人`),
+  source: t('Source', '出典'),
+  nearestStation: t('Nearest station', '最寄駅'),
+  editBasics: t('Edit basic information', '基本情報を直す'),
+  capacityCaution: t(
+    "A facility's official capacity is not always how many people fit with instruments and music stands. Check the source to see where the number came from.",
+    '施設の公式の定員は、楽器や譜面台を置いたときに実際に入れる人数とは限りません。どこで確かめた人数かは出典で確認してください。',
+  ),
+  currentStatus: t('Current status', '現在の状態'),
+  noRecordsYet: t('No records yet.', 'まだ記録がありません。'),
+  statusRule: t(
+    'If a record names the instrument, the newest such record is shown. Otherwise, the newest record for the whole ensemble is shown.',
+    'その楽器を名指しした記録があれば、その中で最も新しいものを表示します。なければ、楽器を限定しない最も新しい記録を表示します。',
+  ),
+  addRecord: t('Add a record', '記録を追加'),
+  history: (n: number): LocalizedText => t(`History (${n})`, `記録の履歴（${n}件）`),
+  wholeEnsemble: t('Whole ensemble', '合奏全体'),
+  recordedBy: t('Recorded by', '記録者'),
+  referenceUrl: t('Reference URL', '参考URL'),
+  englishNameNote: t(
+    'English names are our own translations. The Japanese name is the official one used on booking sites.',
+    '英語名は楽団での訳です。予約サイトで使う正式名は日本語の名前です。',
+  ),
+
+  // 記録のフォーム
+  recordKind: t('What kind of record?', '何の記録ですか'),
+  date: t('Date', '日付'),
+  result: t('Result', '結果'),
+  instruments: t('Instruments', '対象の楽器'),
+  instrumentsHint: t(
+    'Choose instruments if the result is about specific ones. Leave all unchecked for the whole ensemble.',
+    '特定の楽器についての結果なら選んでください。選ばなければ、合奏全体についての記録になります。',
+  ),
+  details: t('Details', '内容'),
+  detailsPlaceholder: t(
+    'e.g. Phoned the facility: no drum kit, timpani OK until 5 pm.',
+    '例: 電話で確認。ドラムセットは不可、ティンパニは17時まで可とのこと。',
+  ),
+  yourName: t('Your name', '記録者'),
+  saveRecord: t('Save record', '記録する'),
+  savingRecord: t('Saving…', '記録しています…'),
+  checkFields: t('Please check the fields below.', '入力内容を確認してください。'),
+  recordSaved: t('Record saved.', '記録しました。'),
+  roomNotFound: t('This room was not found.', 'この部屋は見つかりませんでした。'),
+
+  // 部屋のフォーム
+  addRoomHeading: t('Add a room', '部屋を追加'),
+  addRoomLead: t(
+    'You can add a room you have not used yet, to keep the results of your inquiries.',
+    'まだ使ったことのない部屋でも、問い合わせた結果を残すために登録できます。',
+  ),
+  municipality: t('Municipality', '自治体'),
+  municipalityHint: t('Use the Japanese name, e.g. 大田区 or 川崎市.', '日本語の名前で入力してください（例: 大田区、川崎市）。'),
+  facilityNameJa: t('Facility name (Japanese)', '施設名（日本語）'),
+  facilityNameEn: t('Facility name (English)', '施設名（英語）'),
+  roomNameJa: t('Room name (Japanese)', '部屋名（日本語）'),
+  roomNameEn: t('Room name (English)', '部屋名（英語）'),
+  namesHint: t(
+    'Japanese names must match the booking site. English names help members who do not read Japanese.',
+    '日本語の名前は予約サイトの表記に合わせてください。英語名は、日本語が苦手なメンバーのためのものです。',
+  ),
+  capacitySource: t('Source of the capacity', '定員の出典'),
+  capacitySourceHint: t(
+    'Note where the number came from, so it can be checked later.',
+    'どこで確かめた人数かを残しておくと、あとで見直すときに役立ちます。',
+  ),
+  capacitySourcePlaceholder: t('e.g. Booking site room list, phoned the facility', '例: 予約システムの部屋一覧、施設に電話で確認'),
+  addRoomSubmit: t('Add room', '部屋を追加する'),
+  addingRoom: t('Adding…', '追加しています…'),
+  cancel: t('Cancel', 'やめる'),
+  save: t('Save', '保存する'),
+  saving: t('Saving…', '保存しています…'),
+  basicsSaved: t('Basic information saved.', '基本情報を保存しました。'),
+  roomDuplicateMessage: t(
+    'A room with the same municipality, facility and room name already exists.',
+    '同じ自治体・施設・部屋名の部屋がすでに登録されています',
+  ),
+
+  // その他
+  notFoundTitle: t('Page not found', 'ページが見つかりません'),
+  notFoundLead: t('The room may have been removed, or the URL may be wrong.', '部屋が削除されたか、URLが間違っている可能性があります。'),
+  backToCatalogButton: t('Back to Facility Catalog', '施設台帳へ戻る'),
+};

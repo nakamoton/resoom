@@ -2,7 +2,10 @@
 
 import Link from 'next/link';
 import { useActionState } from 'react';
+import { Bi, municipalityPlain, plain } from '../../_i18n/Bi';
+import { T } from '../../_i18n/texts';
 import { createRoomAction, type FormState } from '../actions';
+import { FormNotice, TextField } from './FormParts';
 
 const INITIAL: FormState = { status: 'idle', errors: {}, values: {} };
 
@@ -10,125 +13,82 @@ export function RoomForm({ municipalities }: { municipalities: string[] }) {
   const [state, action, pending] = useActionState(createRoomAction, INITIAL);
   const { errors, values } = state;
   const text = (key: string): string => (typeof values[key] === 'string' ? (values[key] as string) : '');
-  const describedBy = (key: string) => (errors[key] ? `${key}-error` : undefined);
-  const fieldError = (key: string) =>
-    errors[key] ? (
-      <p className="field-error" id={`${key}-error`}>
-        {errors[key]}
-      </p>
-    ) : null;
 
   return (
     <form action={action} noValidate>
-      {state.message ? (
-        <p className="notice error" role="status">
-          {state.message}
-        </p>
-      ) : null}
+      <FormNotice state={state} />
 
-      <div className="field">
-        <label className="label" htmlFor="municipality">
-          自治体
-        </label>
-        <input
-          type="text"
-          id="municipality"
-          name="municipality"
-          list="municipality-options"
-          defaultValue={text('municipality')}
-          placeholder="例: 大田区"
-          aria-describedby={describedBy('municipality')}
-        />
+      <TextField
+        id="municipality"
+        name="municipality"
+        label={T.municipality}
+        defaultValue={text('municipality')}
+        error={errors.municipality}
+        hint={T.municipalityHint}
+        lang="ja"
+        extra={{ list: 'municipality-options' }}
+      >
         <datalist id="municipality-options">
           {municipalities.map((m) => (
-            <option key={m} value={m} />
+            <option key={m} value={m} label={municipalityPlain(m)} />
           ))}
         </datalist>
-        {fieldError('municipality')}
-      </div>
+      </TextField>
 
-      <div className="field">
-        <label className="label" htmlFor="facilityName">
-          施設名
-        </label>
-        <input
-          type="text"
-          id="facilityName"
-          name="facilityName"
-          defaultValue={text('facilityName')}
-          placeholder="例: 大田区民プラザ"
-          aria-describedby={describedBy('facilityName')}
-        />
-        {fieldError('facilityName')}
-      </div>
+      <TextField id="facilityName" name="facilityName" label={T.facilityNameJa} defaultValue={text('facilityName')} error={errors.facilityName} lang="ja" />
+      <TextField
+        id="facilityNameEn"
+        name="facilityNameEn"
+        label={T.facilityNameEn}
+        optional
+        defaultValue={text('facilityNameEn')}
+        error={errors.facilityNameEn}
+        placeholder="e.g. Ota Civic Plaza"
+        lang="en"
+      />
+      <TextField id="roomName" name="roomName" label={T.roomNameJa} defaultValue={text('roomName')} error={errors.roomName} lang="ja" />
+      <TextField
+        id="roomNameEn"
+        name="roomNameEn"
+        label={T.roomNameEn}
+        optional
+        defaultValue={text('roomNameEn')}
+        error={errors.roomNameEn}
+        placeholder="e.g. Music Studio 1"
+        hint={T.namesHint}
+        lang="en"
+      />
 
-      <div className="field">
-        <label className="label" htmlFor="roomName">
-          部屋名
-        </label>
-        <input
-          type="text"
-          id="roomName"
-          name="roomName"
-          defaultValue={text('roomName')}
-          placeholder="例: 第一音楽スタジオ"
-          aria-describedby={describedBy('roomName')}
-        />
-        {fieldError('roomName')}
-      </div>
+      <TextField
+        id="capacity"
+        name="capacity"
+        type="number"
+        label={T.capacity}
+        optional
+        defaultValue={text('capacity')}
+        error={errors.capacity}
+        extra={{ min: 1, max: 9999, inputMode: 'numeric' }}
+      />
+      <TextField
+        id="capacitySource"
+        name="capacitySource"
+        label={T.capacitySource}
+        optional
+        defaultValue={text('capacitySource')}
+        error={errors.capacitySource}
+        placeholder={plain(T.capacitySourcePlaceholder)}
+        hint={T.capacitySourceHint}
+      />
+      <TextField id="nearestStation" name="nearestStation" label={T.nearestStation} optional defaultValue={text('nearestStation')} error={errors.nearestStation} />
 
-      <div className="field">
-        <label className="label" htmlFor="capacity">
-          定員<span className="optional">任意</span>
-        </label>
-        <input
-          type="number"
-          id="capacity"
-          name="capacity"
-          min={1}
-          max={9999}
-          inputMode="numeric"
-          defaultValue={text('capacity')}
-          aria-describedby={describedBy('capacity')}
-        />
-        {fieldError('capacity')}
+      <div className="actions">
+        <button type="submit" className="button" disabled={pending}>
+          <Bi text={pending ? T.addingRoom : T.addRoomSubmit} />
+        </button>
+        <Link href="/rooms" className="button secondary">
+          <Bi text={T.cancel} />
+        </Link>
       </div>
-
-      <div className="field">
-        <label className="label" htmlFor="capacitySource">
-          定員の出典<span className="optional">任意</span>
-        </label>
-        <input
-          type="text"
-          id="capacitySource"
-          name="capacitySource"
-          defaultValue={text('capacitySource')}
-          placeholder="例: 予約システムの部屋一覧、施設に電話で確認"
-          aria-describedby={describedBy('capacitySource')}
-        />
-        {fieldError('capacitySource')}
-      </div>
-
-      <div className="field">
-        <label className="label" htmlFor="nearestStation">
-          最寄駅<span className="optional">任意</span>
-        </label>
-        <input
-          type="text"
-          id="nearestStation"
-          name="nearestStation"
-          defaultValue={text('nearestStation')}
-          aria-describedby={describedBy('nearestStation')}
-        />
-        {fieldError('nearestStation')}
-      </div>
-
-      <button type="submit" className="button" disabled={pending}>
-        {pending ? '追加しています…' : '部屋を追加する'}
-      </button>{' '}
-      <Link href="/rooms" className="button secondary">
-        やめる
-      </Link>
     </form>
   );
 }

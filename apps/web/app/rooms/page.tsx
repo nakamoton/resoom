@@ -1,21 +1,20 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { INSTRUMENT_CLASSES, capacityLabel, effectivePolicy, filterByCapacity, parsePeople, type InstrumentClass } from '@resoom/core';
-import type { RoomWithEvidences } from '@resoom/db';
-import { getDb, listMunicipalities, listRooms } from '@resoom/db';
+import {
+  INSTRUMENT_CLASSES,
+  INSTRUMENT_SHORT_LABELS,
+  capacityLabel,
+  effectivePolicy,
+  filterByCapacity,
+  parsePeople,
+} from '@resoom/core';
+import { getDb, listMunicipalities, listRooms, type RoomWithEvidences } from '@resoom/db';
+import { Bi, Municipality, RoomName, plain } from '../_i18n/Bi';
+import { T } from '../_i18n/texts';
 import { StatusChip } from './_components/StatusChip';
 
-export const metadata: Metadata = { title: '施設台帳' };
+export const metadata: Metadata = { title: `${T.appName.en} · ${T.appName.ja}` };
 export const dynamic = 'force-dynamic';
-
-/** 一覧では場所を取らないよう、楽器名を短く表示する。 */
-const SHORT_LABELS: Record<InstrumentClass, string> = {
-  wind: '管楽器',
-  small_percussion: '小物',
-  drum_set: 'ドラム',
-  large_percussion: '大型',
-  taiko: '和太鼓',
-};
 
 /** よく使う自治体を先に並べる。 */
 const PRIMARY_MUNICIPALITIES = ['大田区', '川崎市', '渋谷区', '江戸川区'];
@@ -50,25 +49,29 @@ export default async function RoomsPage({ searchParams }: { searchParams: Promis
     <>
       <div className="page-head">
         <div>
-          <h1>施設台帳</h1>
-          <p className="lead">部屋ごとに、楽器の可否とその根拠を記録します。部屋を選ぶと記録を追加できます。</p>
+          <h1>
+            <Bi text={T.appName} stack />
+          </h1>
+          <p className="lead">
+            <Bi text={T.catalogLead} />
+          </p>
         </div>
         <Link href="/rooms/new" className="button">
-          部屋を追加
+          <Bi text={T.addRoom} />
         </Link>
       </div>
 
-      <nav aria-label="自治体で絞り込む">
+      <nav aria-label={plain(T.filterByMunicipality)}>
         <ul className="tabs">
           <li>
             <Link href={roomsHref({ people })} aria-current={selected ? undefined : 'page'}>
-              すべて
+              <Bi text={T.all} />
             </Link>
           </li>
           {municipalities.map((name) => (
             <li key={name}>
               <Link href={roomsHref({ m: name, people })} aria-current={selected === name ? 'page' : undefined}>
-                {name}
+                <Municipality name={name} />
               </Link>
             </li>
           ))}
@@ -77,7 +80,9 @@ export default async function RoomsPage({ searchParams }: { searchParams: Promis
 
       <form className="people-filter" action="/rooms" method="get">
         {selected ? <input type="hidden" name="m" value={selected} /> : null}
-        <label htmlFor="people">人数</label>
+        <label htmlFor="people">
+          <Bi text={T.people} />
+        </label>
         <input
           type="number"
           id="people"
@@ -88,33 +93,48 @@ export default async function RoomsPage({ searchParams }: { searchParams: Promis
           defaultValue={people ?? ''}
           aria-describedby="people-hint"
         />
-        <span>人以上が入れる部屋</span>
+        <span>
+          <Bi text={T.peopleOrMore} />
+        </span>
         <button type="submit" className="button secondary">
-          絞り込む
+          <Bi text={T.filter} />
         </button>
-        {people ? <Link href={roomsHref({ m: selected })}>人数の指定をやめる</Link> : null}
+        {people ? (
+          <Link href={roomsHref({ m: selected })}>
+            <Bi text={T.clearPeople} />
+          </Link>
+        ) : null}
         <p className="hint" id="people-hint">
-          {parsedPeople === undefined
-            ? '人数は1〜9999の数字で入力してください。'
-            : '施設の公式の定員で絞り込みます。定員が分からない部屋は、別にまとめて表示します。'}
+          <Bi text={parsedPeople === undefined ? T.peopleInvalid : T.peopleHint} />
         </p>
       </form>
 
       {rooms.length === 0 ? (
-        <p className="empty">まだ部屋がありません。「部屋を追加」から登録してください。</p>
+        <p className="empty">
+          <Bi text={T.noRooms} />
+        </p>
       ) : (
         <>
           {people ? (
             <p className="meta" role="status">
-              定員 {people}人以上: {fits.length}部屋
-              {tooSmall.length > 0 ? `（定員が足りない ${tooSmall.length}部屋を除きました）` : ''}
+              <Bi text={T.peopleResult(people, fits.length, tooSmall.length)} />
             </p>
           ) : null}
-          {fits.length > 0 ? <RoomList rooms={fits} /> : <p className="empty">条件に合う部屋はありません。</p>}
+          {fits.length > 0 ? (
+            <RoomList rooms={fits} />
+          ) : (
+            <p className="empty">
+              <Bi text={T.noMatch} />
+            </p>
+          )}
           {unknown.length > 0 ? (
             <>
-              <h2>定員が未登録の部屋（{unknown.length}部屋）</h2>
-              <p className="hint">入れるかどうか判断できない部屋です。部屋のページで定員を登録できます。</p>
+              <h2>
+                <Bi text={T.unknownCapacityHeading(unknown.length)} stack />
+              </h2>
+              <p className="hint">
+                <Bi text={T.unknownCapacityHint} />
+              </p>
               <RoomList rooms={unknown} />
             </>
           ) : null}
@@ -134,18 +154,24 @@ function RoomList({ rooms }: { rooms: RoomWithEvidences[] }) {
           <li key={room.id}>
             <Link href={`/rooms/${room.id}`} className="card">
               <p className="room-title">
-                {room.facilityName} {room.roomName}
-                <small>{room.municipality}</small>
+                <RoomName room={room} stack />
               </p>
-              <p className={`capacity ${room.capacity === null ? 'unknown' : ''}`}>{capacityLabel(room.capacity)}</p>
-              <ul className="chips" aria-label="楽器ごとの可否">
+              <p className="room-sub">
+                <Municipality name={room.municipality} />
+                <span className={`capacity ${room.capacity === null ? 'unknown' : ''}`}>
+                  <Bi text={capacityLabel(room.capacity)} />
+                </span>
+              </p>
+              <ul className="chips" aria-label={plain(T.instrumentsAria)}>
                 {INSTRUMENT_CLASSES.map((cls) => (
                   <li key={cls}>
-                    <StatusChip status={policy[cls].status} prefix={SHORT_LABELS[cls]} />
+                    <StatusChip status={policy[cls].status} prefix={INSTRUMENT_SHORT_LABELS[cls]} />
                   </li>
                 ))}
               </ul>
-              <p className="meta">{latest ? `記録 ${room.evidences.length}件（最新 ${latest.occurredOn}）` : '記録なし'}</p>
+              <p className="meta">
+                <Bi text={latest ? T.recordCount(room.evidences.length, latest.occurredOn) : T.noRecordsShort} />
+              </p>
             </Link>
           </li>
         );

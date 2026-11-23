@@ -9,7 +9,10 @@ import {
   POLICY_RESULTS,
   STATUS_LABELS,
 } from '@resoom/core';
+import { Bi, FieldError, plain } from '../../_i18n/Bi';
+import { T } from '../../_i18n/texts';
 import { addEvidenceAction, type FormState } from '../actions';
+import { FieldLabel, FormNotice, TextField } from './FormParts';
 
 const INITIAL: FormState = { status: 'idle', errors: {}, values: {} };
 
@@ -18,120 +21,99 @@ export function EvidenceForm({ roomId, today }: { roomId: string; today: string 
   const { errors, values } = state;
   const text = (key: string, fallback = ''): string => (typeof values[key] === 'string' ? (values[key] as string) : fallback);
   const picked = Array.isArray(values.instruments) ? values.instruments : [];
-  const describedBy = (key: string) => (errors[key] ? `${key}-error` : undefined);
-  const fieldError = (key: string) =>
-    errors[key] ? (
-      <p className="field-error" id={`${key}-error`}>
-        {errors[key]}
-      </p>
-    ) : null;
+  const describedBy = (key: string, hint?: string) => [errors[key] ? `${key}-error` : null, hint].filter(Boolean).join(' ') || undefined;
 
   return (
     <form action={action} noValidate>
-      {state.message ? (
-        <p className={`notice ${state.status === 'error' ? 'error' : ''}`} role="status">
-          {state.message}
-        </p>
-      ) : null}
+      <FormNotice state={state} />
 
       <fieldset className="field" aria-describedby={describedBy('kind')}>
-        <legend>何の記録ですか</legend>
+        <legend>
+          <Bi text={T.recordKind} />
+        </legend>
         <div className="choices">
           {EVIDENCE_KINDS.map((kind) => (
             <label key={kind}>
               <input type="radio" name="kind" value={kind} defaultChecked={text('kind', 'usage') === kind} />
-              {EVIDENCE_KIND_LABELS[kind]}
+              <Bi text={EVIDENCE_KIND_LABELS[kind]} stack />
             </label>
           ))}
         </div>
-        {fieldError('kind')}
+        <FieldError id="kind-error" code={errors.kind} />
       </fieldset>
 
-      <div className="field">
-        <label className="label" htmlFor="occurredOn">
-          日付
-        </label>
-        <input
-          type="date"
-          id="occurredOn"
-          name="occurredOn"
-          max={today}
-          defaultValue={text('occurredOn', today)}
-          aria-describedby={describedBy('occurredOn')}
-        />
-        {fieldError('occurredOn')}
-      </div>
+      <TextField
+        id="occurredOn"
+        name="occurredOn"
+        type="date"
+        label={T.date}
+        defaultValue={text('occurredOn', today)}
+        error={errors.occurredOn}
+        extra={{ max: today }}
+      />
 
       <fieldset className="field" aria-describedby={describedBy('result')}>
-        <legend>結果</legend>
+        <legend>
+          <Bi text={T.result} />
+        </legend>
         <div className="choices">
           {POLICY_RESULTS.map((result) => (
             <label key={result}>
               <input type="radio" name="result" value={result} defaultChecked={text('result') === result} />
-              {STATUS_LABELS[result]}
+              <Bi text={STATUS_LABELS[result]} stack />
             </label>
           ))}
         </div>
-        {fieldError('result')}
+        <FieldError id="result-error" code={errors.result} />
       </fieldset>
 
-      <fieldset className="field" aria-describedby="instruments-hint">
+      <fieldset className="field" aria-describedby={describedBy('instruments', 'instruments-hint')}>
         <legend>
-          対象の楽器<span className="optional">任意</span>
+          <Bi text={T.instruments} />
+          <span className="optional">
+            <Bi text={T.optional} />
+          </span>
         </legend>
         <div className="choices">
           {INSTRUMENT_CLASSES.map((cls) => (
             <label key={cls}>
               <input type="checkbox" name="instruments" value={cls} defaultChecked={picked.includes(cls)} />
-              {INSTRUMENT_LABELS[cls]}
+              <Bi text={INSTRUMENT_LABELS[cls]} stack />
             </label>
           ))}
         </div>
         <p className="hint" id="instruments-hint">
-          特定の楽器についての結果なら選んでください。選ばなければ、合奏全体についての記録になります。
+          <Bi text={T.instrumentsHint} />
         </p>
-        {fieldError('instruments')}
+        <FieldError id="instruments-error" code={errors.instruments} />
       </fieldset>
 
       <div className="field">
-        <label className="label" htmlFor="note">
-          内容
-        </label>
+        <FieldLabel htmlFor="note" text={T.details} />
         <textarea
           id="note"
           name="note"
           defaultValue={text('note')}
-          placeholder="例: 電話で確認。ドラムセットは不可、ティンパニは17時まで可とのこと。"
+          placeholder={`${T.detailsPlaceholder.en}\n${T.detailsPlaceholder.ja}`}
           aria-describedby={describedBy('note')}
+          aria-invalid={errors.note ? true : undefined}
         />
-        {fieldError('note')}
+        <FieldError id="note-error" code={errors.note} />
       </div>
 
-      <div className="field">
-        <label className="label" htmlFor="sourceUrl">
-          参考URL<span className="optional">任意</span>
-        </label>
-        <input type="url" id="sourceUrl" name="sourceUrl" defaultValue={text('sourceUrl')} aria-describedby={describedBy('sourceUrl')} />
-        {fieldError('sourceUrl')}
-      </div>
+      <TextField id="sourceUrl" name="sourceUrl" type="url" label={T.referenceUrl} optional defaultValue={text('sourceUrl')} error={errors.sourceUrl} />
 
-      <div className="field">
-        <label className="label" htmlFor="reportedBy">
-          記録者
-        </label>
-        <input
-          type="text"
-          id="reportedBy"
-          name="reportedBy"
-          defaultValue={text('reportedBy')}
-          autoComplete="name"
-          aria-describedby={describedBy('reportedBy')}
-        />
-        {fieldError('reportedBy')}
-      </div>
+      <TextField
+        id="reportedBy"
+        name="reportedBy"
+        label={T.yourName}
+        defaultValue={text('reportedBy')}
+        error={errors.reportedBy}
+        extra={{ autoComplete: 'name' }}
+      />
 
-      <button type="submit" className="button" disabled={pending}>
-        {pending ? '記録しています…' : '記録する'}
+      <button type="submit" className="button" disabled={pending} aria-label={pending ? plain(T.savingRecord) : undefined}>
+        <Bi text={pending ? T.savingRecord : T.saveRecord} />
       </button>
     </form>
   );

@@ -1,13 +1,24 @@
+import type { LocalizedText } from './i18n';
+
 /** 音出し条件を記録する楽器の区分。 */
 export const INSTRUMENT_CLASSES = ['wind', 'small_percussion', 'drum_set', 'large_percussion', 'taiko'] as const;
 export type InstrumentClass = (typeof INSTRUMENT_CLASSES)[number];
 
-export const INSTRUMENT_LABELS: Record<InstrumentClass, string> = {
-  wind: '管楽器',
-  small_percussion: '小物打楽器',
-  drum_set: 'ドラムセット',
-  large_percussion: '大型打楽器',
-  taiko: '和太鼓',
+export const INSTRUMENT_LABELS: Record<InstrumentClass, LocalizedText> = {
+  wind: { en: 'Wind instruments', ja: '管楽器' },
+  small_percussion: { en: 'Small percussion', ja: '小物打楽器' },
+  drum_set: { en: 'Drum kit', ja: 'ドラムセット' },
+  large_percussion: { en: 'Large percussion (timpani, bass drum)', ja: '大型打楽器' },
+  taiko: { en: 'Taiko (Japanese drums)', ja: '和太鼓' },
+};
+
+/** 一覧など、場所が限られるところで使う短い楽器名。 */
+export const INSTRUMENT_SHORT_LABELS: Record<InstrumentClass, LocalizedText> = {
+  wind: { en: 'Winds', ja: '管楽器' },
+  small_percussion: { en: 'Small perc.', ja: '小物' },
+  drum_set: { en: 'Drum kit', ja: 'ドラム' },
+  large_percussion: { en: 'Large perc.', ja: '大型' },
+  taiko: { en: 'Taiko', ja: '和太鼓' },
 };
 
 /** 1件の記録が示す結果。 */
@@ -16,21 +27,21 @@ export type PolicyResult = (typeof POLICY_RESULTS)[number];
 /** 部屋の現在の状態。記録がなければ unknown。 */
 export type PolicyStatus = PolicyResult | 'unknown';
 
-export const STATUS_LABELS: Record<PolicyStatus, string> = {
-  allowed: '可',
-  conditional: '条件付き',
-  prohibited: '不可',
-  unknown: '未確認',
+export const STATUS_LABELS: Record<PolicyStatus, LocalizedText> = {
+  allowed: { en: 'Allowed', ja: '可' },
+  conditional: { en: 'Conditional', ja: '条件付き' },
+  prohibited: { en: 'Not allowed', ja: '不可' },
+  unknown: { en: 'Unknown', ja: '未確認' },
 };
 
 /** 記録の種類。 */
 export const EVIDENCE_KINDS = ['usage', 'inquiry', 'document'] as const;
 export type EvidenceKind = (typeof EVIDENCE_KINDS)[number];
 
-export const EVIDENCE_KIND_LABELS: Record<EvidenceKind, string> = {
-  usage: '利用したときのこと',
-  inquiry: '施設への問い合わせ',
-  document: '公式の資料',
+export const EVIDENCE_KIND_LABELS: Record<EvidenceKind, LocalizedText> = {
+  usage: { en: 'When we used the room', ja: '利用したときのこと' },
+  inquiry: { en: 'Asked the facility', ja: '施設への問い合わせ' },
+  document: { en: 'Official document', ja: '公式の資料' },
 };
 
 /** 状態の判定に必要な、記録の最小限の形。 */

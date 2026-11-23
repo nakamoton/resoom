@@ -1,12 +1,18 @@
 import Link from 'next/link';
+import { Bi } from './_i18n/Bi';
+import { T } from './_i18n/texts';
 
 export default function NotFound() {
   return (
     <>
-      <h1>ページが見つかりません</h1>
-      <p className="lead">部屋が削除されたか、URLが間違っている可能性があります。</p>
+      <h1>
+        <Bi text={T.notFoundTitle} stack />
+      </h1>
+      <p className="lead">
+        <Bi text={T.notFoundLead} />
+      </p>
       <Link href="/rooms" className="button">
-        施設台帳へ戻る
+        <Bi text={T.backToCatalogButton} />
       </Link>
     </>
   );

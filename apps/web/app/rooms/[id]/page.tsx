@@ -1,14 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import {
-  EVIDENCE_KIND_LABELS,
-  INSTRUMENT_CLASSES,
-  INSTRUMENT_LABELS,
-  capacityLabel,
-  effectivePolicy,
-} from '@resoom/core';
+import { EVIDENCE_KIND_LABELS, INSTRUMENT_CLASSES, INSTRUMENT_LABELS, capacityLabel, effectivePolicy } from '@resoom/core';
 import { getDb, getRoom } from '@resoom/db';
+import { Bi, Municipality, RoomName } from '../../_i18n/Bi';
+import { T } from '../../_i18n/texts';
 import { EvidenceForm } from '../_components/EvidenceForm';
 import { RoomBasicsForm } from '../_components/RoomBasicsForm';
 import { StatusChip } from '../_components/StatusChip';
@@ -19,7 +15,9 @@ type Props = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const room = await getRoom(await getDb(), (await params).id);
-  return { title: room ? `${room.facilityName} ${room.roomName}` : '部屋が見つかりません' };
+  if (!room) return { title: `${T.notFoundTitle.en} · ${T.notFoundTitle.ja}` };
+  const en = [room.facilityNameEn, room.roomNameEn].filter(Boolean).join(' ');
+  return { title: `${en ? `${en} · ` : ''}${room.facilityName} ${room.roomName}` };
 }
 
 export default async function RoomPage({ params }: Props) {
@@ -28,37 +26,56 @@ export default async function RoomPage({ params }: Props) {
 
   const policy = effectivePolicy(room.evidences);
   const today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Tokyo' }).format(new Date());
-  const facts = [room.municipality, capacityLabel(room.capacity), room.nearestStation ? `最寄駅 ${room.nearestStation}` : null];
+  const hasEnglishName = Boolean(room.facilityNameEn || room.roomNameEn);
 
   return (
     <>
       <Link href="/rooms" className="back">
-        ← 施設台帳へ戻る
+        <Bi text={T.backToCatalog} />
       </Link>
       <h1>
-        {room.facilityName} {room.roomName}
+        <RoomName room={room} stack />
       </h1>
-      <p className="lead">{facts.filter(Boolean).join('・')}</p>
+      <p className="lead room-sub">
+        <Municipality name={room.municipality} />
+        <span>
+          <Bi text={capacityLabel(room.capacity)} />
+        </span>
+      </p>
 
-      <h2>基本情報</h2>
+      <h2>
+        <Bi text={T.basicInfo} stack />
+      </h2>
       <div className="card">
         <dl className="facts">
           <div>
-            <dt>定員</dt>
+            <dt>
+              <Bi text={T.capacity} stack />
+            </dt>
             <dd>
-              {room.capacity === null ? '未登録' : `${room.capacity}人`}
-              {room.capacitySource ? <span className="source">出典: {room.capacitySource}</span> : null}
+              <Bi text={room.capacity === null ? T.unknown : T.capacityPeople(room.capacity)} />
+              {room.capacitySource ? (
+                <span className="source">
+                  <Bi text={T.source} />: {room.capacitySource}
+                </span>
+              ) : null}
             </dd>
           </div>
           <div>
-            <dt>最寄駅</dt>
-            <dd>{room.nearestStation ?? '未登録'}</dd>
+            <dt>
+              <Bi text={T.nearestStation} stack />
+            </dt>
+            <dd>{room.nearestStation ?? <Bi text={T.unknown} />}</dd>
           </div>
         </dl>
         <details className="edit">
-          <summary>基本情報を直す</summary>
+          <summary>
+            <Bi text={T.editBasics} />
+          </summary>
           <RoomBasicsForm
             roomId={room.id}
+            facilityNameEn={room.facilityNameEn}
+            roomNameEn={room.roomNameEn}
             capacity={room.capacity}
             capacitySource={room.capacitySource}
             nearestStation={room.nearestStation}
@@ -66,10 +83,17 @@ export default async function RoomPage({ params }: Props) {
         </details>
       </div>
       <p className="hint">
-        施設の公式の定員は、楽器や譜面台を置いたときに実際に入れる人数とは限りません。どこで確かめた人数かは出典で確認してください。
+        <Bi text={T.capacityCaution} />
       </p>
+      {hasEnglishName ? (
+        <p className="hint">
+          <Bi text={T.englishNameNote} />
+        </p>
+      ) : null}
 
-      <h2>現在の状態</h2>
+      <h2>
+        <Bi text={T.currentStatus} stack />
+      </h2>
       <div className="card">
         <table className="status-table">
           <tbody>
@@ -77,12 +101,23 @@ export default async function RoomPage({ params }: Props) {
               const { status, basis } = policy[cls];
               return (
                 <tr key={cls}>
-                  <th scope="row">{INSTRUMENT_LABELS[cls]}</th>
+                  <th scope="row">
+                    <Bi text={INSTRUMENT_LABELS[cls]} stack />
+                  </th>
                   <td className="status">
                     <StatusChip status={status} />
                   </td>
                   <td className="basis">
-                    {basis ? `${basis.occurredOn} ${EVIDENCE_KIND_LABELS[basis.kind]}: ${basis.note}` : 'まだ記録がありません'}
+                    {basis ? (
+                      <>
+                        <span className="basis-head">
+                          {basis.occurredOn} · <Bi text={EVIDENCE_KIND_LABELS[basis.kind]} />
+                        </span>
+                        <span className="note">{basis.note}</span>
+                      </>
+                    ) : (
+                      <Bi text={T.noRecordsYet} />
+                    )}
                   </td>
                 </tr>
               );
@@ -91,38 +126,50 @@ export default async function RoomPage({ params }: Props) {
         </table>
       </div>
       <p className="hint">
-        その楽器を名指しした記録があれば、その中で最も新しいものを表示します。なければ、楽器を限定しない最も新しい記録を表示します。
+        <Bi text={T.statusRule} />
       </p>
 
-      <h2>記録を追加</h2>
+      <h2>
+        <Bi text={T.addRecord} stack />
+      </h2>
       <div className="card">
         <EvidenceForm roomId={room.id} today={today} />
       </div>
 
-      <h2>記録の履歴（{room.evidences.length}件）</h2>
+      <h2>
+        <Bi text={T.history(room.evidences.length)} stack />
+      </h2>
       {room.evidences.length === 0 ? (
-        <p className="empty">まだ記録がありません。</p>
+        <p className="empty">
+          <Bi text={T.noRecordsYet} />
+        </p>
       ) : (
         <ol className="history">
           {room.evidences.map((e) => (
             <li key={e.id} className="card">
               <div className="head">
                 <time dateTime={e.occurredOn}>{e.occurredOn}</time>
-                <span>{EVIDENCE_KIND_LABELS[e.kind]}</span>
+                <Bi text={EVIDENCE_KIND_LABELS[e.kind]} />
                 <StatusChip
                   status={e.result}
-                  prefix={e.instruments.length > 0 ? e.instruments.map((cls) => INSTRUMENT_LABELS[cls]).join('・') : '合奏全体'}
+                  prefix={
+                    e.instruments.length > 0
+                      ? {
+                          en: e.instruments.map((cls) => INSTRUMENT_LABELS[cls].en).join(', '),
+                          ja: e.instruments.map((cls) => INSTRUMENT_LABELS[cls].ja).join('・'),
+                        }
+                      : T.wholeEnsemble
+                  }
                 />
               </div>
               <p className="note">{e.note}</p>
               <p className="by">
-                記録者: {e.reportedBy}
+                <Bi text={T.recordedBy} />: {e.reportedBy}
                 {e.sourceUrl ? (
                   <>
-                    {' '}
-                    ・{' '}
+                    {' · '}
                     <a href={e.sourceUrl} rel="noopener noreferrer" target="_blank">
-                      参考URL
+                      <Bi text={T.referenceUrl} />
                     </a>
                   </>
                 ) : null}

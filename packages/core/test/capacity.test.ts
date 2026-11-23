@@ -36,8 +36,8 @@ describe('parsePeople', () => {
 });
 
 describe('capacityLabel', () => {
-  it('定員があれば人数を、なければ「未登録」と表示する', () => {
-    expect(capacityLabel(50)).toBe('定員 50人');
-    expect(capacityLabel(null)).toBe('定員 未登録');
+  it('定員があれば人数を、なければ「未登録」と、英語と日本語で返す', () => {
+    expect(capacityLabel(50)).toEqual({ en: 'Capacity 50', ja: '定員 50人' });
+    expect(capacityLabel(null)).toEqual({ en: 'Capacity unknown', ja: '定員 未登録' });
   });
 });

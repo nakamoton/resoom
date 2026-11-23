@@ -18,6 +18,8 @@ const room = (overrides: Partial<NewRoomInput> = {}): NewRoomInput => ({
   municipality: '大田区',
   facilityName: '嶺町文化センター',
   roomName: '第一集会室',
+  facilityNameEn: null,
+  roomNameEn: null,
   capacity: null,
   capacitySource: null,
   nearestStation: null,
@@ -89,21 +91,35 @@ describe('基本情報の更新', () => {
   it('定員・定員の出典・最寄駅を更新する', async () => {
     const id = await createRoom(db, room());
 
-    expect(await updateRoomBasics(db, id, { capacity: 60, capacitySource: '施設に電話で確認', nearestStation: '沼部' })).toBe(true);
+    expect(await updateRoomBasics(db, id, { facilityNameEn: null, roomNameEn: null, capacity: 60, capacitySource: '施設に電話で確認', nearestStation: '沼部' })).toBe(true);
 
-    expect(await getRoom(db, id)).toMatchObject({ capacity: 60, capacitySource: '施設に電話で確認', nearestStation: '沼部' });
+    expect(await getRoom(db, id)).toMatchObject({ facilityNameEn: null, roomNameEn: null, capacity: 60, capacitySource: '施設に電話で確認', nearestStation: '沼部' });
+  });
+
+  it('英語名を保存できる', async () => {
+    const id = await createRoom(db, room());
+
+    await updateRoomBasics(db, id, {
+      facilityNameEn: 'Minemachi Culture Center',
+      roomNameEn: 'Assembly Room 1',
+      capacity: 60,
+      capacitySource: null,
+      nearestStation: null,
+    });
+
+    expect(await getRoom(db, id)).toMatchObject({ facilityNameEn: 'Minemachi Culture Center', roomNameEn: 'Assembly Room 1' });
   });
 
   it('空にもできる', async () => {
-    const id = await createRoom(db, room({ capacity: 60, capacitySource: '出典', nearestStation: '沼部' }));
+    const id = await createRoom(db, room({ facilityNameEn: null, roomNameEn: null, capacity: 60, capacitySource: '出典', nearestStation: '沼部' }));
 
-    await updateRoomBasics(db, id, { capacity: null, capacitySource: null, nearestStation: null });
+    await updateRoomBasics(db, id, { facilityNameEn: null, roomNameEn: null, capacity: null, capacitySource: null, nearestStation: null });
 
-    expect(await getRoom(db, id)).toMatchObject({ capacity: null, capacitySource: null, nearestStation: null });
+    expect(await getRoom(db, id)).toMatchObject({ facilityNameEn: null, roomNameEn: null, capacity: null, capacitySource: null, nearestStation: null });
   });
 
   it('存在しない部屋や id の形でない文字列には false を返す', async () => {
-    const input = { capacity: 1, capacitySource: null, nearestStation: null };
+    const input = { facilityNameEn: null, roomNameEn: null, capacity: 1, capacitySource: null, nearestStation: null };
     expect(await updateRoomBasics(db, '00000000-0000-4000-8000-000000000000', input)).toBe(false);
     expect(await updateRoomBasics(db, 'x', input)).toBe(false);
   });
@@ -188,11 +204,27 @@ describe('初期データの取り込み', () => {
   it('画面で直した定員と最寄駅は、取り込み直しても上書きしない', async () => {
     await importSeed(db, seed);
     const [plaza] = await listRooms(db, { adapterId: 'ota' });
-    await updateRoomBasics(db, plaza!.id, { capacity: 45, capacitySource: '実際に合奏して確認', nearestStation: '下丸子' });
+    await updateRoomBasics(db, plaza!.id, { facilityNameEn: null, roomNameEn: null, capacity: 45, capacitySource: '実際に合奏して確認', nearestStation: '下丸子' });
 
     await importSeed(db, seed);
 
-    expect(await getRoom(db, plaza!.id)).toMatchObject({ capacity: 45, capacitySource: '実際に合奏して確認', nearestStation: '下丸子' });
+    expect(await getRoom(db, plaza!.id)).toMatchObject({ facilityNameEn: null, roomNameEn: null, capacity: 45, capacitySource: '実際に合奏して確認', nearestStation: '下丸子' });
+  });
+
+  it('英語名は、空のときだけ取り込みで埋める', async () => {
+    await importSeed(db, [{ ...seed[1]!, facilityNameEn: 'Minemachi Culture Center', roomNameEn: null }]);
+    const [minemachi] = await listRooms(db);
+    await updateRoomBasics(db, minemachi!.id, {
+      facilityNameEn: 'Minemachi Bunka Center',
+      roomNameEn: null,
+      capacity: null,
+      capacitySource: null,
+      nearestStation: null,
+    });
+
+    await importSeed(db, [{ ...seed[1]!, facilityNameEn: 'Minemachi Culture Center', roomNameEn: 'Assembly Room 1' }]);
+
+    expect(await getRoom(db, minemachi!.id)).toMatchObject({ facilityNameEn: 'Minemachi Bunka Center', roomNameEn: 'Assembly Room 1' });
   });
 
   it('定員が空の部屋は、取り込みで定員と出典を埋める', async () => {

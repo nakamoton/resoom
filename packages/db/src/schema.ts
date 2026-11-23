@@ -10,6 +10,10 @@ export const rooms = pgTable(
     municipality: text('municipality').notNull(),
     facilityName: text('facility_name').notNull(),
     roomName: text('room_name').notNull(),
+    /** 施設名の英語表記（楽団での訳）。null なら日本語だけを表示する */
+    facilityNameEn: text('facility_name_en'),
+    /** 部屋名の英語表記（楽団での訳） */
+    roomNameEn: text('room_name_en'),
     capacity: integer('capacity'),
     /** 定員の出典（例: 「うぐいすネットの部屋一覧（2026-11-23）」）。定員が分からなければ null */
     capacitySource: text('capacity_source'),

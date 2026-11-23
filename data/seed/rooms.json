@@ -2,9 +2,11 @@
   {
     "municipality": "大田区",
     "facilityName": "大田区民プラザ",
+    "facilityNameEn": "Ota Civic Plaza",
     "roomName": "第一音楽スタジオ",
+    "roomNameEn": "Music Studio 1",
     "capacity": 50,
-    "capacitySource": "大田区 うぐいすネットの部屋一覧（2026-11-23）",
+    "capacitySource": "Room list on the Ota City booking site (Uguisu-net), 2026-11-23 / 大田区 うぐいすネットの部屋一覧（2026-11-23）",
     "nearestStation": "下丸子",
     "adapter": {
       "id": "ota",
@@ -19,9 +21,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で2回利用（直近は2025-07-19）。",
+        "note": "Imported from the band calendar. Used for rehearsals 2 times (latest 2025-07-19).\n楽団カレンダーからの取り込み。練習会で2回利用（直近は2025-07-19）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -33,18 +35,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◎」。",
+        "note": "Imported from the band calendar. Percussion was marked \"◎\".\n楽団カレンダーからの取り込み。打楽器の記載は「◎」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "大田区",
     "facilityName": "嶺町文化センター",
+    "facilityNameEn": "Minemachi Culture Center",
     "roomName": "第一集会室",
+    "roomNameEn": "Assembly Room 1",
     "capacity": 60,
-    "capacitySource": "大田区 うぐいすネットの部屋一覧（2026-11-23）",
+    "capacitySource": "Room list on the Ota City booking site (Uguisu-net), 2026-11-23 / 大田区 うぐいすネットの部屋一覧（2026-11-23）",
     "nearestStation": "雪が谷大塚",
     "adapter": {
       "id": "ota",
@@ -59,9 +63,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-02-15）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2025-02-15).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-02-15）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "drum-set-2025-02",
@@ -71,18 +75,20 @@
         "instruments": [
           "drum_set"
         ],
-        "note": "ドラムセットを使ったところ、施設から不可と案内された（日付はカレンダーの利用日）。",
+        "note": "We used a drum kit and the facility told us it is not allowed. (The date is the rehearsal date in the calendar.)\nドラムセットを使ったところ、施設から不可と案内された（日付はカレンダーの利用日）。",
         "sourceUrl": null,
-        "reportedBy": "予約担当"
+        "reportedBy": "Booking manager / 予約担当"
       }
     ]
   },
   {
     "municipality": "大田区",
     "facilityName": "池上文化センター",
+    "facilityNameEn": "Ikegami Culture Center",
     "roomName": "第一集会室",
+    "roomNameEn": "Assembly Room 1",
     "capacity": 65,
-    "capacitySource": "大田区 うぐいすネットの部屋一覧（2026-11-23）",
+    "capacitySource": "Room list on the Ota City booking site (Uguisu-net), 2026-11-23 / 大田区 うぐいすネットの部屋一覧（2026-11-23）",
     "nearestStation": "池上",
     "adapter": {
       "id": "ota",
@@ -97,9 +103,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-01-11）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2025-01-11).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-01-11）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -111,18 +117,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「△」。",
+        "note": "Imported from the band calendar. Percussion was marked \"△\".\n楽団カレンダーからの取り込み。打楽器の記載は「△」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "かわさき老人福祉・地域交流センター",
+    "facilityNameEn": "Kawasaki Senior Welfare and Community Center",
     "roomName": "ホール（多目的室）",
+    "roomNameEn": "Hall (Multipurpose Room)",
     "capacity": 210,
-    "capacitySource": "楽団カレンダーの記載",
+    "capacitySource": "Band calendar / 楽団カレンダーの記載",
     "nearestStation": "八丁畷",
     "evidences": [
       {
@@ -133,9 +141,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で4回利用（直近は2026-11-21）。",
+        "note": "Imported from the band calendar. Used for rehearsals 4 times (latest 2026-11-21).\n楽団カレンダーからの取り込み。練習会で4回利用（直近は2026-11-21）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -147,18 +155,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "note": "Imported from the band calendar. Percussion was marked \"◯\".\n楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "かわさき老人福祉・地域交流センター",
+    "facilityNameEn": "Kawasaki Senior Welfare and Community Center",
     "roomName": "大広間",
+    "roomNameEn": "Large Room (Ohiroma)",
     "capacity": 72,
-    "capacitySource": "楽団カレンダーの記載",
+    "capacitySource": "Band calendar / 楽団カレンダーの記載",
     "nearestStation": "八丁畷",
     "evidences": [
       {
@@ -169,9 +179,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-01-25）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2025-01-25).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-01-25）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -183,18 +193,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「△」。",
+        "note": "Imported from the band calendar. Percussion was marked \"△\".\n楽団カレンダーからの取り込み。打楽器の記載は「△」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "カルッツかわさき",
+    "facilityNameEn": "Culttz Kawasaki",
     "roomName": "音楽練習室１",
+    "roomNameEn": "Music Practice Room 1",
     "capacity": 10,
-    "capacitySource": "楽団カレンダーの記載",
+    "capacitySource": "Band calendar / 楽団カレンダーの記載",
     "nearestStation": null,
     "adapter": {
       "id": "kawasaki",
@@ -209,9 +221,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-01-24）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2026-01-24).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-01-24）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -223,18 +235,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「✗」。",
+        "note": "Imported from the band calendar. Percussion was marked \"✗\".\n楽団カレンダーからの取り込み。打楽器の記載は「✗」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "プラザ大師",
+    "facilityNameEn": "Plaza Daishi",
     "roomName": "第１・第２学習室合併",
+    "roomNameEn": "Study Rooms 1 & 2 (combined)",
     "capacity": 66,
-    "capacitySource": "楽団カレンダーの記載",
+    "capacitySource": "Band calendar / 楽団カレンダーの記載",
     "nearestStation": "川崎大師",
     "adapter": {
       "id": "kawasaki",
@@ -249,9 +263,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で14回利用（直近は2026-08-08）。",
+        "note": "Imported from the band calendar. Used for rehearsals 14 times (latest 2026-08-08).\n楽団カレンダーからの取り込み。練習会で14回利用（直近は2026-08-08）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -263,18 +277,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。過去の記載には △・◯・✗ が混在。",
+        "note": "Imported from the band calendar. Percussion was marked \"◯\". Earlier entries were mixed (△, ◯, ✗).\n楽団カレンダーからの取り込み。打楽器の記載は「◯」。過去の記載には △・◯・✗ が混在。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "中原市民館",
+    "facilityNameEn": "Nakahara Civic Center",
     "roomName": "視聴覚室",
+    "roomNameEn": "Audiovisual Room",
     "capacity": 60,
-    "capacitySource": "楽団カレンダーの記載",
+    "capacitySource": "Band calendar / 楽団カレンダーの記載",
     "nearestStation": "武蔵小杉",
     "adapter": {
       "id": "kawasaki",
@@ -289,9 +305,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で5回利用（直近は2026-02-21）。",
+        "note": "Imported from the band calendar. Used for rehearsals 5 times (latest 2026-02-21).\n楽団カレンダーからの取り込み。練習会で5回利用（直近は2026-02-21）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -303,18 +319,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "note": "Imported from the band calendar. Percussion was marked \"◯\".\n楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "中原市民館",
+    "facilityNameEn": "Nakahara Civic Center",
     "roomName": "音楽室",
+    "roomNameEn": "Music Room",
     "capacity": 42,
-    "capacitySource": "楽団カレンダーの記載",
+    "capacitySource": "Band calendar / 楽団カレンダーの記載",
     "nearestStation": "武蔵小杉",
     "adapter": {
       "id": "kawasaki",
@@ -329,9 +347,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で6回利用（直近は2026-10-17）。",
+        "note": "Imported from the band calendar. Used for rehearsals 6 times (latest 2026-10-17).\n楽団カレンダーからの取り込み。練習会で6回利用（直近は2026-10-17）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -343,16 +361,18 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "note": "Imported from the band calendar. Percussion was marked \"◯\".\n楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "多摩市民館",
+    "facilityNameEn": "Tama Civic Center",
     "roomName": "大会議室",
+    "roomNameEn": "Large Conference Room",
     "capacity": null,
     "capacitySource": null,
     "nearestStation": null,
@@ -369,16 +389,18 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-08-22）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2026-08-22).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-08-22）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "宮前市民館",
+    "facilityNameEn": "Miyamae Civic Center",
     "roomName": "視聴覚室",
+    "roomNameEn": "Audiovisual Room",
     "capacity": null,
     "capacitySource": null,
     "nearestStation": "宮前平",
@@ -395,9 +417,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-11-16）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2024-11-16).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-11-16）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -409,18 +431,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "note": "Imported from the band calendar. Percussion was marked \"◯\".\n楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "幸市民館",
+    "facilityNameEn": "Saiwai Civic Center",
     "roomName": "音楽室",
+    "roomNameEn": "Music Room",
     "capacity": 40,
-    "capacitySource": "楽団カレンダーの記載",
+    "capacitySource": "Band calendar / 楽団カレンダーの記載",
     "nearestStation": "矢向",
     "adapter": {
       "id": "kawasaki",
@@ -435,9 +459,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で4回利用（直近は2026-06-27）。",
+        "note": "Imported from the band calendar. Used for rehearsals 4 times (latest 2026-06-27).\n楽団カレンダーからの取り込み。練習会で4回利用（直近は2026-06-27）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -449,18 +473,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「△」。",
+        "note": "Imported from the band calendar. Percussion was marked \"△\".\n楽団カレンダーからの取り込み。打楽器の記載は「△」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "高津市民館",
+    "facilityNameEn": "Takatsu Civic Center",
     "roomName": "第１音楽室",
+    "roomNameEn": "Music Room 1",
     "capacity": 60,
-    "capacitySource": "楽団カレンダーの記載",
+    "capacitySource": "Band calendar / 楽団カレンダーの記載",
     "nearestStation": "溝の口",
     "adapter": {
       "id": "kawasaki",
@@ -475,9 +501,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-09-27）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2025-09-27).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-09-27）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -489,18 +515,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「✗」。",
+        "note": "Imported from the band calendar. Percussion was marked \"✗\".\n楽団カレンダーからの取り込み。打楽器の記載は「✗」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "高津市民館",
+    "facilityNameEn": "Takatsu Civic Center",
     "roomName": "視聴覚室",
+    "roomNameEn": "Audiovisual Room",
     "capacity": 50,
-    "capacitySource": "楽団カレンダーの記載",
+    "capacitySource": "Band calendar / 楽団カレンダーの記載",
     "nearestStation": "溝の口",
     "adapter": {
       "id": "kawasaki",
@@ -515,9 +543,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-08-23）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2025-08-23).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-08-23）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -529,16 +557,18 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「✗」。",
+        "note": "Imported from the band calendar. Percussion was marked \"✗\".\n楽団カレンダーからの取り込み。打楽器の記載は「✗」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "川崎市",
     "facilityName": "麻生市民館",
+    "facilityNameEn": "Asao Civic Center",
     "roomName": "視聴覚室",
+    "roomNameEn": "Audiovisual Room",
     "capacity": null,
     "capacitySource": null,
     "nearestStation": null,
@@ -555,18 +585,20 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-09-12）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2026-09-12).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-09-12）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "渋谷区",
     "facilityName": "地域交流センター恵比寿",
+    "facilityNameEn": "Ebisu Community Exchange Center",
     "roomName": "コミュニティホール",
+    "roomNameEn": "Community Hall",
     "capacity": 200,
-    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）",
+    "capacitySource": "Room list on the Shibuya City booking site, 2026-11-23 / 渋谷区施設予約システムの部屋一覧（2026-11-23）",
     "nearestStation": null,
     "adapter": {
       "id": "shibuya",
@@ -581,18 +613,20 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-11-09）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2024-11-09).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-11-09）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "渋谷区",
     "facilityName": "地域交流センター新橋",
+    "facilityNameEn": "Shinbashi Community Exchange Center",
     "roomName": "コミュニティホール",
+    "roomNameEn": "Community Hall",
     "capacity": 240,
-    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）",
+    "capacitySource": "Room list on the Shibuya City booking site, 2026-11-23 / 渋谷区施設予約システムの部屋一覧（2026-11-23）",
     "nearestStation": "恵比寿",
     "adapter": {
       "id": "shibuya",
@@ -607,9 +641,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-10-10）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2026-10-10).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-10-10）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -621,18 +655,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "note": "Imported from the band calendar. Percussion was marked \"◯\".\n楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "渋谷区",
     "facilityName": "地域交流センター新橋",
+    "facilityNameEn": "Shinbashi Community Exchange Center",
     "roomName": "文化ふれあい広場",
+    "roomNameEn": "Culture Plaza",
     "capacity": 100,
-    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）",
+    "capacitySource": "Room list on the Shibuya City booking site, 2026-11-23 / 渋谷区施設予約システムの部屋一覧（2026-11-23）",
     "nearestStation": "恵比寿",
     "adapter": {
       "id": "shibuya",
@@ -647,9 +683,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で6回利用（直近は2026-11-07）。",
+        "note": "Imported from the band calendar. Used for rehearsals 6 times (latest 2026-11-07).\n楽団カレンダーからの取り込み。練習会で6回利用（直近は2026-11-07）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -661,18 +697,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「△」。",
+        "note": "Imported from the band calendar. Percussion was marked \"△\".\n楽団カレンダーからの取り込み。打楽器の記載は「△」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "渋谷区",
     "facilityName": "幡ケ谷社会教育館",
+    "facilityNameEn": "Hatagaya Social Education Center",
     "roomName": "大学習室",
+    "roomNameEn": "Large Study Room",
     "capacity": 90,
-    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）",
+    "capacitySource": "Room list on the Shibuya City booking site, 2026-11-23 / 渋谷区施設予約システムの部屋一覧（2026-11-23）",
     "nearestStation": "幡ヶ谷",
     "adapter": {
       "id": "shibuya",
@@ -687,18 +725,20 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-01-17）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2026-01-17).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-01-17）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "渋谷区",
     "facilityName": "文化総合センター大和田",
+    "facilityNameEn": "Owada Cultural Center",
     "roomName": "大練習室",
+    "roomNameEn": "Large Practice Room",
     "capacity": 70,
-    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）。ピアノを置いたコーラスでの利用を想定した人数",
+    "capacitySource": "Room list on the Shibuya City booking site, 2026-11-23. The number assumes a choir with a piano. / 渋谷区施設予約システムの部屋一覧（2026-11-23）。ピアノを置いたコーラスでの利用を想定した人数",
     "nearestStation": "渋谷",
     "adapter": {
       "id": "shibuya",
@@ -713,9 +753,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で2回利用（直近は2025-03-29）。",
+        "note": "Imported from the band calendar. Used for rehearsals 2 times (latest 2025-03-29).\n楽団カレンダーからの取り込み。練習会で2回利用（直近は2025-03-29）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -727,18 +767,20 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "note": "Imported from the band calendar. Percussion was marked \"◯\".\n楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "渋谷区",
     "facilityName": "文化総合センター大和田",
+    "facilityNameEn": "Owada Cultural Center",
     "roomName": "練習室３",
+    "roomNameEn": "Practice Room 3",
     "capacity": 30,
-    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）。ピアノを置いたコーラスでの利用を想定した人数",
+    "capacitySource": "Room list on the Shibuya City booking site, 2026-11-23. The number assumes a choir with a piano. / 渋谷区施設予約システムの部屋一覧（2026-11-23）。ピアノを置いたコーラスでの利用を想定した人数",
     "nearestStation": "渋谷",
     "adapter": {
       "id": "shibuya",
@@ -753,9 +795,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-01-18）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2025-01-18).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-01-18）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -767,16 +809,18 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "note": "Imported from the band calendar. Percussion was marked \"◯\".\n楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "江戸川区",
     "facilityName": "タワーホール船堀",
+    "facilityNameEn": "Tower Hall Funabori",
     "roomName": "リハーサル室",
+    "roomNameEn": "Rehearsal Room",
     "capacity": null,
     "capacitySource": null,
     "nearestStation": "船堀",
@@ -789,9 +833,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で4回利用（直近は2026-10-31）。",
+        "note": "Imported from the band calendar. Used for rehearsals 4 times (latest 2026-10-31).\n楽団カレンダーからの取り込み。練習会で4回利用（直近は2026-10-31）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -803,16 +847,18 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "note": "Imported from the band calendar. Percussion was marked \"◯\".\n楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "江戸川区",
     "facilityName": "江戸川区総合文化センター",
+    "facilityNameEn": "Edogawa Cultural Center",
     "roomName": "リハーサル室",
+    "roomNameEn": "Rehearsal Room",
     "capacity": null,
     "capacitySource": null,
     "nearestStation": null,
@@ -825,18 +871,20 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-12-14）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2025-12-14).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-12-14）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "品川区",
     "facilityName": "品川区立中小企業センター",
+    "facilityNameEn": "Shinagawa SME Center",
     "roomName": "音楽室",
+    "roomNameEn": "Music Room",
     "capacity": 50,
-    "capacitySource": "品川区立中小企業センター 利用ガイド",
+    "capacitySource": "Shinagawa SME Center user guide / 品川区立中小企業センター 利用ガイド",
     "nearestStation": null,
     "adapter": {
       "id": "shinagawa",
@@ -851,18 +899,20 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-09-19）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2026-09-19).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-09-19）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "文京区",
     "facilityName": "アカデミー湯島",
+    "facilityNameEn": "Academy Yushima",
     "roomName": "視聴覚室",
+    "roomNameEn": "Audiovisual Room",
     "capacity": 56,
-    "capacitySource": "楽団カレンダーの記載",
+    "capacitySource": "Band calendar / 楽団カレンダーの記載",
     "nearestStation": "湯島",
     "evidences": [
       {
@@ -873,9 +923,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で2回利用（直近は2025-11-22）。",
+        "note": "Imported from the band calendar. Used for rehearsals 2 times (latest 2025-11-22).\n楽団カレンダーからの取り込み。練習会で2回利用（直近は2025-11-22）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "calendar-percussion",
@@ -887,16 +937,18 @@
           "drum_set",
           "large_percussion"
         ],
-        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "note": "Imported from the band calendar. Percussion was marked \"◯\".\n楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "江東区",
     "facilityName": "森下文化センター",
+    "facilityNameEn": "Morishita Culture Center",
     "roomName": "AVホール",
+    "roomNameEn": "AV Hall",
     "capacity": null,
     "capacitySource": null,
     "nearestStation": null,
@@ -909,16 +961,18 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-11-29）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2025-11-29).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-11-29）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "目黒区",
     "facilityName": "めぐろパーシモンホール",
+    "facilityNameEn": "Meguro Persimmon Hall",
     "roomName": "第１練習室",
+    "roomNameEn": "Practice Room 1",
     "capacity": null,
     "capacitySource": null,
     "nearestStation": "都立大学",
@@ -931,16 +985,18 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-11-16）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2025-11-16).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-11-16）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "目黒区",
     "facilityName": "めぐろパーシモンホール",
+    "facilityNameEn": "Meguro Persimmon Hall",
     "roomName": "リハーサル室",
+    "roomNameEn": "Rehearsal Room",
     "capacity": null,
     "capacitySource": null,
     "nearestStation": "都立大学",
@@ -953,18 +1009,20 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2023-11-11）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2023-11-11).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2023-11-11）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "目黒区",
     "facilityName": "目黒本町社会教育館",
+    "facilityNameEn": "Meguro Honcho Social Education Center",
     "roomName": "301視聴覚室（旧第1研修室）",
+    "roomNameEn": "Room 301, Audiovisual Room (formerly Training Room 1)",
     "capacity": 30,
-    "capacitySource": "目黒区の施設案内（目黒本町社会教育館）",
+    "capacitySource": "Meguro City facility page / 目黒区の施設案内（目黒本町社会教育館）",
     "nearestStation": null,
     "evidences": [
       {
@@ -975,9 +1033,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で3回利用（直近は2023-08-26）。当時の部屋名は「第１研修室（視聴覚室）」。",
+        "note": "Imported from the band calendar. Used for rehearsals 3 times (latest 2023-08-26). The room was then called \"第１研修室（視聴覚室）\".\n楽団カレンダーからの取り込み。練習会で3回利用（直近は2023-08-26）。当時の部屋名は「第１研修室（視聴覚室）」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "ward-page-drums",
@@ -989,9 +1047,9 @@
           "large_percussion",
           "taiko"
         ],
-        "note": "目黒区の施設案内に「簡易な防音設備のため大音量となる太鼓等は使用できません。」とある。太鼓類にドラムセットやティンパニが含まれると読んで記録した。",
+        "note": "The Meguro City facility page says loud drums cannot be used because the room has only simple soundproofing. We read \"drums\" as including drum kits and timpani.\n目黒区の施設案内に「簡易な防音設備のため大音量となる太鼓等は使用できません。」とある。太鼓類にドラムセットやティンパニが含まれると読んで記録した。",
         "sourceUrl": "https://www.city.meguro.tokyo.jp/shougaigakushuu/shisetsu/bunkakouryuu/kyoiku_megurohonmachi.html",
-        "reportedBy": "公式ページからの取り込み"
+        "reportedBy": "Official website import / 公式ページからの取り込み"
       },
       {
         "key": "ward-page-percussion",
@@ -1001,18 +1059,20 @@
         "instruments": [
           "small_percussion"
         ],
-        "note": "目黒区の施設案内に「太鼓類以外の打楽器2から3台まで使用可能です。」とある。",
+        "note": "The Meguro City facility page says up to 2 or 3 percussion instruments other than drums may be used.\n目黒区の施設案内に「太鼓類以外の打楽器2から3台まで使用可能です。」とある。",
         "sourceUrl": "https://www.city.meguro.tokyo.jp/shougaigakushuu/shisetsu/bunkakouryuu/kyoiku_megurohonmachi.html",
-        "reportedBy": "公式ページからの取り込み"
+        "reportedBy": "Official website import / 公式ページからの取り込み"
       }
     ]
   },
   {
     "municipality": "目黒区",
     "facilityName": "上目黒住区センター",
+    "facilityNameEn": "Kamimeguro Community Center",
     "roomName": "B103（音楽室）",
+    "roomNameEn": "Room B103 (Music Room)",
     "capacity": 48,
-    "capacitySource": "目黒区の施設案内（上目黒住区センター）",
+    "capacitySource": "Meguro City facility page / 目黒区の施設案内（上目黒住区センター）",
     "nearestStation": null,
     "evidences": [
       {
@@ -1023,18 +1083,20 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2023-12-02）。当時の部屋名は「音楽室」。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2023-12-02). The room was then called \"音楽室\".\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2023-12-02）。当時の部屋名は「音楽室」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   },
   {
     "municipality": "目黒区",
     "facilityName": "緑が丘文化会館",
+    "facilityNameEn": "Midorigaoka Culture Hall",
     "roomName": "別館203（音楽室）",
+    "roomNameEn": "Annex Room 203 (Music Room)",
     "capacity": 55,
-    "capacitySource": "目黒区の施設案内（緑が丘文化会館）",
+    "capacitySource": "Meguro City facility page / 目黒区の施設案内（緑が丘文化会館）",
     "nearestStation": null,
     "evidences": [
       {
@@ -1045,9 +1107,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-04-27）。当時の部屋名は「別館 音楽室」。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2024-04-27). The room was then called \"別館 音楽室\".\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-04-27）。当時の部屋名は「別館 音楽室」。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       },
       {
         "key": "ward-page-drums",
@@ -1059,18 +1121,20 @@
           "large_percussion",
           "taiko"
         ],
-        "note": "目黒区の施設案内に「太鼓、ドラムは全室利用ができません。」、この部屋について「太鼓や増幅器を必要とする楽器演奏はできません。」とある。ティンパニなども太鼓に含まれると読んで記録した。",
+        "note": "The Meguro City facility page says drums and drum kits cannot be used in any room, and that this room cannot be used for music that needs drums or amplifiers. We read \"drums\" as including timpani.\n目黒区の施設案内に「太鼓、ドラムは全室利用ができません。」、この部屋について「太鼓や増幅器を必要とする楽器演奏はできません。」とある。ティンパニなども太鼓に含まれると読んで記録した。",
         "sourceUrl": "https://www.city.meguro.tokyo.jp/shougaigakushuu/shisetsu/bunkakouryuu/kyoiku_midorigaoka.html",
-        "reportedBy": "公式ページからの取り込み"
+        "reportedBy": "Official website import / 公式ページからの取り込み"
       }
     ]
   },
   {
     "municipality": "世田谷区",
     "facilityName": "弦巻区民センター",
+    "facilityNameEn": "Tsurumaki Community Center",
     "roomName": "第２音楽室",
+    "roomNameEn": "Music Room 2",
     "capacity": 30,
-    "capacitySource": "世田谷区 けやきネットの施設別空き状況（2026-11-23）",
+    "capacitySource": "Setagaya City booking site (Keyaki-net), 2026-11-23 / 世田谷区 けやきネットの施設別空き状況（2026-11-23）",
     "nearestStation": null,
     "adapter": {
       "id": "setagaya",
@@ -1085,9 +1149,9 @@
         "instruments": [
           "wind"
         ],
-        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-09-21）。",
+        "note": "Imported from the band calendar. Used for rehearsals once (latest 2024-09-21).\n楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-09-21）。",
         "sourceUrl": null,
-        "reportedBy": "カレンダーからの取り込み"
+        "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
     ]
   }

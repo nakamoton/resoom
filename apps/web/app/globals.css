@@ -25,7 +25,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic UI', sans-serif;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic UI', sans-serif;
   font-size: 16px;
   line-height: 1.7;
 }
@@ -241,9 +241,8 @@ h2 {
 }
 
 .status-table th {
-  width: 7.5em;
+  width: 11em;
   font-weight: 600;
-  white-space: nowrap;
 }
 
 .status-table td.status {
@@ -412,12 +411,21 @@ button:focus-visible {
   margin: 0;
 }
 
-.room-list .capacity {
+.room-sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 16px;
   margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.room-sub .capacity {
+  color: var(--text);
   font-weight: 600;
 }
 
-.room-list .capacity.unknown {
+.room-sub .capacity.unknown {
   color: var(--muted);
   font-weight: 400;
 }
@@ -464,4 +472,155 @@ details.edit summary {
 
 details.edit[open] summary {
   margin-bottom: 12px;
+}
+
+/* ---- 英語を主に、日本語を併記 ---- */
+
+:lang(ja) {
+  font-family: 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic UI', 'Meiryo', system-ui, sans-serif;
+}
+
+.bi .ja {
+  margin-left: 0.45em;
+  font-size: 0.86em;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.bi.stack .ja {
+  display: block;
+  margin-left: 0;
+  margin-top: 1px;
+}
+
+h1 .bi.stack .ja {
+  font-size: 15px;
+}
+
+h2 .bi.stack .ja {
+  font-size: 13px;
+}
+
+/* 色付きの背景の上では、日本語も同じ色で少し薄く */
+.button .ja,
+.chip .ja,
+.tabs a[aria-current='page'] .ja,
+.notice .ja,
+.field-error .ja {
+  color: inherit;
+  opacity: 0.85;
+}
+
+.brand .bi {
+  margin-left: 6px;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.brand .bi .ja {
+  font-size: 13px;
+}
+
+.room-title .bi.stack .ja {
+  font-size: 13px;
+}
+
+.chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 3px 10px;
+  border-radius: 10px;
+  line-height: 1.3;
+  white-space: normal;
+}
+
+.chip .ja {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.choices label .bi.stack {
+  line-height: 1.35;
+}
+
+.choices label .bi.stack .ja {
+  font-size: 12px;
+}
+
+legend .optional,
+label.label .optional {
+  margin-left: 8px;
+}
+
+.optional .bi .ja {
+  font-size: 1em;
+}
+
+.status-table th .bi.stack .ja {
+  font-size: 12px;
+}
+
+.status-table .basis .basis-head {
+  display: block;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.status-table .basis .note,
+.history .note {
+  display: block;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.facts dt .bi.stack .ja {
+  font-size: 12px;
+}
+
+.facts dt {
+  width: 9em;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+textarea::placeholder,
+input::placeholder {
+  color: #7a8581;
+}
+
+/* スマホ幅では、状態の表を縦に積む */
+@media (max-width: 560px) {
+  .status-table,
+  .status-table tbody,
+  .status-table tr,
+  .status-table th,
+  .status-table td {
+    display: block;
+    width: auto;
+  }
+
+  .status-table tr {
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .status-table tr:first-child {
+    border-top: 0;
+  }
+
+  .status-table th,
+  .status-table td {
+    border-top: 0;
+    padding: 2px 0;
+  }
+
+  .facts dt {
+    width: auto;
+  }
 }

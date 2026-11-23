@@ -2,12 +2,14 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { validateNewEvidence, validateNewRoom, validateRoomBasics, type FieldErrors } from '@resoom/core';
+import { validateNewEvidence, validateNewRoom, validateRoomBasics, type FieldErrors, type LocalizedText } from '@resoom/core';
 import { DuplicateRoomError, addEvidence, createRoom, getDb, getRoom, updateRoomBasics } from '@resoom/db';
+import { T } from '../_i18n/texts';
 
 export interface FormState {
   status: 'idle' | 'error' | 'saved';
-  message?: string;
+  message?: LocalizedText;
+  /** 項目ごとのエラーコード */
   errors: FieldErrors;
   /** エラー時に入力内容を戻すための値 */
   values: Record<string, string | string[]>;
@@ -35,20 +37,24 @@ export async function addEvidenceAction(roomId: string, _prev: FormState, form: 
     reportedBy: single(form, 'reportedBy'),
   };
   const checked = validateNewEvidence(values, todayInJapan());
-  if (!checked.ok) {
-    return { status: 'error', message: '入力内容を確認してください。', errors: checked.errors, values };
-  }
+  if (!checked.ok) return { status: 'error', message: T.checkFields, errors: checked.errors, values };
 
   const db = await getDb();
-  if (!(await getRoom(db, roomId))) {
-    return { status: 'error', message: 'この部屋は見つかりませんでした。', errors: {}, values };
-  }
+  if (!(await getRoom(db, roomId))) return { status: 'error', message: T.roomNotFound, errors: {}, values };
   await addEvidence(db, roomId, checked.value);
   revalidatePath('/rooms');
   revalidatePath(`/rooms/${roomId}`);
   // 続けて入力しやすいよう、記録者の名前だけ残す
-  return { status: 'saved', message: '記録しました。', errors: {}, values: { reportedBy: checked.value.reportedBy } };
+  return { status: 'saved', message: T.recordSaved, errors: {}, values: { reportedBy: checked.value.reportedBy } };
 }
+
+const roomFields = (form: FormData) => ({
+  facilityNameEn: single(form, 'facilityNameEn'),
+  roomNameEn: single(form, 'roomNameEn'),
+  capacity: single(form, 'capacity'),
+  capacitySource: single(form, 'capacitySource'),
+  nearestStation: single(form, 'nearestStation'),
+});
 
 /** 部屋を追加し、その部屋のページへ移動する。 */
 export async function createRoomAction(_prev: FormState, form: FormData): Promise<FormState> {
@@ -56,21 +62,17 @@ export async function createRoomAction(_prev: FormState, form: FormData): Promis
     municipality: single(form, 'municipality'),
     facilityName: single(form, 'facilityName'),
     roomName: single(form, 'roomName'),
-    capacity: single(form, 'capacity'),
-    capacitySource: single(form, 'capacitySource'),
-    nearestStation: single(form, 'nearestStation'),
+    ...roomFields(form),
   };
   const checked = validateNewRoom(values);
-  if (!checked.ok) {
-    return { status: 'error', message: '入力内容を確認してください。', errors: checked.errors, values };
-  }
+  if (!checked.ok) return { status: 'error', message: T.checkFields, errors: checked.errors, values };
 
   let id: string;
   try {
     id = await createRoom(await getDb(), checked.value);
   } catch (error) {
     if (error instanceof DuplicateRoomError) {
-      return { status: 'error', message: error.message, errors: { roomName: 'この部屋はすでに登録されています' }, values };
+      return { status: 'error', message: T.roomDuplicateMessage, errors: { roomName: 'roomDuplicate' }, values };
     }
     throw error;
   }
@@ -78,30 +80,27 @@ export async function createRoomAction(_prev: FormState, form: FormData): Promis
   redirect(`/rooms/${id}`);
 }
 
-/** 部屋の定員・定員の出典・最寄駅を直す。 */
+/** 部屋の英語名・定員・定員の出典・最寄駅を直す。 */
 export async function updateRoomBasicsAction(roomId: string, _prev: FormState, form: FormData): Promise<FormState> {
-  const values = {
-    capacity: single(form, 'capacity'),
-    capacitySource: single(form, 'capacitySource'),
-    nearestStation: single(form, 'nearestStation'),
-  };
+  const values = roomFields(form);
   const checked = validateRoomBasics(values);
-  if (!checked.ok) {
-    return { status: 'error', message: '入力内容を確認してください。', errors: checked.errors, values };
-  }
+  if (!checked.ok) return { status: 'error', message: T.checkFields, errors: checked.errors, values };
   if (!(await updateRoomBasics(await getDb(), roomId, checked.value))) {
-    return { status: 'error', message: 'この部屋は見つかりませんでした。', errors: {}, values };
+    return { status: 'error', message: T.roomNotFound, errors: {}, values };
   }
   revalidatePath('/rooms');
   revalidatePath(`/rooms/${roomId}`);
+  const v = checked.value;
   return {
     status: 'saved',
-    message: '基本情報を保存しました。',
+    message: T.basicsSaved,
     errors: {},
     values: {
-      capacity: checked.value.capacity === null ? '' : String(checked.value.capacity),
-      capacitySource: checked.value.capacitySource ?? '',
-      nearestStation: checked.value.nearestStation ?? '',
+      facilityNameEn: v.facilityNameEn ?? '',
+      roomNameEn: v.roomNameEn ?? '',
+      capacity: v.capacity === null ? '' : String(v.capacity),
+      capacitySource: v.capacitySource ?? '',
+      nearestStation: v.nearestStation ?? '',
     },
   };
 }

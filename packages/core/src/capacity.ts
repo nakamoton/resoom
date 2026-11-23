@@ -1,3 +1,5 @@
+import type { LocalizedText } from './i18n';
+
 /** 人数で部屋を絞った結果。 */
 export interface CapacityFilterResult<R> {
   /** 定員が人数以上の部屋 */
@@ -31,7 +33,9 @@ export function parsePeople(value: string | null | undefined): number | null | u
   return Number(text);
 }
 
-/** 例: 「定員 50人」「定員 未登録」 */
-export function capacityLabel(capacity: number | null): string {
-  return capacity === null ? '定員 未登録' : `定員 ${capacity}人`;
+/** 例: 「Capacity 50 / 定員 50人」「Capacity unknown / 定員 未登録」 */
+export function capacityLabel(capacity: number | null): LocalizedText {
+  return capacity === null
+    ? { en: 'Capacity unknown', ja: '定員 未登録' }
+    : { en: `Capacity ${capacity}`, ja: `定員 ${capacity}人` };
 }
