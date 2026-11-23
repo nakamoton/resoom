@@ -7,6 +7,7 @@ export {
   importSeed,
   listMunicipalities,
   listRooms,
+  updateRoomBasics,
   type RoomWithEvidences,
   type SeedRoom,
 } from './rooms';

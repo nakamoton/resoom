@@ -11,6 +11,8 @@ export const rooms = pgTable(
     facilityName: text('facility_name').notNull(),
     roomName: text('room_name').notNull(),
     capacity: integer('capacity'),
+    /** 定員の出典（例: 「うぐいすネットの部屋一覧（2026-11-23）」）。定員が分からなければ null */
+    capacitySource: text('capacity_source'),
     nearestStation: text('nearest_station'),
     /** 空き状況を取得するアダプタ（例: ota）。未対応の部屋は null */
     adapterId: text('adapter_id'),

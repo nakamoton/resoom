@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { validateNewEvidence, validateNewRoom } from '../src/validation';
+import { validateNewEvidence, validateNewRoom, validateRoomBasics } from '../src/validation';
 
 const TODAY = '2026-11-23';
 const evidence = (overrides: Record<string, unknown> = {}) => ({
@@ -83,7 +83,14 @@ describe('validateNewRoom', () => {
   it('正しい入力を受け付ける', () => {
     expect(validateNewRoom(room())).toEqual({
       ok: true,
-      value: { municipality: '大田区', facilityName: '大田区民プラザ', roomName: '第一音楽スタジオ', capacity: 50, nearestStation: '下丸子' },
+      value: {
+        municipality: '大田区',
+        facilityName: '大田区民プラザ',
+        roomName: '第一音楽スタジオ',
+        capacity: 50,
+        capacitySource: null,
+        nearestStation: '下丸子',
+      },
     });
   });
 
@@ -101,5 +108,28 @@ describe('validateNewRoom', () => {
     ['capacity', { capacity: '0' }, '定員は1〜9999の数字で入力してください'],
   ])('%s が不正なら、その項目のエラーを返す', (field, overrides, message) => {
     expect(validateNewRoom(room(overrides))).toEqual({ ok: false, errors: { [field]: message } });
+  });
+});
+
+describe('validateRoomBasics', () => {
+  it('定員・出典・最寄駅を受け付け、前後の空白を取り除く', () => {
+    expect(validateRoomBasics({ capacity: ' 60 ', capacitySource: ' 施設に電話で確認 ', nearestStation: ' 沼部 ' })).toEqual({
+      ok: true,
+      value: { capacity: 60, capacitySource: '施設に電話で確認', nearestStation: '沼部' },
+    });
+  });
+
+  it('すべて空でもよい', () => {
+    expect(validateRoomBasics({})).toEqual({ ok: true, value: { capacity: null, capacitySource: null, nearestStation: null } });
+  });
+
+  it.each([
+    ['capacity', { capacity: '十' }, '定員は1〜9999の数字で入力してください'],
+    ['capacity', { capacity: '10000' }, '定員は1〜9999の数字で入力してください'],
+    ['capacitySource', { capacity: '60', capacitySource: 'あ'.repeat(201) }, '200文字以内で入力してください'],
+    ['capacitySource', { capacitySource: '出典だけ' }, '定員を入力するか、出典を空にしてください'],
+    ['nearestStation', { nearestStation: 'あ'.repeat(41) }, '40文字以内で入力してください'],
+  ])('%s が不正なら、その項目のエラーを返す', (field, raw, message) => {
+    expect(validateRoomBasics(raw)).toEqual({ ok: false, errors: { [field]: message } });
   });
 });

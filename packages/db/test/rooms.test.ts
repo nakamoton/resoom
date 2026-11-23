@@ -9,6 +9,7 @@ import {
   listMunicipalities,
   listRooms,
   openDb,
+  updateRoomBasics,
   type Db,
   type SeedRoom,
 } from '../src/index';
@@ -18,6 +19,7 @@ const room = (overrides: Partial<NewRoomInput> = {}): NewRoomInput => ({
   facilityName: '嶺町文化センター',
   roomName: '第一集会室',
   capacity: null,
+  capacitySource: null,
   nearestStation: null,
   ...overrides,
 });
@@ -80,6 +82,30 @@ describe('部屋の登録と取得', () => {
     ]);
     expect((await listRooms(db, { municipality: '川崎市' })).map((r) => r.facilityName)).toEqual(['中原市民館']);
     expect(await listMunicipalities(db)).toEqual(['大田区', '川崎市']);
+  });
+});
+
+describe('基本情報の更新', () => {
+  it('定員・定員の出典・最寄駅を更新する', async () => {
+    const id = await createRoom(db, room());
+
+    expect(await updateRoomBasics(db, id, { capacity: 60, capacitySource: '施設に電話で確認', nearestStation: '沼部' })).toBe(true);
+
+    expect(await getRoom(db, id)).toMatchObject({ capacity: 60, capacitySource: '施設に電話で確認', nearestStation: '沼部' });
+  });
+
+  it('空にもできる', async () => {
+    const id = await createRoom(db, room({ capacity: 60, capacitySource: '出典', nearestStation: '沼部' }));
+
+    await updateRoomBasics(db, id, { capacity: null, capacitySource: null, nearestStation: null });
+
+    expect(await getRoom(db, id)).toMatchObject({ capacity: null, capacitySource: null, nearestStation: null });
+  });
+
+  it('存在しない部屋や id の形でない文字列には false を返す', async () => {
+    const input = { capacity: 1, capacitySource: null, nearestStation: null };
+    expect(await updateRoomBasics(db, '00000000-0000-4000-8000-000000000000', input)).toBe(false);
+    expect(await updateRoomBasics(db, 'x', input)).toBe(false);
   });
 });
 
@@ -159,15 +185,35 @@ describe('初期データの取り込み', () => {
     expect(all.map((r) => r.evidences.length)).toEqual([1, 1]);
   });
 
-  it('画面から追加された記録を消さず、基本情報だけ更新する', async () => {
+  it('画面で直した定員と最寄駅は、取り込み直しても上書きしない', async () => {
+    await importSeed(db, seed);
+    const [plaza] = await listRooms(db, { adapterId: 'ota' });
+    await updateRoomBasics(db, plaza!.id, { capacity: 45, capacitySource: '実際に合奏して確認', nearestStation: '下丸子' });
+
+    await importSeed(db, seed);
+
+    expect(await getRoom(db, plaza!.id)).toMatchObject({ capacity: 45, capacitySource: '実際に合奏して確認', nearestStation: '下丸子' });
+  });
+
+  it('定員が空の部屋は、取り込みで定員と出典を埋める', async () => {
+    await importSeed(db, [{ ...seed[1]!, capacity: null, capacitySource: null }]);
+    expect((await listRooms(db))[0]?.capacity).toBeNull();
+
+    await importSeed(db, [{ ...seed[1]!, capacity: 60, capacitySource: 'うぐいすネットの部屋一覧' }]);
+
+    expect((await listRooms(db))[0]).toMatchObject({ capacity: 60, capacitySource: 'うぐいすネットの部屋一覧' });
+  });
+
+  it('画面から追加された記録を消さず、照会の設定は取り込みの内容で更新する', async () => {
     await importSeed(db, seed);
     const [plaza] = await listRooms(db, { adapterId: 'ota' });
     await addEvidence(db, plaza!.id, evidence({ note: '画面から追加' }));
 
-    await importSeed(db, [{ ...seed[0]!, capacity: 54 }]);
+    await importSeed(db, [{ ...seed[0]!, capacity: 54, adapter: { id: 'ota', facilityCode: '131113_001_99' } }]);
 
     const after = await getRoom(db, plaza!.id);
-    expect(after?.capacity).toBe(54);
+    expect(after?.adapterFacilityCode).toBe('131113_001_99');
+    expect(after?.capacity).toBe(50);
     expect(after?.evidences.map((e) => e.note)).toContain('画面から追加');
     expect(after?.evidences).toHaveLength(2);
   });

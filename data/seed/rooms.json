@@ -4,6 +4,7 @@
     "facilityName": "大田区民プラザ",
     "roomName": "第一音楽スタジオ",
     "capacity": 50,
+    "capacitySource": "大田区 うぐいすネットの部屋一覧（2026-11-23）",
     "nearestStation": "下丸子",
     "adapter": {
       "id": "ota",
@@ -42,7 +43,8 @@
     "municipality": "大田区",
     "facilityName": "嶺町文化センター",
     "roomName": "第一集会室",
-    "capacity": null,
+    "capacity": 60,
+    "capacitySource": "大田区 うぐいすネットの部屋一覧（2026-11-23）",
     "nearestStation": "雪が谷大塚",
     "adapter": {
       "id": "ota",
@@ -79,7 +81,8 @@
     "municipality": "大田区",
     "facilityName": "池上文化センター",
     "roomName": "第一集会室",
-    "capacity": null,
+    "capacity": 65,
+    "capacitySource": "大田区 うぐいすネットの部屋一覧（2026-11-23）",
     "nearestStation": "池上",
     "adapter": {
       "id": "ota",
@@ -119,6 +122,7 @@
     "facilityName": "かわさき老人福祉・地域交流センター",
     "roomName": "ホール（多目的室）",
     "capacity": 210,
+    "capacitySource": "楽団カレンダーの記載",
     "nearestStation": "八丁畷",
     "evidences": [
       {
@@ -154,6 +158,7 @@
     "facilityName": "かわさき老人福祉・地域交流センター",
     "roomName": "大広間",
     "capacity": 72,
+    "capacitySource": "楽団カレンダーの記載",
     "nearestStation": "八丁畷",
     "evidences": [
       {
@@ -189,6 +194,7 @@
     "facilityName": "カルッツかわさき",
     "roomName": "音楽練習室１",
     "capacity": 10,
+    "capacitySource": "楽団カレンダーの記載",
     "nearestStation": null,
     "adapter": {
       "id": "kawasaki",
@@ -228,6 +234,7 @@
     "facilityName": "プラザ大師",
     "roomName": "第１・第２学習室合併",
     "capacity": 66,
+    "capacitySource": "楽団カレンダーの記載",
     "nearestStation": "川崎大師",
     "adapter": {
       "id": "kawasaki",
@@ -267,6 +274,7 @@
     "facilityName": "中原市民館",
     "roomName": "視聴覚室",
     "capacity": 60,
+    "capacitySource": "楽団カレンダーの記載",
     "nearestStation": "武蔵小杉",
     "adapter": {
       "id": "kawasaki",
@@ -306,6 +314,7 @@
     "facilityName": "中原市民館",
     "roomName": "音楽室",
     "capacity": 42,
+    "capacitySource": "楽団カレンダーの記載",
     "nearestStation": "武蔵小杉",
     "adapter": {
       "id": "kawasaki",
@@ -345,6 +354,7 @@
     "facilityName": "多摩市民館",
     "roomName": "大会議室",
     "capacity": null,
+    "capacitySource": null,
     "nearestStation": null,
     "adapter": {
       "id": "kawasaki",
@@ -370,6 +380,7 @@
     "facilityName": "宮前市民館",
     "roomName": "視聴覚室",
     "capacity": null,
+    "capacitySource": null,
     "nearestStation": "宮前平",
     "adapter": {
       "id": "kawasaki",
@@ -409,6 +420,7 @@
     "facilityName": "幸市民館",
     "roomName": "音楽室",
     "capacity": 40,
+    "capacitySource": "楽団カレンダーの記載",
     "nearestStation": "矢向",
     "adapter": {
       "id": "kawasaki",
@@ -448,6 +460,7 @@
     "facilityName": "高津市民館",
     "roomName": "第１音楽室",
     "capacity": 60,
+    "capacitySource": "楽団カレンダーの記載",
     "nearestStation": "溝の口",
     "adapter": {
       "id": "kawasaki",
@@ -487,6 +500,7 @@
     "facilityName": "高津市民館",
     "roomName": "視聴覚室",
     "capacity": 50,
+    "capacitySource": "楽団カレンダーの記載",
     "nearestStation": "溝の口",
     "adapter": {
       "id": "kawasaki",
@@ -526,6 +540,7 @@
     "facilityName": "麻生市民館",
     "roomName": "視聴覚室",
     "capacity": null,
+    "capacitySource": null,
     "nearestStation": null,
     "adapter": {
       "id": "kawasaki",
@@ -550,7 +565,8 @@
     "municipality": "渋谷区",
     "facilityName": "地域交流センター恵比寿",
     "roomName": "コミュニティホール",
-    "capacity": null,
+    "capacity": 200,
+    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）",
     "nearestStation": null,
     "adapter": {
       "id": "shibuya",
@@ -575,7 +591,8 @@
     "municipality": "渋谷区",
     "facilityName": "地域交流センター新橋",
     "roomName": "コミュニティホール",
-    "capacity": null,
+    "capacity": 240,
+    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）",
     "nearestStation": "恵比寿",
     "adapter": {
       "id": "shibuya",
@@ -615,6 +632,7 @@
     "facilityName": "地域交流センター新橋",
     "roomName": "文化ふれあい広場",
     "capacity": 100,
+    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）",
     "nearestStation": "恵比寿",
     "adapter": {
       "id": "shibuya",
@@ -654,6 +672,7 @@
     "facilityName": "幡ケ谷社会教育館",
     "roomName": "大学習室",
     "capacity": 90,
+    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）",
     "nearestStation": "幡ヶ谷",
     "adapter": {
       "id": "shibuya",
@@ -679,6 +698,7 @@
     "facilityName": "文化総合センター大和田",
     "roomName": "大練習室",
     "capacity": 70,
+    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）。ピアノを置いたコーラスでの利用を想定した人数",
     "nearestStation": "渋谷",
     "adapter": {
       "id": "shibuya",
@@ -717,7 +737,8 @@
     "municipality": "渋谷区",
     "facilityName": "文化総合センター大和田",
     "roomName": "練習室３",
-    "capacity": null,
+    "capacity": 30,
+    "capacitySource": "渋谷区施設予約システムの部屋一覧（2026-11-23）。ピアノを置いたコーラスでの利用を想定した人数",
     "nearestStation": "渋谷",
     "adapter": {
       "id": "shibuya",
@@ -757,6 +778,7 @@
     "facilityName": "タワーホール船堀",
     "roomName": "リハーサル室",
     "capacity": null,
+    "capacitySource": null,
     "nearestStation": "船堀",
     "evidences": [
       {
@@ -792,6 +814,7 @@
     "facilityName": "江戸川区総合文化センター",
     "roomName": "リハーサル室",
     "capacity": null,
+    "capacitySource": null,
     "nearestStation": null,
     "evidences": [
       {
@@ -812,7 +835,8 @@
     "municipality": "品川区",
     "facilityName": "品川区立中小企業センター",
     "roomName": "音楽室",
-    "capacity": null,
+    "capacity": 50,
+    "capacitySource": "品川区立中小企業センター 利用ガイド",
     "nearestStation": null,
     "adapter": {
       "id": "shinagawa",
@@ -838,6 +862,7 @@
     "facilityName": "アカデミー湯島",
     "roomName": "視聴覚室",
     "capacity": 56,
+    "capacitySource": "楽団カレンダーの記載",
     "nearestStation": "湯島",
     "evidences": [
       {
@@ -873,6 +898,7 @@
     "facilityName": "森下文化センター",
     "roomName": "AVホール",
     "capacity": null,
+    "capacitySource": null,
     "nearestStation": null,
     "evidences": [
       {
@@ -894,6 +920,7 @@
     "facilityName": "めぐろパーシモンホール",
     "roomName": "第１練習室",
     "capacity": null,
+    "capacitySource": null,
     "nearestStation": "都立大学",
     "evidences": [
       {
@@ -915,6 +942,7 @@
     "facilityName": "めぐろパーシモンホール",
     "roomName": "リハーサル室",
     "capacity": null,
+    "capacitySource": null,
     "nearestStation": "都立大学",
     "evidences": [
       {
@@ -936,6 +964,7 @@
     "facilityName": "目黒本町社会教育館",
     "roomName": "301視聴覚室（旧第1研修室）",
     "capacity": 30,
+    "capacitySource": "目黒区の施設案内（目黒本町社会教育館）",
     "nearestStation": null,
     "evidences": [
       {
@@ -983,6 +1012,7 @@
     "facilityName": "上目黒住区センター",
     "roomName": "B103（音楽室）",
     "capacity": 48,
+    "capacitySource": "目黒区の施設案内（上目黒住区センター）",
     "nearestStation": null,
     "evidences": [
       {
@@ -1004,6 +1034,7 @@
     "facilityName": "緑が丘文化会館",
     "roomName": "別館203（音楽室）",
     "capacity": 55,
+    "capacitySource": "目黒区の施設案内（緑が丘文化会館）",
     "nearestStation": null,
     "evidences": [
       {
@@ -1039,6 +1070,7 @@
     "facilityName": "弦巻区民センター",
     "roomName": "第２音楽室",
     "capacity": 30,
+    "capacitySource": "世田谷区 けやきネットの施設別空き状況（2026-11-23）",
     "nearestStation": null,
     "adapter": {
       "id": "setagaya",

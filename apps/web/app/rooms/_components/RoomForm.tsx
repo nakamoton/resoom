@@ -95,6 +95,21 @@ export function RoomForm({ municipalities }: { municipalities: string[] }) {
       </div>
 
       <div className="field">
+        <label className="label" htmlFor="capacitySource">
+          定員の出典<span className="optional">任意</span>
+        </label>
+        <input
+          type="text"
+          id="capacitySource"
+          name="capacitySource"
+          defaultValue={text('capacitySource')}
+          placeholder="例: 予約システムの部屋一覧、施設に電話で確認"
+          aria-describedby={describedBy('capacitySource')}
+        />
+        {fieldError('capacitySource')}
+      </div>
+
+      <div className="field">
         <label className="label" htmlFor="nearestStation">
           最寄駅<span className="optional">任意</span>
         </label>

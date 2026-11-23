@@ -5,10 +5,12 @@ import {
   EVIDENCE_KIND_LABELS,
   INSTRUMENT_CLASSES,
   INSTRUMENT_LABELS,
+  capacityLabel,
   effectivePolicy,
 } from '@resoom/core';
 import { getDb, getRoom } from '@resoom/db';
 import { EvidenceForm } from '../_components/EvidenceForm';
+import { RoomBasicsForm } from '../_components/RoomBasicsForm';
 import { StatusChip } from '../_components/StatusChip';
 
 export const dynamic = 'force-dynamic';
@@ -26,7 +28,7 @@ export default async function RoomPage({ params }: Props) {
 
   const policy = effectivePolicy(room.evidences);
   const today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Tokyo' }).format(new Date());
-  const facts = [room.municipality, room.capacity ? `定員 ${room.capacity}人` : null, room.nearestStation ? `最寄駅 ${room.nearestStation}` : null];
+  const facts = [room.municipality, capacityLabel(room.capacity), room.nearestStation ? `最寄駅 ${room.nearestStation}` : null];
 
   return (
     <>
@@ -37,6 +39,35 @@ export default async function RoomPage({ params }: Props) {
         {room.facilityName} {room.roomName}
       </h1>
       <p className="lead">{facts.filter(Boolean).join('・')}</p>
+
+      <h2>基本情報</h2>
+      <div className="card">
+        <dl className="facts">
+          <div>
+            <dt>定員</dt>
+            <dd>
+              {room.capacity === null ? '未登録' : `${room.capacity}人`}
+              {room.capacitySource ? <span className="source">出典: {room.capacitySource}</span> : null}
+            </dd>
+          </div>
+          <div>
+            <dt>最寄駅</dt>
+            <dd>{room.nearestStation ?? '未登録'}</dd>
+          </div>
+        </dl>
+        <details className="edit">
+          <summary>基本情報を直す</summary>
+          <RoomBasicsForm
+            roomId={room.id}
+            capacity={room.capacity}
+            capacitySource={room.capacitySource}
+            nearestStation={room.nearestStation}
+          />
+        </details>
+      </div>
+      <p className="hint">
+        施設の公式の定員は、楽器や譜面台を置いたときに実際に入れる人数とは限りません。どこで確かめた人数かは出典で確認してください。
+      </p>
 
       <h2>現在の状態</h2>
       <div className="card">

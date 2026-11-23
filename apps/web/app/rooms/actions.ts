@@ -2,8 +2,8 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { validateNewEvidence, validateNewRoom, type FieldErrors } from '@resoom/core';
-import { DuplicateRoomError, addEvidence, createRoom, getDb, getRoom } from '@resoom/db';
+import { validateNewEvidence, validateNewRoom, validateRoomBasics, type FieldErrors } from '@resoom/core';
+import { DuplicateRoomError, addEvidence, createRoom, getDb, getRoom, updateRoomBasics } from '@resoom/db';
 
 export interface FormState {
   status: 'idle' | 'error' | 'saved';
@@ -57,6 +57,7 @@ export async function createRoomAction(_prev: FormState, form: FormData): Promis
     facilityName: single(form, 'facilityName'),
     roomName: single(form, 'roomName'),
     capacity: single(form, 'capacity'),
+    capacitySource: single(form, 'capacitySource'),
     nearestStation: single(form, 'nearestStation'),
   };
   const checked = validateNewRoom(values);
@@ -75,4 +76,32 @@ export async function createRoomAction(_prev: FormState, form: FormData): Promis
   }
   revalidatePath('/rooms');
   redirect(`/rooms/${id}`);
+}
+
+/** 部屋の定員・定員の出典・最寄駅を直す。 */
+export async function updateRoomBasicsAction(roomId: string, _prev: FormState, form: FormData): Promise<FormState> {
+  const values = {
+    capacity: single(form, 'capacity'),
+    capacitySource: single(form, 'capacitySource'),
+    nearestStation: single(form, 'nearestStation'),
+  };
+  const checked = validateRoomBasics(values);
+  if (!checked.ok) {
+    return { status: 'error', message: '入力内容を確認してください。', errors: checked.errors, values };
+  }
+  if (!(await updateRoomBasics(await getDb(), roomId, checked.value))) {
+    return { status: 'error', message: 'この部屋は見つかりませんでした。', errors: {}, values };
+  }
+  revalidatePath('/rooms');
+  revalidatePath(`/rooms/${roomId}`);
+  return {
+    status: 'saved',
+    message: '基本情報を保存しました。',
+    errors: {},
+    values: {
+      capacity: checked.value.capacity === null ? '' : String(checked.value.capacity),
+      capacitySource: checked.value.capacitySource ?? '',
+      nearestStation: checked.value.nearestStation ?? '',
+    },
+  };
 }

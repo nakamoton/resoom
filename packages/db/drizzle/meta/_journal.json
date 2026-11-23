@@ -15,6 +15,13 @@
       "when": 1795399421132,
       "tag": "0001_adapter_room_names",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795402283570,
+      "tag": "0002_capacity_source",
+      "breakpoints": true
     }
   ]
 }

@@ -10,12 +10,18 @@ import {
 export type FieldErrors = Record<string, string>;
 export type Validated<T> = { ok: true; value: T } | { ok: false; errors: FieldErrors };
 
-export interface NewRoomInput {
+/** 部屋の基本情報のうち、あとから直せる項目。 */
+export interface RoomBasicsInput {
+  capacity: number | null;
+  /** 定員の出典。定員が空なら null */
+  capacitySource: string | null;
+  nearestStation: string | null;
+}
+
+export interface NewRoomInput extends RoomBasicsInput {
   municipality: string;
   facilityName: string;
   roomName: string;
-  capacity: number | null;
-  nearestStation: string | null;
 }
 
 export interface NewEvidenceInput {
@@ -40,14 +46,35 @@ function isRealDate(value: string): boolean {
   return date.toISOString().slice(0, 10) === value;
 }
 
+/** 定員・定員の出典・最寄駅の入力を検証する。 */
+export function validateRoomBasics(raw: Raw): Validated<RoomBasicsInput> {
+  const errors: FieldErrors = {};
+  const capacityText = text(raw, 'capacity');
+  const capacitySource = text(raw, 'capacitySource');
+  const nearestStation = text(raw, 'nearestStation');
+
+  let capacity: number | null = null;
+  if (capacityText) {
+    if (!/^\d{1,4}$/.test(capacityText) || Number(capacityText) < 1) errors.capacity = '定員は1〜9999の数字で入力してください';
+    else capacity = Number(capacityText);
+  }
+  if (capacitySource.length > 200) errors.capacitySource = '200文字以内で入力してください';
+  else if (capacitySource && !capacityText) errors.capacitySource = '定員を入力するか、出典を空にしてください';
+  if (nearestStation.length > 40) errors.nearestStation = '40文字以内で入力してください';
+
+  if (Object.keys(errors).length > 0) return { ok: false, errors };
+  return {
+    ok: true,
+    value: { capacity, capacitySource: capacity === null ? null : capacitySource || null, nearestStation: nearestStation || null },
+  };
+}
+
 /** 部屋の追加フォームの入力を検証する。 */
 export function validateNewRoom(raw: Raw): Validated<NewRoomInput> {
   const errors: FieldErrors = {};
   const municipality = text(raw, 'municipality');
   const facilityName = text(raw, 'facilityName');
   const roomName = text(raw, 'roomName');
-  const capacityText = text(raw, 'capacity');
-  const nearestStation = text(raw, 'nearestStation');
 
   if (!municipality) errors.municipality = '自治体を入力してください';
   else if (municipality.length > 20) errors.municipality = '20文字以内で入力してください';
@@ -55,16 +82,11 @@ export function validateNewRoom(raw: Raw): Validated<NewRoomInput> {
   else if (facilityName.length > 80) errors.facilityName = '80文字以内で入力してください';
   if (!roomName) errors.roomName = '部屋名を入力してください';
   else if (roomName.length > 80) errors.roomName = '80文字以内で入力してください';
-  if (nearestStation.length > 40) errors.nearestStation = '40文字以内で入力してください';
 
-  let capacity: number | null = null;
-  if (capacityText) {
-    if (!/^\d{1,4}$/.test(capacityText) || Number(capacityText) < 1) errors.capacity = '定員は1〜9999の数字で入力してください';
-    else capacity = Number(capacityText);
-  }
-
-  if (Object.keys(errors).length > 0) return { ok: false, errors };
-  return { ok: true, value: { municipality, facilityName, roomName, capacity, nearestStation: nearestStation || null } };
+  const basics = validateRoomBasics(raw);
+  if (!basics.ok) Object.assign(errors, basics.errors);
+  if (Object.keys(errors).length > 0 || !basics.ok) return { ok: false, errors };
+  return { ok: true, value: { municipality, facilityName, roomName, ...basics.value } };
 }
 
 /** 記録の追加フォームの入力を検証する。today は「未来の日付」を弾くための今日（YYYY-MM-DD）。 */

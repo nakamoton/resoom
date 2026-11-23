@@ -1,5 +1,5 @@
 import { asc, desc, eq, sql } from 'drizzle-orm';
-import type { NewEvidenceInput, NewRoomInput } from '@resoom/core';
+import type { NewEvidenceInput, NewRoomInput, RoomBasicsInput } from '@resoom/core';
 import type { Db } from './client';
 import { policyEvidences, rooms, type PolicyEvidence, type Room } from './schema';
 
@@ -52,6 +52,13 @@ export async function createRoom(db: Db, input: NewRoomInput): Promise<string> {
   return created.id;
 }
 
+/** 部屋の定員・定員の出典・最寄駅を更新する。部屋がなければ false。 */
+export async function updateRoomBasics(db: Db, id: string, input: RoomBasicsInput): Promise<boolean> {
+  if (!UUID.test(id)) return false;
+  const updated = await db.update(rooms).set(input).where(eq(rooms.id, id)).returning({ id: rooms.id });
+  return updated.length > 0;
+}
+
 /** 部屋に記録を追加する。 */
 export async function addEvidence(db: Db, roomId: string, input: NewEvidenceInput): Promise<PolicyEvidence> {
   const [created] = await db.insert(policyEvidences).values({ roomId, ...input }).returning();
@@ -67,7 +74,8 @@ export interface SeedRoom extends NewRoomInput {
 
 /**
  * 初期データを取り込む。何度実行しても同じ結果になる。
- * すでにある部屋は基本情報だけ更新し、画面から追加された記録には触れない。
+ * すでにある部屋は照会の設定だけ更新する。定員と最寄駅は、まだ空のときだけ埋める
+ * （画面から入力・修正した値を上書きしない）。画面から追加された記録にも触れない。
  */
 export async function importSeed(db: Db, seed: SeedRoom[]): Promise<{ rooms: number; evidences: number }> {
   let evidenceCount = 0;
@@ -84,8 +92,9 @@ export async function importSeed(db: Db, seed: SeedRoom[]): Promise<{ rooms: num
       .onConflictDoUpdate({
         target: [rooms.municipality, rooms.facilityName, rooms.roomName],
         set: {
-          capacity: sql`excluded.capacity`,
-          nearestStation: sql`excluded.nearest_station`,
+          capacity: sql`coalesce(${rooms.capacity}, excluded.capacity)`,
+          capacitySource: sql`case when ${rooms.capacity} is null then excluded.capacity_source else ${rooms.capacitySource} end`,
+          nearestStation: sql`coalesce(${rooms.nearestStation}, excluded.nearest_station)`,
           adapterId: sql`excluded.adapter_id`,
           adapterFacilityCode: sql`excluded.adapter_facility_code`,
           adapterRoomNames: sql`excluded.adapter_room_names`,

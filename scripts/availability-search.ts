@@ -6,6 +6,7 @@
  * --municipality 自治体で絞る（例: 大田区）。カンマ区切りで複数指定できる。
  * --adapters     照会に使う自治体サイト（例: ota,shibuya,kawasaki）。省略すると既定のもの。
  *                川崎市（kawasaki）は固定のIPアドレスから動かす必要があるため、明示的に指定したときだけ使う。
+ * --people       人数。定員がこの人数に満たない部屋は照会しない（定員が未登録の部屋は照会する）。
  * --days         曜日で絞る（sun,mon,tue,wed,thu,fri,sat）。省略すると全曜日。
  * --dates        特に見たい日。結果の先頭にまとめて表示する。
  * --json         結果をJSONでファイルに保存する。
@@ -16,7 +17,7 @@
 import { writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import { ADAPTER_IDS, DEFAULT_ADAPTER_IDS, adapterNote, combineRooms, createAdapter, type AvailabilitySlot } from '@resoom/adapters';
-import { INSTRUMENT_LABELS, STATUS_LABELS, effectivePolicy, type InstrumentClass } from '@resoom/core';
+import { INSTRUMENT_LABELS, STATUS_LABELS, capacityLabel, effectivePolicy, filterByCapacity, parsePeople, type InstrumentClass } from '@resoom/core';
 import { closeDb, getDb, listRooms, type RoomWithEvidences } from '@resoom/db';
 
 /** 検索結果に添える打楽器の区分。 */
@@ -30,6 +31,7 @@ const { values } = parseArgs({
     to: { type: 'string' },
     municipality: { type: 'string' },
     adapters: { type: 'string' },
+    people: { type: 'string' },
     days: { type: 'string' },
     dates: { type: 'string' },
     json: { type: 'string' },
@@ -37,7 +39,7 @@ const { values } = parseArgs({
 });
 const { from, to } = values;
 if (!from || !to) {
-  console.error('使い方: pnpm availability --from YYYY-MM-DD --to YYYY-MM-DD [--municipality 大田区] [--adapters ota,shibuya] [--days sat,sun] [--dates YYYY-MM-DD,...] [--json 出力先]');
+  console.error('使い方: pnpm availability --from YYYY-MM-DD --to YYYY-MM-DD [--municipality 大田区] [--adapters ota,shibuya] [--people 45] [--days sat,sun] [--dates YYYY-MM-DD,...] [--json 出力先]');
   process.exit(1);
 }
 
@@ -52,6 +54,11 @@ const focusDates = new Set(list(values.dates));
 /** 問い合わせる日。曜日の指定があれば、その曜日と、特に見たい日だけにする（自治体サイトへの問い合わせを減らす）。 */
 const wantsDate = wantedDays ? (date: string): boolean => wantedDays.has(weekdayOf(date)) || focusDates.has(date) : undefined;
 const municipalities = new Set(list(values.municipality));
+const people = parsePeople(values.people);
+if (people === undefined) {
+  console.error('--people は1〜9999の数字で指定してください');
+  process.exit(1);
+}
 const adapterIds = new Set(values.adapters ? list(values.adapters) : DEFAULT_ADAPTER_IDS);
 const unknownAdapters = [...adapterIds].filter((id) => !ADAPTER_IDS.includes(id));
 if (unknownAdapters.length > 0) {
@@ -65,9 +72,12 @@ await closeDb();
 const inScope = allRooms.filter(
   (r) => r.adapterId !== null && r.adapterFacilityCode !== null && (municipalities.size === 0 || municipalities.has(r.municipality)),
 );
-const catalog = inScope.filter((r) => r.adapterId !== null && adapterIds.has(r.adapterId));
+const byAdapter = inScope.filter((r) => r.adapterId !== null && adapterIds.has(r.adapterId));
+// 定員が足りない部屋は照会しない（自治体サイトへの問い合わせも減る）。定員が分からない部屋は照会する。
+const { fits, unknown, tooSmall } = filterByCapacity(byAdapter, people);
+const catalog = [...fits, ...unknown];
 /** 照会の設定はあるが、今回は使わない自治体サイトの部屋。 */
-const skipped = inScope.filter((r) => !catalog.includes(r));
+const skipped = inScope.filter((r) => !byAdapter.includes(r));
 if (catalog.length === 0) {
   console.error('対象の部屋がありません。pnpm db:seed を実行したか、--municipality と --adapters の指定を確認してください。');
   process.exit(1);
@@ -82,10 +92,10 @@ const nameOf = (room: RoomWithEvidences): string => `${room.facilityName} ${room
 /** 自治体サイトでの部屋名。指定がなければ台帳の部屋名。 */
 const siteRoomsOf = (room: RoomWithEvidences): string[] => room.adapterRoomNames ?? [room.roomName];
 
-/** 例: 「小物打楽器:可 / ドラムセット:不可 / 大型打楽器:可」 */
-function percussionLabel(room: RoomWithEvidences): string {
+/** 例: 「定員 50人 / 小物打楽器:可 / ドラムセット:不可 / 大型打楽器:可」 */
+function roomLabel(room: RoomWithEvidences): string {
   const policy = effectivePolicy(room.evidences);
-  return PERCUSSION.map((cls) => `${INSTRUMENT_LABELS[cls]}:${STATUS_LABELS[policy[cls].status]}`).join(' / ');
+  return [capacityLabel(room.capacity), ...PERCUSSION.map((cls) => `${INSTRUMENT_LABELS[cls]}:${STATUS_LABELS[policy[cls].status]}`)].join(' / ');
 }
 
 // アダプタと会館ごとにまとめて問い合わせる。
@@ -132,6 +142,9 @@ if (values.json) {
   writeFileSync(values.json, JSON.stringify({ fetchedAt, coveredThrough: Object.fromEntries(coveredThrough), failures, slots: allSlots }, null, 1));
 }
 
+if (people !== null) {
+  console.log(`人数: ${people}人（定員が足りない ${tooSmall.length}部屋は照会していません。定員が未登録の ${unknown.length}部屋は照会しました）`);
+}
 console.log(`取得: ${allSlots.length} コマ（うち空き ${allSlots.filter((s) => s.status === 'available').length}）`);
 console.log(`取得時刻: ${fetchedAt || '-'}\n`);
 console.log('照会できた範囲:');
@@ -149,7 +162,7 @@ console.log('');
 function printDay(date: string): void {
   console.log(`${date}（${WEEKDAY_JA[weekdayOf(date)]}）`);
   for (const room of catalog) {
-    const label = `  ${room.municipality} ${nameOf(room)}［${percussionLabel(room)}］`;
+    const label = `  ${room.municipality} ${nameOf(room)}［${roomLabel(room)}］`;
     const slots = slotsByRoom.get(nameOf(room));
     if (!slots) {
       console.log(`${label} 取得できませんでした`);

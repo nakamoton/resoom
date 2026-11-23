@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { INSTRUMENT_CLASSES, effectivePolicy, type InstrumentClass } from '@resoom/core';
+import { INSTRUMENT_CLASSES, capacityLabel, effectivePolicy, filterByCapacity, parsePeople, type InstrumentClass } from '@resoom/core';
+import type { RoomWithEvidences } from '@resoom/db';
 import { getDb, listMunicipalities, listRooms } from '@resoom/db';
 import { StatusChip } from './_components/StatusChip';
 
@@ -24,12 +25,26 @@ const rank = (name: string): number => {
 };
 const byMunicipality = (a: string, b: string): number => rank(a) - rank(b) || a.localeCompare(b, 'ja');
 
-export default async function RoomsPage({ searchParams }: { searchParams: Promise<{ m?: string | string[] }> }) {
-  const { m } = await searchParams;
+type SearchParams = { m?: string | string[]; people?: string | string[] };
+
+/** 絞り込みの条件を保ったまま、一部だけ変えたURLを作る。 */
+function roomsHref(params: { m?: string; people?: number | null }): string {
+  const query = new URLSearchParams();
+  if (params.m) query.set('m', params.m);
+  if (params.people) query.set('people', String(params.people));
+  const text = query.toString();
+  return text ? `/rooms?${text}` : '/rooms';
+}
+
+export default async function RoomsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  const { m, people: peopleParam } = await searchParams;
+  const parsedPeople = parsePeople(typeof peopleParam === 'string' ? peopleParam : null);
+  const people = parsedPeople ?? null;
   const db = await getDb();
   const municipalities = (await listMunicipalities(db)).sort(byMunicipality);
   const selected = typeof m === 'string' && municipalities.includes(m) ? m : undefined;
   const rooms = (await listRooms(db, { municipality: selected })).sort((a, b) => byMunicipality(a.municipality, b.municipality));
+  const { fits, unknown, tooSmall } = filterByCapacity(rooms, people);
 
   return (
     <>
@@ -46,13 +61,13 @@ export default async function RoomsPage({ searchParams }: { searchParams: Promis
       <nav aria-label="自治体で絞り込む">
         <ul className="tabs">
           <li>
-            <Link href="/rooms" aria-current={selected ? undefined : 'page'}>
+            <Link href={roomsHref({ people })} aria-current={selected ? undefined : 'page'}>
               すべて
             </Link>
           </li>
           {municipalities.map((name) => (
             <li key={name}>
-              <Link href={`/rooms?m=${encodeURIComponent(name)}`} aria-current={selected === name ? 'page' : undefined}>
+              <Link href={roomsHref({ m: name, people })} aria-current={selected === name ? 'page' : undefined}>
                 {name}
               </Link>
             </li>
@@ -60,37 +75,81 @@ export default async function RoomsPage({ searchParams }: { searchParams: Promis
         </ul>
       </nav>
 
+      <form className="people-filter" action="/rooms" method="get">
+        {selected ? <input type="hidden" name="m" value={selected} /> : null}
+        <label htmlFor="people">人数</label>
+        <input
+          type="number"
+          id="people"
+          name="people"
+          min={1}
+          max={9999}
+          inputMode="numeric"
+          defaultValue={people ?? ''}
+          aria-describedby="people-hint"
+        />
+        <span>人以上が入れる部屋</span>
+        <button type="submit" className="button secondary">
+          絞り込む
+        </button>
+        {people ? <Link href={roomsHref({ m: selected })}>人数の指定をやめる</Link> : null}
+        <p className="hint" id="people-hint">
+          {parsedPeople === undefined
+            ? '人数は1〜9999の数字で入力してください。'
+            : '施設の公式の定員で絞り込みます。定員が分からない部屋は、別にまとめて表示します。'}
+        </p>
+      </form>
+
       {rooms.length === 0 ? (
         <p className="empty">まだ部屋がありません。「部屋を追加」から登録してください。</p>
       ) : (
-        <ul className="room-list">
-          {rooms.map((room) => {
-            const policy = effectivePolicy(room.evidences);
-            const latest = room.evidences[0];
-            return (
-              <li key={room.id}>
-                <Link href={`/rooms/${room.id}`} className="card">
-                  <p className="room-title">
-                    {room.facilityName} {room.roomName}
-                    <small>{room.municipality}</small>
-                  </p>
-                  <ul className="chips" aria-label="楽器ごとの可否">
-                    {INSTRUMENT_CLASSES.map((cls) => (
-                      <li key={cls}>
-                        <StatusChip status={policy[cls].status} prefix={SHORT_LABELS[cls]} />
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="meta">
-                    {room.capacity ? `定員 ${room.capacity}人・` : ''}
-                    {latest ? `記録 ${room.evidences.length}件（最新 ${latest.occurredOn}）` : '記録なし'}
-                  </p>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <>
+          {people ? (
+            <p className="meta" role="status">
+              定員 {people}人以上: {fits.length}部屋
+              {tooSmall.length > 0 ? `（定員が足りない ${tooSmall.length}部屋を除きました）` : ''}
+            </p>
+          ) : null}
+          {fits.length > 0 ? <RoomList rooms={fits} /> : <p className="empty">条件に合う部屋はありません。</p>}
+          {unknown.length > 0 ? (
+            <>
+              <h2>定員が未登録の部屋（{unknown.length}部屋）</h2>
+              <p className="hint">入れるかどうか判断できない部屋です。部屋のページで定員を登録できます。</p>
+              <RoomList rooms={unknown} />
+            </>
+          ) : null}
+        </>
       )}
     </>
+  );
+}
+
+function RoomList({ rooms }: { rooms: RoomWithEvidences[] }) {
+  return (
+    <ul className="room-list">
+      {rooms.map((room) => {
+        const policy = effectivePolicy(room.evidences);
+        const latest = room.evidences[0];
+        return (
+          <li key={room.id}>
+            <Link href={`/rooms/${room.id}`} className="card">
+              <p className="room-title">
+                {room.facilityName} {room.roomName}
+                <small>{room.municipality}</small>
+              </p>
+              <p className={`capacity ${room.capacity === null ? 'unknown' : ''}`}>{capacityLabel(room.capacity)}</p>
+              <ul className="chips" aria-label="楽器ごとの可否">
+                {INSTRUMENT_CLASSES.map((cls) => (
+                  <li key={cls}>
+                    <StatusChip status={policy[cls].status} prefix={SHORT_LABELS[cls]} />
+                  </li>
+                ))}
+              </ul>
+              <p className="meta">{latest ? `記録 ${room.evidences.length}件（最新 ${latest.occurredOn}）` : '記録なし'}</p>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
   );
 }

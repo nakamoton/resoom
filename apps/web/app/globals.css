@@ -390,3 +390,78 @@ button:focus-visible {
 .empty {
   color: var(--muted);
 }
+
+.people-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 0 0 16px;
+}
+
+.people-filter label {
+  font-weight: 600;
+}
+
+.people-filter input[type='number'] {
+  width: 6.5em;
+}
+
+.people-filter .hint {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.room-list .capacity {
+  margin: 4px 0 0;
+  font-weight: 600;
+}
+
+.room-list .capacity.unknown {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.facts {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.facts > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.facts dt {
+  width: 5em;
+  font-weight: 600;
+}
+
+.facts dd {
+  margin: 0;
+}
+
+.facts .source {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+details.edit {
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+details.edit summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+details.edit[open] summary {
+  margin-bottom: 12px;
+}
