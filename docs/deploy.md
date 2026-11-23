@@ -108,6 +108,12 @@ bash deploy/cloudshell.sh deploy
 
 コンテナを作り直し、データベースのマイグレーションを当ててから、画面を更新します。
 
+空き状況の定期取得の時刻（`deploy/cloudshell.sh` の `CRAWL_SCHEDULE`）を変えたときは、Cloud Shell で次を実行します（数秒で終わります）。自動公開では時刻は変わりません。
+
+```bash
+bash deploy/cloudshell.sh schedule
+```
+
 ## 7. 自動公開を設定する（1回だけ）
 
 GitHub Actions（`.github/workflows/deploy.yml`）が、`main` に入った変更をテストしてから公開するようにします。
@@ -152,7 +158,7 @@ bash deploy/cloudshell.sh github
 | 名前 | 種類 | 内容 |
 |---|---|---|
 | `resoom` | Cloud Run サービス | 画面。使われていない間は止まり、最初の表示に数秒かかります |
-| `resoom-crawl` | Cloud Run ジョブ | 空き状況の取得。毎日 6:15・12:15・18:15（日本時間）に Cloud Scheduler が起動します |
+| `resoom-crawl` | Cloud Run ジョブ | 空き状況の取得。毎日 7:15〜22:15 の3時間ごと（7:15・10:15・13:15・16:15・19:15・22:15、日本時間）に Cloud Scheduler が起動します。夜間は自治体サイトの受付時間外なので取得しません |
 | `resoom-migrate` | Cloud Run ジョブ | データベースのマイグレーション。更新のたびに実行します |
 | `resoom-seed` | Cloud Run ジョブ | 初期データ（部屋と記録）の取り込み。最初の公開で1回だけ実行します |
 | `resoom-*` | Secret Manager | データベースの接続文字列、ログインの鍵、OAuth の ID とシークレット |

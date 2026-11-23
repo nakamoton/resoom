@@ -6,6 +6,7 @@
 #   bash deploy/cloudshell.sh google   Google ログインの設定（OAuth クライアントを作ったあと）
 #   bash deploy/cloudshell.sh deploy   2回目以降の更新（main の最新を反映）
 #   bash deploy/cloudshell.sh github   GitHub からの自動公開の設定（1回だけ。設定のあと今の main を公開する）
+#   bash deploy/cloudshell.sh schedule 空き状況の定期取得の時刻だけを設定し直す（CRAWL_SCHEDULE を変えたとき）
 #
 # 秘密情報（データベースの接続文字列、OAuth のシークレット）は入力欄から Secret Manager に直接保存し、
 # 画面・履歴・ファイルには残さない。
@@ -18,7 +19,9 @@ SECRET_DB=resoom-database-url
 SECRET_AUTH=resoom-auth-secret
 SECRET_GOOGLE_ID=resoom-google-client-id
 SECRET_GOOGLE_SECRET=resoom-google-client-secret
-CRAWL_SCHEDULE='15 6,12,18 * * *' # 毎日 6:15・12:15・18:15（日本時間）
+# 空き状況の定期取得: 毎日 7:15〜22:15 の3時間ごと（7:15・10:15・13:15・16:15・19:15・22:15、日本時間）。
+# 夜間は自治体サイトの受付時間外（世田谷区 0〜7時、品川区 0〜5時、大田区 2〜5時）なので取得しない。
+CRAWL_SCHEDULE='15 7-22/3 * * *'
 
 say() { printf '\n== %s\n' "$*"; }
 die() { printf 'エラー: %s\n' "$*" >&2; exit 1; }
@@ -116,6 +119,23 @@ deploy_service() {
   fi
 }
 
+setup_schedule() { # 空き状況の定期取得（Cloud Scheduler → resoom-crawl ジョブ）を作る、または時刻を直す
+  local sa uri verb=create
+  sa=$(runtime_sa)
+  uri="https://run.googleapis.com/v2/projects/$PROJECT_ID/locations/$REGION/jobs/resoom-crawl:run"
+  say "空き状況の定期取得を設定します（$CRAWL_SCHEDULE、日本時間）"
+  gcloud run jobs add-iam-policy-binding resoom-crawl --region "$REGION" --member "serviceAccount:$sa" --role roles/run.invoker >/dev/null
+  gcloud scheduler jobs describe resoom-crawl --location "$REGION" >/dev/null 2>&1 && verb=update
+  gcloud scheduler jobs "$verb" http resoom-crawl --location "$REGION" --schedule "$CRAWL_SCHEDULE" \
+    --time-zone Asia/Tokyo --uri "$uri" --http-method POST --oauth-service-account-email "$sa" >/dev/null
+}
+
+cmd_schedule() {
+  require_config
+  setup_schedule
+  printf '\n定期取得の時刻を設定しました: %s（日本時間）\n' "$CRAWL_SCHEDULE"
+}
+
 cmd_init() {
   load_config
   say "最初の公開の設定"
@@ -176,12 +196,7 @@ JSON
 
   deploy_service
 
-  say "空き状況の定期取得を設定します（$CRAWL_SCHEDULE、日本時間）"
-  gcloud run jobs add-iam-policy-binding resoom-crawl --region "$REGION" --member "serviceAccount:$sa" --role roles/run.invoker >/dev/null
-  local uri="https://run.googleapis.com/v2/projects/$PROJECT_ID/locations/$REGION/jobs/resoom-crawl:run" verb=create
-  gcloud scheduler jobs describe resoom-crawl --location "$REGION" >/dev/null 2>&1 && verb=update
-  gcloud scheduler jobs "$verb" http resoom-crawl --location "$REGION" --schedule "$CRAWL_SCHEDULE" \
-    --time-zone Asia/Tokyo --uri "$uri" --http-method POST --oauth-service-account-email "$sa" >/dev/null
+  setup_schedule
   say "最初の空き状況の取得を始めます（終わるまで数分かかります。待たずに次へ進めます）"
   gcloud run jobs execute resoom-crawl --region "$REGION" --async >/dev/null
 
@@ -300,8 +315,9 @@ case "${1:-}" in
   google) cmd_google ;;
   deploy) cmd_deploy ;;
   github) cmd_github ;;
+  schedule) cmd_schedule ;;
   *)
-    sed -n '2,11p' "$0"
+    sed -n '2,12p' "$0"
     exit 1
     ;;
 esac

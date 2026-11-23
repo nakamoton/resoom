@@ -5,23 +5,29 @@ const TODAY = '2026-11-23';
 const CITIES = ['大田区', '渋谷区'];
 
 describe('parseSearch', () => {
-  it('何も指定しなければ、今日から31日間・土日祝・和太鼓以外の楽器・可否が未確認の部屋も含め・全自治体で検索する', () => {
+  it('何も指定しなければ、今日から92日間・50人・土日祝・和太鼓以外の楽器・可否が未確認の部屋も含め・全自治体で検索する', () => {
     const { criteria, form, invalidDates, invalidPeople } = parseSearch({}, TODAY, CITIES);
 
     expect(criteria).toEqual({
       from: '2026-11-23',
-      to: '2026-12-23',
+      to: '2027-02-22',
       weekdays: [0, 6],
       holidays: true,
       timesOfDay: null,
-      people: null,
+      people: 50,
       needs: ['wind', 'small_percussion', 'drum_set', 'large_percussion'],
       includeUnknown: true,
       municipalities: null,
     });
     expect([invalidDates, invalidPeople]).toEqual([false, false]);
     // 入力欄では、土・日・祝とすべての自治体にチェックが入る
-    expect([form.days, form.holidays, form.municipalities]).toEqual([[0, 6], true, ['大田区', '渋谷区']]);
+    expect([form.days, form.holidays, form.municipalities, form.people]).toEqual([[0, 6], true, ['大田区', '渋谷区'], '50']);
+  });
+
+  it('フォームから人数を空欄で送ったときは、人数で絞らない', () => {
+    const { criteria, form, invalidPeople } = parseSearch({ s: '1', people: '' }, TODAY, CITIES);
+
+    expect([criteria.people, form.people, invalidPeople]).toEqual([null, '', false]);
   });
 
   it('フォームから送られたときは、曜日・祝日・自治体をすべて外した状態をそのまま読む（すべての日・自治体が対象）', () => {

@@ -23,7 +23,11 @@ export interface ParsedSearch {
 }
 
 const MAX_DAYS = 400;
-const DEFAULT_DAYS = 31;
+/** 既定の期間（今日を含む日数）。空き状況を集めている範囲（今日から92日先まで）に合わせる。 */
+const DEFAULT_DAYS = 92;
+
+/** 最初に開いたときの人数（楽団のふだんの人数）。 */
+export const DEFAULT_PEOPLE = 50;
 
 /** 最初に開いたときに選んでおく楽器（和太鼓以外。楽団のふだんの編成）。 */
 export const DEFAULT_NEEDS: InstrumentClass[] = INSTRUMENT_CLASSES.filter((c) => c !== 'taiko');
@@ -49,8 +53,8 @@ const addDays = (date: string, days: number): string => new Date(Date.parse(`${d
 
 /**
  * URLの検索条件を読む。正しくない値は既定値に置き換え、そのことを知らせる。
- * 指定がなければ（最初に開いたとき）、曜日は土・日・祝、楽器は和太鼓以外、「可否が未確認の部屋も含める」はオン、
- * 自治体はすべて選んだ状態にする。
+ * 指定がなければ（最初に開いたとき）、期間は今日から92日間、人数は50人、曜日は土・日・祝、楽器は和太鼓以外、
+ * 「可否が未確認の部屋も含める」はオン、自治体はすべて選んだ状態にする。
  */
 export function parseSearch(params: RawParams, today: string, municipalities: readonly string[]): ParsedSearch {
   const rawFrom = one(params.from);
@@ -77,7 +81,8 @@ export function parseSearch(params: RawParams, today: string, municipalities: re
   // 自治体は、最初はすべて選んだ状態にして、外していく形にする
   const chosenMunicipalities =
     submitted || params.m !== undefined ? municipalities.filter((m) => many(params.m).includes(m)) : [...municipalities];
-  const peopleText = one(params.people);
+  // 人数は、フォームから送られたときは空欄なら絞らない。最初に開いたときは既定の人数にする
+  const peopleText = submitted || params.people !== undefined ? one(params.people) : String(DEFAULT_PEOPLE);
   const people = parsePeople(peopleText);
   const includeUnknown = submitted || params.unknown !== undefined ? one(params.unknown) === '1' : true;
 
