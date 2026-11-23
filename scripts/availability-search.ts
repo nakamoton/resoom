@@ -4,6 +4,8 @@
  *   pnpm availability --from 2027-01-01 --to 2027-01-31 --days sat --dates 2027-01-16
  *
  * --municipality 自治体で絞る（例: 大田区）。カンマ区切りで複数指定できる。
+ * --adapters     照会に使う自治体サイト（例: ota,shibuya,kawasaki）。省略すると既定のもの。
+ *                川崎市（kawasaki）は固定のIPアドレスから動かす必要があるため、明示的に指定したときだけ使う。
  * --days         曜日で絞る（sun,mon,tue,wed,thu,fri,sat）。省略すると全曜日。
  * --dates        特に見たい日。結果の先頭にまとめて表示する。
  * --json         結果をJSONでファイルに保存する。
@@ -13,7 +15,7 @@
  */
 import { writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
-import { combineRooms, createAdapter, type AvailabilitySlot } from '@resoom/adapters';
+import { ADAPTER_IDS, DEFAULT_ADAPTER_IDS, adapterNote, combineRooms, createAdapter, type AvailabilitySlot } from '@resoom/adapters';
 import { INSTRUMENT_LABELS, STATUS_LABELS, effectivePolicy, type InstrumentClass } from '@resoom/core';
 import { closeDb, getDb, listRooms, type RoomWithEvidences } from '@resoom/db';
 
@@ -27,6 +29,7 @@ const { values } = parseArgs({
     from: { type: 'string' },
     to: { type: 'string' },
     municipality: { type: 'string' },
+    adapters: { type: 'string' },
     days: { type: 'string' },
     dates: { type: 'string' },
     json: { type: 'string' },
@@ -34,7 +37,7 @@ const { values } = parseArgs({
 });
 const { from, to } = values;
 if (!from || !to) {
-  console.error('使い方: pnpm availability --from YYYY-MM-DD --to YYYY-MM-DD [--municipality 大田区] [--days sat,sun] [--dates YYYY-MM-DD,...] [--json 出力先]');
+  console.error('使い方: pnpm availability --from YYYY-MM-DD --to YYYY-MM-DD [--municipality 大田区] [--adapters ota,shibuya] [--days sat,sun] [--dates YYYY-MM-DD,...] [--json 出力先]');
   process.exit(1);
 }
 
@@ -49,20 +52,29 @@ const focusDates = new Set(list(values.dates));
 /** 問い合わせる日。曜日の指定があれば、その曜日と、特に見たい日だけにする（自治体サイトへの問い合わせを減らす）。 */
 const wantsDate = wantedDays ? (date: string): boolean => wantedDays.has(weekdayOf(date)) || focusDates.has(date) : undefined;
 const municipalities = new Set(list(values.municipality));
+const adapterIds = new Set(values.adapters ? list(values.adapters) : DEFAULT_ADAPTER_IDS);
+const unknownAdapters = [...adapterIds].filter((id) => !ADAPTER_IDS.includes(id));
+if (unknownAdapters.length > 0) {
+  console.error(`--adapters は ${ADAPTER_IDS.join(',')} から指定してください（不明: ${unknownAdapters.join(',')}）`);
+  process.exit(1);
+}
 
 // 台帳のうち、空き照会の設定があり、対応するアダプタがある部屋を対象にする。
 const allRooms = await listRooms(await getDb());
 await closeDb();
-const catalog = allRooms.filter(
-  (r) =>
-    r.adapterId !== null &&
-    r.adapterFacilityCode !== null &&
-    createAdapter(r.adapterId) !== null &&
-    (municipalities.size === 0 || municipalities.has(r.municipality)),
+const inScope = allRooms.filter(
+  (r) => r.adapterId !== null && r.adapterFacilityCode !== null && (municipalities.size === 0 || municipalities.has(r.municipality)),
 );
+const catalog = inScope.filter((r) => r.adapterId !== null && adapterIds.has(r.adapterId));
+/** 照会の設定はあるが、今回は使わない自治体サイトの部屋。 */
+const skipped = inScope.filter((r) => !catalog.includes(r));
 if (catalog.length === 0) {
-  console.error('対象の部屋がありません。pnpm db:seed を実行したか、--municipality の指定を確認してください。');
+  console.error('対象の部屋がありません。pnpm db:seed を実行したか、--municipality と --adapters の指定を確認してください。');
   process.exit(1);
+}
+for (const id of adapterIds) {
+  const note = adapterNote(id);
+  if (note && catalog.some((r) => r.adapterId === id)) console.error(`注意（${id}）: ${note}`);
 }
 
 /** 台帳の部屋を一意に表す名前。 */
@@ -169,6 +181,11 @@ const freeDates = [...new Set(allSlots.filter((s) => s.status === 'available').m
   .sort();
 for (const date of freeDates) printDay(date);
 if (freeDates.length === 0) console.log('（該当なし）');
+
+if (skipped.length > 0) {
+  const ids = [...new Set(skipped.map((r) => r.adapterId))].join(',');
+  console.log(`\n今回は照会していない部屋: ${skipped.length} 件（--adapters ${ids} を指定すると照会します）`);
+}
 
 if (failures.length > 0) {
   console.log('\n=== 取得できなかった施設 ===');
