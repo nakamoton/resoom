@@ -251,3 +251,24 @@ describe('初期データの取り込み', () => {
     expect(after?.evidences).toHaveLength(2);
   });
 });
+
+describe('料金・候補・閉館の取り込み', () => {
+  const base = { ...room({ municipality: '渋谷区', facilityName: '幡ケ谷社会教育館', roomName: '大学習室' }), evidences: [] };
+
+  it('料金・候補・閉館を取り込み、取り込み直すと初期データの内容にそろえる', async () => {
+    await importSeed(db, [
+      {
+        ...base,
+        candidate: true,
+        fees: { unit: 'slot', slots: [{ label: '午前', start: '09:00', end: '12:00', yen: 3700 }], sources: ['https://example.jp/fee'], checkedOn: '2026-11-23' },
+        closure: { status: 'closed', note: { en: 'Closed in June 2026.', ja: '2026年6月で閉館。' }, sources: ['https://example.jp/closed'], checkedOn: '2026-11-23' },
+      },
+    ]);
+    const [saved] = await listRooms(db);
+    expect(saved).toMatchObject({ candidate: true, fees: { slots: [{ yen: 3700 }] }, closure: { status: 'closed' } });
+
+    await importSeed(db, [base]);
+
+    expect((await listRooms(db))[0]).toMatchObject({ candidate: false, fees: null, closure: null });
+  });
+});

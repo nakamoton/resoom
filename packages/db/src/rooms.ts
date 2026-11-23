@@ -1,5 +1,5 @@
 import { asc, desc, eq, sql } from 'drizzle-orm';
-import type { NewEvidenceInput, NewRoomInput, RoomBasicsInput, RoomFees } from '@resoom/core';
+import type { NewEvidenceInput, NewRoomInput, RoomBasicsInput, RoomClosure, RoomFees } from '@resoom/core';
 import type { Db } from './client';
 import { policyEvidences, rooms, type PolicyEvidence, type Room } from './schema';
 
@@ -73,6 +73,8 @@ export interface SeedRoom extends NewRoomInput {
   fees?: RoomFees | null;
   /** まだ使ったことのない部屋（候補）なら true */
   candidate?: boolean;
+  /** 閉館・休館。開いていれば省く */
+  closure?: RoomClosure | null;
   evidences: Array<NewEvidenceInput & { key: string }>;
 }
 
@@ -83,11 +85,12 @@ export interface SeedRoom extends NewRoomInput {
  */
 export async function importSeed(db: Db, seed: SeedRoom[]): Promise<{ rooms: number; evidences: number }> {
   let evidenceCount = 0;
-  for (const { adapter, evidences, fees, candidate, ...room } of seed) {
+  for (const { adapter, evidences, fees, candidate, closure, ...room } of seed) {
     const values = {
       ...room,
       fees: fees ?? null,
       candidate: candidate ?? false,
+      closure: closure ?? null,
       adapterId: adapter?.id ?? null,
       adapterFacilityCode: adapter?.facilityCode ?? null,
       adapterRoomNames: adapter?.rooms ?? null,
@@ -108,6 +111,7 @@ export async function importSeed(db: Db, seed: SeedRoom[]): Promise<{ rooms: num
           adapterRoomNames: sql`excluded.adapter_room_names`,
           fees: sql`excluded.fees`,
           candidate: sql`excluded.candidate`,
+          closure: sql`excluded.closure`,
         },
       })
       .returning({ id: rooms.id });

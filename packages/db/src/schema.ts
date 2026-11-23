@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
 import { boolean, check, date, index, integer, jsonb, pgTable, primaryKey, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
-import type { CrawlTrigger, EvidenceKind, InstrumentClass, MemberRole, PolicyResult, RoomFees, SlotStatus } from '@resoom/core';
+import type { CrawlTrigger, EvidenceKind, InstrumentClass, MemberRole, PolicyResult, RoomClosure, RoomFees, SlotStatus } from '@resoom/core';
 
 /** 施設台帳の部屋。 */
 export const rooms = pgTable(
@@ -23,6 +23,8 @@ export const rooms = pgTable(
      * 空き状況は1日1回・土日祝だけ取得し、検索ページでは別の欄に出す
      */
     candidate: boolean('candidate').notNull().default(false),
+    /** 閉館・休館（内容と出典）。開いていれば null。初期データから取り込む */
+    closure: jsonb('closure').$type<RoomClosure>(),
     /** 利用料金（割引のない一般の料金と出典）。分からなければ null。初期データ（data/seed/rooms.json）から取り込む */
     fees: jsonb('fees').$type<RoomFees>(),
     /** 空き状況を取得するアダプタ（例: ota）。未対応の部屋は null */

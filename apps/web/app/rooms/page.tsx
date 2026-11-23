@@ -13,6 +13,7 @@ import { getDb, listMunicipalities, listRooms, type RoomWithEvidences } from '@r
 import { requirePermission } from '@/lib/session';
 import { Bi, Municipality, RoomName, plain } from '../_i18n/Bi';
 import { T } from '../_i18n/texts';
+import { ClosureBadge } from './_components/ClosureBadge';
 import { StatusLegend, StatusMark } from './_components/StatusChip';
 
 export const metadata: Metadata = { title: `${T.appName.en} · ${T.appName.ja}` };
@@ -190,6 +191,7 @@ function RoomList({ rooms }: { rooms: RoomWithEvidences[] }) {
                       <Bi text={T.candidateBadge} />
                     </span>
                   ) : null}
+                  <ClosureBadge closure={room.closure} />
                   <span className="room-sub">
                     <Municipality name={room.municipality} />
                   </span>

@@ -24,6 +24,7 @@ import { getDb, listRooms, loadAvailability, loadRefreshState, type Availability
 import { getCurrentMember } from '@/lib/session';
 import { Bi, Municipality, RoomName, plain } from '../_i18n/Bi';
 import { T } from '../_i18n/texts';
+import { ClosureBadge } from '../rooms/_components/ClosureBadge';
 import { StatusLegend, StatusMark } from '../rooms/_components/StatusChip';
 import { BOOKING_SITES } from './booking-sites';
 import { AutoSearchForm } from './AutoSearchForm';
@@ -83,7 +84,8 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const member = await getCurrentMember();
   const showDetails = can(member?.role, 'viewCatalog');
   const db = await getDb();
-  const allRooms = await listRooms(db);
+  // 閉館した部屋は検索の対象にしない（休館中の部屋は印を付けて出す）
+  const allRooms = (await listRooms(db)).filter((room) => room.closure?.status !== 'closed');
   // 使ったことのある部屋と、まだ使ったことのない部屋（候補）。候補は別の欄に出す
   const rooms = allRooms.filter((room) => !room.candidate);
   const candidates = allRooms.filter((room) => room.candidate);
@@ -341,6 +343,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                     <div className="row-main">
                       <p className="room-title">
                         <RoomName room={room} />
+                        <ClosureBadge closure={room.closure} />
                       </p>
                       <p className="room-sub">
                         <Municipality name={room.municipality} />
@@ -398,6 +401,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                     ) : (
                       <RoomName room={room} />
                     )}
+                    <ClosureBadge closure={room.closure} />
                     <span className="capacity">
                       <Bi text={capacityLabel(room.capacity)} />
                     </span>
@@ -429,6 +433,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                   <div className="row-main">
                     <p className="room-title">
                       <RoomName room={room} />
+                      <ClosureBadge closure={room.closure} />
                     </p>
                     <p className="room-sub">
                       <Municipality name={room.municipality} />

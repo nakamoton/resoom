@@ -6,6 +6,7 @@ import { getDb, getRoom } from '@resoom/db';
 import { getCurrentMember, requirePermission } from '@/lib/session';
 import { Bi, Municipality, RoomName } from '../../_i18n/Bi';
 import { T } from '../../_i18n/texts';
+import { ClosureNotice } from '../_components/ClosureBadge';
 import { EvidenceForm } from '../_components/EvidenceForm';
 import { RoomBasicsForm } from '../_components/RoomBasicsForm';
 import { StatusChip } from '../_components/StatusChip';
@@ -42,6 +43,7 @@ export default async function RoomPage({ params }: Props) {
       <h1>
         <RoomName room={room} stack />
       </h1>
+      <ClosureNotice closure={room.closure} />
       {room.candidate ? (
         <p className="notice candidate-notice">
           <Bi text={T.candidateRoomNote} />

@@ -64,6 +64,13 @@
       "when": 1795419426768,
       "tag": "0008_candidate_rooms",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1795420157138,
+      "tag": "0009_room_closure",
+      "breakpoints": true
     }
   ]
 }

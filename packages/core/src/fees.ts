@@ -94,3 +94,17 @@ export function feeLabel(label: string): LocalizedText {
   }
   return { en: label, ja: label };
 }
+
+/**
+ * 施設の閉館・休館。closed は閉館（検索の対象から外す）、suspended は改修などによる一時的な休館。
+ * どちらも空き状況は取得しない。
+ */
+export interface RoomClosure {
+  status: 'closed' | 'suspended';
+  /** 閉館・休館の内容（いつから、再開の見込みなど） */
+  note: LocalizedText;
+  /** 公式の出典（URL） */
+  sources: string[];
+  /** 出典を確認した日（YYYY-MM-DD） */
+  checkedOn: string;
+}

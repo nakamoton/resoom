@@ -96,6 +96,8 @@ const targets = (await listRooms(db)).filter(
   (r) =>
     r.adapterId !== null &&
     r.adapterFacilityCode !== null &&
+    // 閉館・休館中の部屋は取得しない
+    r.closure === null &&
     adapterIds.has(r.adapterId) &&
     (municipalities.size === 0 || municipalities.has(r.municipality)),
 );

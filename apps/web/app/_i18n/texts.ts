@@ -54,6 +54,8 @@ export const T = {
   candidateOpenSlots: t('Open slots', '空きコマ'),
   candidateMore: (n: number): LocalizedText => t(`+${n} more`, `ほか${n}コマ`),
   candidateBadge: t('Not used yet', '未使用'),
+  closedBadge: t('Closed', '閉館'),
+  suspendedBadge: t('Temporarily closed', '休館中'),
   candidateRoomNote: t(
     "We haven't used this room yet. It was picked from the booking system's music rooms. Instrument rules are not confirmed.",
     'まだ使ったことのない部屋です。予約システムの音楽向けの部屋から候補として選びました。楽器の可否は未確認です。',

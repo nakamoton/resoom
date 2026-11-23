@@ -1012,11 +1012,22 @@
         }
       ],
       "note": {
-        "en": "Closed for renovation from September 2026 until October 2028 or later. Weekends and holidays cost 20% more. No extra charge for non-residents.",
-        "ja": "改修のため2026年9月から2028年10月以降まで休止中。土日祝は2割増。市外の加算なし。"
+        "en": "Weekends and holidays cost 20% more. No extra charge for non-residents.",
+        "ja": "土日祝は2割増。市外の加算なし。"
       },
       "sources": [
         "https://www.city.kawasaki.jp/saiwai/cmsfiles/contents/0000149/149343/050401siyouryou.pdf",
+        "https://www.city.kawasaki.jp/saiwai/page/0000174456.html"
+      ],
+      "checkedOn": "2026-11-23"
+    },
+    "closure": {
+      "status": "suspended",
+      "note": {
+        "en": "Closed for renovation from September 2026 until October 2028 or later.",
+        "ja": "改修工事のため、2026年9月から2028年10月以降まで利用を休止しています。"
+      },
+      "sources": [
         "https://www.city.kawasaki.jp/saiwai/page/0000174456.html"
       ],
       "checkedOn": "2026-11-23"
@@ -1545,7 +1556,18 @@
         "sourceUrl": null,
         "reportedBy": "Band calendar import / カレンダーからの取り込み"
       }
-    ]
+    ],
+    "closure": {
+      "status": "closed",
+      "note": {
+        "en": "Closed in June 2026 because the building is old.",
+        "ja": "施設の老朽化により、2026年6月で閉館しました。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/bunka-shisetsu/bunka-shisetsu/sk1_hatagaya.html"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -1826,14 +1848,25 @@
         }
       ],
       "note": {
-        "en": "Closed for renovation from April 2026 until about November 2027. No extra charge for non-residents.",
-        "ja": "改修工事のため2026年4月から2027年11月ごろまで休館中。区外の加算なし。"
+        "en": "No extra charge for non-residents.",
+        "ja": "区外の加算なし。"
       },
       "sources": [
         "https://edogawa-bunkacenter.jp/rental/price/",
         "https://www.city.edogawa.tokyo.jp/text/sihiyouryou_t.html",
         "https://edogawa-bunkacenter.jp/news/2025/03/472/",
         "https://www.city.edogawa.tokyo.jp/documents/62403/jourei.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    },
+    "closure": {
+      "status": "suspended",
+      "note": {
+        "en": "Closed for renovation from April 2026 until about November 2027.",
+        "ja": "改修工事のため、2026年4月から2027年11月ごろ（予定）まで休館しています。"
+      },
+      "sources": [
+        "https://edogawa-bunkacenter.jp/news/2025/03/472/"
       ],
       "checkedOn": "2026-11-23"
     }

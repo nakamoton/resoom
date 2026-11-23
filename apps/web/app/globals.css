@@ -1096,6 +1096,38 @@ a.room-title:hover {
   font-weight: 400;
 }
 
+.badge.closure.closed {
+  border-color: #e3b4b4;
+  background: var(--ng-bg);
+  color: var(--ng-text);
+}
+
+.badge.closure.suspended {
+  border-color: #e8d39a;
+  background: var(--cond-bg);
+  color: var(--cond-text);
+}
+
+.notice.closure-notice {
+  margin-top: 6px;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.notice.closure-notice.closed {
+  background: var(--ng-bg);
+  color: var(--ng-text);
+}
+
+.notice.closure-notice.suspended {
+  background: var(--cond-bg);
+  color: var(--cond-text);
+}
+
+.notice.closure-notice a {
+  color: inherit;
+}
+
 .notice.candidate-notice {
   margin-top: 6px;
   background: #eef3fb;
