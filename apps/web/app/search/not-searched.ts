@@ -1,4 +1,4 @@
-import type { LocalizedText } from '@resoom/core';
+import { municipalityName, type LocalizedText } from '@resoom/core';
 
 /** 空き状況を自動で集めていない理由。 */
 export type NotSearchedReason = 'robots' | 'paused' | 'unsupported' | 'unavailable';
@@ -59,4 +59,18 @@ export function byReason<R>(cities: readonly NotSearchedCity<R>[]): { reason: No
     else groups.push({ reason: city.reason, cities: [city] });
   }
   return groups;
+}
+
+/**
+ * 空き状況を自動で集めている自治体（検索の絞り込みの選択肢）。
+ * 集めた空き状況がある部屋が1つでもある自治体だけを、英語名の順に返す。
+ * 集めていない自治体は選んでも結果が出ず紛らわしいので、選択肢に出さない。
+ */
+export function searchableMunicipalities(
+  rooms: readonly { id: string; municipality: string }[],
+  trackedRoomIds: ReadonlySet<string>,
+): string[] {
+  const cities = new Set(rooms.filter((room) => trackedRoomIds.has(room.id)).map((room) => room.municipality));
+  const label = (name: string): string => municipalityName(name).en ?? name;
+  return [...cities].sort((a, b) => label(a).localeCompare(label(b), 'en'));
 }

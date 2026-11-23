@@ -8,7 +8,7 @@ import {
   can,
   capacityLabel,
   effectivePolicy,
-  municipalityName,
+  roomMatches,
   searchAvailability,
   timeOfDayOf,
   type InstrumentClass,
@@ -22,7 +22,7 @@ import { T } from '../_i18n/texts';
 import { StatusLegend, StatusMark } from '../rooms/_components/StatusChip';
 import { BOOKING_SITES } from './booking-sites';
 import { SUBMITTED_PARAM, parseSearch, type RawParams } from './criteria';
-import { NOT_SEARCHED_REASONS, byReason, groupNotSearched } from './not-searched';
+import { NOT_SEARCHED_REASONS, byReason, groupNotSearched, searchableMunicipalities } from './not-searched';
 
 export const metadata: Metadata = { title: `${T.searchTitle.en} · ${T.searchTitle.ja}` };
 export const dynamic = 'force-dynamic';
@@ -72,20 +72,22 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const db = await getDb();
   const rooms = await listRooms(db);
   const today = todayInJapan();
-  // 英語を主にするので、英語名の順に並べる
-  const municipalityOptions = [...new Set(rooms.map((r) => r.municipality))].sort((a, b) =>
-    (municipalityName(a).en ?? a).localeCompare(municipalityName(b).en ?? b, 'en'),
-  );
+  // 期間は自治体の選択肢と関係なく決まるので、先に期間を読んで空き状況を取り出す
+  const range = parseSearch(params, today, []).criteria;
+  const { slots, snapshots } = await loadAvailability(db, { from: range.from, to: range.to });
+  const tracked = new Set(snapshots.filter((s) => s.coveredThrough !== null).map((s) => s.roomId));
+  // 絞り込みの選択肢は、空き状況を自動で集めている自治体だけ
+  const municipalityOptions = searchableMunicipalities(rooms, tracked);
   const { criteria, form, invalidDates, invalidPeople } = parseSearch(params, today, municipalityOptions);
-  const { slots, snapshots } = await loadAvailability(db, { from: criteria.from, to: criteria.to });
   const result = searchAvailability(rooms, slots, snapshots, criteria);
   const snapshotOf = new Map<string, AvailabilitySnapshot>(snapshots.map((s) => [s.roomId, s]));
   const shown = criteria.needs.length > 0 ? criteria.needs : DEFAULT_SHOWN;
   const hasData = snapshots.some((s) => s.coveredThrough !== null);
   // 自動で検索していない部屋（条件にかかわらず、ページ上部の案内に使う）
-  const tracked = new Set(snapshots.filter((s) => s.coveredThrough !== null).map((s) => s.roomId));
-  const notSearched = byReason(groupNotSearched(rooms.filter((room) => !tracked.has(room.id))));
-  const manualByCity = groupNotSearched(result.manual);
+  const untracked = rooms.filter((room) => !tracked.has(room.id));
+  const notSearched = byReason(groupNotSearched(untracked));
+  // 別枠に出す部屋。自治体の選択は自動で検索している自治体だけが対象なので、ここでは自治体で絞らない
+  const manualByCity = groupNotSearched(untracked.filter((room) => roomMatches(room, { ...criteria, municipalities: null })));
 
   return (
     <>
@@ -230,19 +232,21 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           </div>
         </fieldset>
 
-        <fieldset className="form-row">
-          <legend className="row-label">
-            <Bi text={T.municipalities} />
-          </legend>
-          <div className="row-body choices">
-            {municipalityOptions.map((m) => (
-              <label key={m}>
-                <input type="checkbox" name="m" value={m} defaultChecked={form.municipalities.includes(m)} />
-                <Municipality name={m} />
-              </label>
-            ))}
-          </div>
-        </fieldset>
+        {municipalityOptions.length > 0 ? (
+          <fieldset className="form-row">
+            <legend className="row-label">
+              <Bi text={T.municipalities} />
+            </legend>
+            <div className="row-body choices">
+              {municipalityOptions.map((m) => (
+                <label key={m}>
+                  <input type="checkbox" name="m" value={m} defaultChecked={form.municipalities.includes(m)} />
+                  <Municipality name={m} />
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ) : null}
 
         <div className="form-actions">
           <button type="submit" className="button">

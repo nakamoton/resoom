@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { NOT_SEARCHED_REASONS, byReason, groupNotSearched } from './not-searched';
+import { NOT_SEARCHED_REASONS, byReason, groupNotSearched, searchableMunicipalities } from './not-searched';
 
 const room = (municipality: string, id: string) => ({ municipality, id });
 
@@ -44,5 +44,17 @@ describe('byReason', () => {
       ['paused', ['川崎市']],
       ['unsupported', ['江東区', '文京区']],
     ]);
+  });
+});
+
+describe('searchableMunicipalities', () => {
+  it('空き状況を集めている部屋がある自治体だけを、英語名の順に返す', () => {
+    const rooms = [room('渋谷区', 's1'), room('江戸川区', 'e1'), room('大田区', 'o1'), room('大田区', 'o2'), room('川崎市', 'k1'), room('世田谷区', 'g1')];
+
+    expect(searchableMunicipalities(rooms, new Set(['s1', 'o2', 'g1']))).toEqual(['大田区', '世田谷区', '渋谷区']);
+  });
+
+  it('集めた空き状況がなければ空', () => {
+    expect(searchableMunicipalities([room('大田区', 'o1')], new Set())).toEqual([]);
   });
 });
