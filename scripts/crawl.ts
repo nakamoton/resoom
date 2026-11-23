@@ -10,15 +10,20 @@
  * 1つの施設で失敗しても、ほかの施設の取得は続け、失敗は部屋ごとに記録する（前回の結果は残す）。
  * 取得の開始と終了は crawl_runs に記録する。別の取得が実行中なら、重ならないよう何もせずに終わる。
  * 検索ページの「今すぐ最新を取得」で申し込まれた取得も、この処理で行う。
+ *
+ * まだ使ったことのない部屋（候補）だけの施設は、自治体サイトへの負担を抑えるため、
+ * 前回の取得から20時間以上たっているとき（1日1回）だけ、土日祝の日だけを取得する（--candidates で変えられる）。
  */
 import { parseArgs } from 'node:util';
 import { ADAPTER_IDS, DEFAULT_ADAPTER_IDS, combineRooms, createAdapter } from '@resoom/adapters';
+import { isJapaneseHoliday } from '@resoom/core';
 import {
   beginCrawlRun,
   closeDb,
   finishCrawlRun,
   getDb,
   listRooms,
+  loadAvailability,
   recordAvailabilityError,
   saveAvailability,
   type RoomWithEvidences,
@@ -30,6 +35,8 @@ const { values } = parseArgs({
     adapters: { type: 'string' },
     municipality: { type: 'string' },
     'max-requests': { type: 'string' },
+    // 候補の部屋だけの施設: auto（1日1回・土日祝だけ）/ always（毎回・土日祝だけ）/ never（取得しない）
+    candidates: { type: 'string' },
   },
 });
 const list = (value: string | undefined): string[] => (value ?? '').split(',').map((v) => v.trim()).filter(Boolean);
@@ -44,6 +51,18 @@ if (!Number.isInteger(maxRequests) || maxRequests < 10 || maxRequests > 300) {
   process.exit(1);
 }
 const adapterIds = new Set(values.adapters ? list(values.adapters) : DEFAULT_ADAPTER_IDS);
+const candidateMode = values.candidates ?? 'auto';
+if (!['auto', 'always', 'never'].includes(candidateMode)) {
+  console.error('--candidates は auto・always・never のどれかで指定してください');
+  process.exit(1);
+}
+/** 候補の部屋を取得する間隔（これより前に取得していれば、今回は取得しない）。 */
+const CANDIDATE_INTERVAL_MS = 20 * 3_600_000;
+/** 候補の部屋は、楽団がふだん使う土日祝だけを取得する。 */
+const isWeekendOrHoliday = (date: string): boolean => {
+  const day = new Date(`${date}T00:00:00Z`).getUTCDay();
+  return day === 0 || day === 6 || isJapaneseHoliday(date);
+};
 const unknown = [...adapterIds].filter((id) => !ADAPTER_IDS.includes(id));
 if (unknown.length > 0) {
   console.error(`--adapters は ${ADAPTER_IDS.join(',')} から指定してください（不明: ${unknown.join(',')}）`);
@@ -94,12 +113,30 @@ for (const room of targets) {
 }
 const siteRoomsOf = (room: RoomWithEvidences): string[] => room.adapterRoomNames ?? [room.roomName];
 
+// 候補の部屋を今回取得するか（auto なら、候補の部屋を最後に取得した（失敗も含む）時刻から20時間以上たっていれば）
+const candidateIds = new Set(targets.filter((r) => r.candidate).map((r) => r.id));
+let candidatesDue = candidateMode === 'always';
+if (candidateMode === 'auto' && candidateIds.size > 0) {
+  const { snapshots } = await loadAvailability(db, { from: today, to: today });
+  const last = Math.max(
+    0,
+    ...snapshots
+      .filter((s) => candidateIds.has(s.roomId))
+      .map((s) => Math.max(s.fetchedAt?.getTime() ?? 0, s.lastErrorAt?.getTime() ?? 0)),
+  );
+  candidatesDue = Date.now() - last >= CANDIDATE_INTERVAL_MS;
+}
+if (candidateIds.size > 0) console.log(candidatesDue ? '候補の部屋も取得します（土日祝だけ）。' : '候補の部屋は今回は取得しません（1日1回）。');
+
 console.log(`取得期間: ${today} 〜 ${to}（${targets.length}部屋、${groups.size}施設）`);
 let saved = 0;
 let failed = 0;
 for (const rooms of groups.values()) {
   const first = rooms[0];
   if (!first?.adapterId || !first.adapterFacilityCode) continue;
+  // 候補の部屋だけの施設は、取得する回だけ・土日祝だけ。使ったことのある部屋と同じ施設なら、ほかの部屋と一緒に毎回取得する
+  const onlyCandidates = rooms.every((r) => candidateIds.has(r.id));
+  if (onlyCandidates && !candidatesDue) continue;
   const adapter = createAdapter(first.adapterId, { maxRequests });
   if (!adapter) continue;
   const started = Date.now();
@@ -109,6 +146,7 @@ for (const rooms of groups.values()) {
       rooms: [...new Set(rooms.flatMap(siteRoomsOf))],
       from: today,
       to,
+      ...(onlyCandidates ? { wantsDate: isWeekendOrHoliday } : {}),
     });
     for (const room of rooms) {
       const slots = combineRooms(result.slots, siteRoomsOf(room), room.roomName);

@@ -57,6 +57,13 @@
       "when": 1795418318310,
       "tag": "0007_room_fees",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1795419426768,
+      "tag": "0008_candidate_rooms",
+      "breakpoints": true
     }
   ]
 }

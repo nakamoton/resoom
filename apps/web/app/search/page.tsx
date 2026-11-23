@@ -83,16 +83,22 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const member = await getCurrentMember();
   const showDetails = can(member?.role, 'viewCatalog');
   const db = await getDb();
-  const rooms = await listRooms(db);
+  const allRooms = await listRooms(db);
+  // 使ったことのある部屋と、まだ使ったことのない部屋（候補）。候補は別の欄に出す
+  const rooms = allRooms.filter((room) => !room.candidate);
+  const candidates = allRooms.filter((room) => room.candidate);
   const today = todayInJapan();
   // 期間は自治体の選択肢と関係なく決まるので、先に期間を読んで空き状況を取り出す
   const range = parseSearch(params, today, []).criteria;
   const { slots, snapshots } = await loadAvailability(db, { from: range.from, to: range.to });
   const tracked = new Set(snapshots.filter((s) => s.coveredThrough !== null).map((s) => s.roomId));
   // 絞り込みの選択肢は、空き状況を自動で集めている自治体だけ
-  const municipalityOptions = searchableMunicipalities(rooms, tracked);
+  const municipalityOptions = searchableMunicipalities(allRooms, tracked);
   const { criteria, form, invalidDates, invalidPeople } = parseSearch(params, today, municipalityOptions);
   const result = searchAvailability(rooms, slots, snapshots, criteria);
+  // 候補の部屋は楽器の可否がまだ分からないので、「可否が未確認の部屋も含める」をオンにして探す（不可と分かった部屋は除く）
+  const candidateResult = searchAvailability(candidates, slots, snapshots, { ...criteria, includeUnknown: true });
+  const candidateRows = candidateSlotsByRoom(candidateResult.days);
   const snapshotOf = new Map<string, AvailabilitySnapshot>(snapshots.map((s) => [s.roomId, s]));
   const shown = criteria.needs.length > 0 ? criteria.needs : DEFAULT_SHOWN;
   const hasData = snapshots.some((s) => s.coveredThrough !== null);
@@ -404,6 +410,57 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         </section>
       ) : null}
 
+      {candidates.length > 0 ? (
+        <section className="candidates" aria-labelledby="candidates-title">
+          <h2 id="candidates-title">
+            <Bi text={T.candidatesTitle} />
+          </h2>
+          <p className="candidates-note">
+            <Bi text={T.candidatesNote} />
+          </p>
+          {candidateRows.length === 0 ? (
+            <p className="empty">
+              <Bi text={T.candidatesNone} />
+            </p>
+          ) : (
+            <ul className="rows">
+              {candidateRows.map(({ room, slots: open }) => (
+                <li key={room.id} className="row candidate">
+                  <div className="row-main">
+                    <p className="room-title">
+                      <RoomName room={room} />
+                    </p>
+                    <p className="room-sub">
+                      <Municipality name={room.municipality} />
+                      <span className={`capacity ${room.capacity === null ? 'unknown' : ''}`}>
+                        <Bi text={capacityLabel(room.capacity)} />
+                      </span>
+                      <FeeSummary room={room} />
+                    </p>
+                  </div>
+                  <div className="row-info">
+                    <ul className="slots" aria-label={plain(T.candidateOpenSlots)}>
+                      {open.slice(0, CANDIDATE_SLOTS_SHOWN).map((slot) => (
+                        <li key={`${slot.date}-${slot.start}`} className={`slot ${dayClass(slot.date)}`}>
+                          <span className="slot-date">{shortDate(slot.date)}</span> {slot.start}–{slot.end}
+                          <SlotFee room={room} date={slot.date} start={slot.start} end={slot.end} />
+                        </li>
+                      ))}
+                      {open.length > CANDIDATE_SLOTS_SHOWN ? (
+                        <li className="slot more">
+                          <Bi text={T.candidateMore(open.length - CANDIDATE_SLOTS_SHOWN)} />
+                        </li>
+                      ) : null}
+                    </ul>
+                  </div>
+                  <RoomLinks room={room} showDetails={showDetails} />
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ) : null}
+
       {hasData && result.automatic.length > 0 ? (
         <details className="coverage">
           <summary>
@@ -464,6 +521,22 @@ function toRefreshView(availability: ReturnType<typeof refreshAvailability>): Re
     default:
       return { kind: availability.kind };
   }
+}
+
+/** 候補の欄で、1部屋に並べる空きコマの数（それより多ければ「ほか○コマ」）。 */
+const CANDIDATE_SLOTS_SHOWN = 8;
+
+/** 日ごとの検索結果を、部屋ごとの空きコマの一覧にする（候補の欄向け。空きの多い部屋から）。 */
+function candidateSlotsByRoom(days: ReturnType<typeof searchAvailability<RoomWithEvidences>>['days']) {
+  const byRoom = new Map<string, { room: RoomWithEvidences; slots: { date: string; start: string; end: string }[] }>();
+  for (const day of days) {
+    for (const { room, slots } of day.rooms) {
+      const entry = byRoom.get(room.id) ?? { room, slots: [] };
+      entry.slots.push(...slots.map((slot) => ({ date: day.date, start: slot.start, end: slot.end })));
+      byRoom.set(room.id, entry);
+    }
+  }
+  return [...byRoom.values()].sort((a, b) => b.slots.length - a.slots.length);
 }
 
 /** 料金のまとめ（例: Fee 料金 ¥1,900–2,600）。分からなければ「料金 不明」。 */

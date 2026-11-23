@@ -42,6 +42,11 @@ export default async function RoomPage({ params }: Props) {
       <h1>
         <RoomName room={room} stack />
       </h1>
+      {room.candidate ? (
+        <p className="notice candidate-notice">
+          <Bi text={T.candidateRoomNote} />
+        </p>
+      ) : null}
       <p className="lead room-sub">
         <Municipality name={room.municipality} />
         <span>

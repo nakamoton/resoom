@@ -18,6 +18,11 @@ export const rooms = pgTable(
     /** 定員の出典（例: 「うぐいすネットの部屋一覧（2026-11-23）」）。定員が分からなければ null */
     capacitySource: text('capacity_source'),
     nearestStation: text('nearest_station'),
+    /**
+     * まだ使ったことのない部屋（候補）。予約システムの「器楽」などの目的で出てくる音楽向けの部屋から選んで台帳に入れたもの。
+     * 空き状況は1日1回・土日祝だけ取得し、検索ページでは別の欄に出す
+     */
+    candidate: boolean('candidate').notNull().default(false),
     /** 利用料金（割引のない一般の料金と出典）。分からなければ null。初期データ（data/seed/rooms.json）から取り込む */
     fees: jsonb('fees').$type<RoomFees>(),
     /** 空き状況を取得するアダプタ（例: ota）。未対応の部屋は null */

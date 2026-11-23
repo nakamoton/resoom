@@ -1,0 +1,1 @@
+ALTER TABLE "rooms" ADD COLUMN "candidate" boolean DEFAULT false NOT NULL;

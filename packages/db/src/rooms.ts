@@ -71,6 +71,8 @@ export interface SeedRoom extends NewRoomInput {
   adapter?: { id: string; facilityCode: string; rooms?: string[] };
   /** 利用料金。公式の料金表から写したもの（画面からは編集しないので、取り込むたびに初期データの内容にする） */
   fees?: RoomFees | null;
+  /** まだ使ったことのない部屋（候補）なら true */
+  candidate?: boolean;
   evidences: Array<NewEvidenceInput & { key: string }>;
 }
 
@@ -81,10 +83,11 @@ export interface SeedRoom extends NewRoomInput {
  */
 export async function importSeed(db: Db, seed: SeedRoom[]): Promise<{ rooms: number; evidences: number }> {
   let evidenceCount = 0;
-  for (const { adapter, evidences, fees, ...room } of seed) {
+  for (const { adapter, evidences, fees, candidate, ...room } of seed) {
     const values = {
       ...room,
       fees: fees ?? null,
+      candidate: candidate ?? false,
       adapterId: adapter?.id ?? null,
       adapterFacilityCode: adapter?.facilityCode ?? null,
       adapterRoomNames: adapter?.rooms ?? null,
@@ -104,6 +107,7 @@ export async function importSeed(db: Db, seed: SeedRoom[]): Promise<{ rooms: num
           adapterFacilityCode: sql`excluded.adapter_facility_code`,
           adapterRoomNames: sql`excluded.adapter_room_names`,
           fees: sql`excluded.fees`,
+          candidate: sql`excluded.candidate`,
         },
       })
       .returning({ id: rooms.id });

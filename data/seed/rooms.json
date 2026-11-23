@@ -2468,5 +2468,213 @@
       ],
       "checkedOn": "2026-11-23"
     }
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "恵比寿社会教育館",
+    "facilityNameEn": "Ebisu Social Education Center",
+    "roomName": "音楽室",
+    "roomNameEn": "Music Room",
+    "capacity": 60,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "2"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "長谷戸社会教育館",
+    "facilityNameEn": "Hasedo Social Education Center",
+    "roomName": "音楽室（大）",
+    "roomNameEn": "Music Room (Large)",
+    "capacity": 90,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "3"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "千駄ヶ谷社会教育館",
+    "facilityNameEn": "Sendagaya Social Education Center",
+    "roomName": "体育室兼音楽室",
+    "roomNameEn": "Gym and Music Room",
+    "capacity": 60,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "4"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "上原社会教育館",
+    "facilityNameEn": "Uehara Social Education Center",
+    "roomName": "音楽室",
+    "roomNameEn": "Music Room",
+    "capacity": 200,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "5"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "YCC代々木八幡コミュニティーセンター",
+    "facilityNameEn": "YCC Yoyogi-Hachiman Community Center",
+    "roomName": "ホール",
+    "roomNameEn": "Hall",
+    "capacity": 184,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "2001"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "地域交流センター恵比寿",
+    "facilityNameEn": "Ebisu Community Exchange Center",
+    "roomName": "区民交流室A",
+    "roomNameEn": "Community Room A",
+    "capacity": 45,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "13001"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "地域交流センター大向",
+    "facilityNameEn": "Omukai Community Exchange Center",
+    "roomName": "文化ふれあい広場",
+    "roomNameEn": "Culture Plaza",
+    "capacity": 60,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "14001"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "地域交流センター西原",
+    "facilityNameEn": "Nishihara Community Exchange Center",
+    "roomName": "区民交流室A",
+    "roomNameEn": "Community Room A",
+    "capacity": 60,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "16001"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "地域交流センター西原",
+    "facilityNameEn": "Nishihara Community Exchange Center",
+    "roomName": "区民交流室B",
+    "roomNameEn": "Community Room B",
+    "capacity": 60,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "16001"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "地域交流センター笹塚",
+    "facilityNameEn": "Sasazuka Community Exchange Center",
+    "roomName": "文化ふれあい広場",
+    "roomNameEn": "Culture Plaza",
+    "capacity": 80,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "20001"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "SCC千駄ヶ谷コミュニティセンター",
+    "facilityNameEn": "SCC Sendagaya Community Center",
+    "roomName": "サークルホール",
+    "roomNameEn": "Circle Hall",
+    "capacity": 185,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "50003"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "SCC千駄ヶ谷コミュニティセンター",
+    "facilityNameEn": "SCC Sendagaya Community Center",
+    "roomName": "サークルルーム３・４",
+    "roomNameEn": "Circle Rooms 3 and 4",
+    "capacity": 49,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "50003"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "渋谷区シニア・いきいきコミュニティ・美竹の丘",
+    "facilityNameEn": "Shibuya Senior Community Mitake-no-Oka",
+    "roomName": "多目的ホール",
+    "roomNameEn": "Multipurpose Hall",
+    "capacity": 183,
+    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "50041"
+    },
+    "evidences": []
   }
 ]

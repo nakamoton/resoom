@@ -185,6 +185,11 @@ function RoomList({ rooms }: { rooms: RoomWithEvidences[] }) {
                   <Link href={`/rooms/${room.id}`} className="room-title">
                     <RoomName room={room} />
                   </Link>
+                  {room.candidate ? (
+                    <span className="badge">
+                      <Bi text={T.candidateBadge} />
+                    </span>
+                  ) : null}
                   <span className="room-sub">
                     <Municipality name={room.municipality} />
                   </span>

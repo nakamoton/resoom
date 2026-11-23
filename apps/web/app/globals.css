@@ -1055,6 +1055,68 @@ a.room-title:hover {
   font-size: 12px;
 }
 
+/* まだ使ったことのない部屋（候補） */
+.candidates {
+  margin-top: 24px;
+}
+
+.candidates h2 {
+  margin: 0 0 2px;
+  font-size: 15px;
+}
+
+.candidates-note {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.candidates .rows {
+  border-radius: 8px;
+  border-style: solid;
+  border-color: #c9d6e8;
+  background: #f7f9fd;
+}
+
+.slot .slot-date {
+  font-weight: 400;
+}
+
+.slot.sat .slot-date {
+  color: var(--sat);
+}
+
+.slot.sun .slot-date {
+  color: var(--sun);
+}
+
+.slot.more {
+  border-style: dashed;
+  background: transparent;
+  font-weight: 400;
+}
+
+.notice.candidate-notice {
+  margin-top: 6px;
+  background: #eef3fb;
+  color: #2c4a7a;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 6px;
+  border: 1px solid #c9d6e8;
+  border-radius: 4px;
+  background: #eef3fb;
+  color: #2c4a7a;
+  font-size: 11px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
 details.coverage {
   margin-top: 20px;
   font-size: 13px;
