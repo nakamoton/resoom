@@ -1,0 +1,845 @@
+[
+  {
+    "municipality": "大田区",
+    "facilityName": "大田区民プラザ",
+    "roomName": "第一音楽スタジオ",
+    "capacity": 50,
+    "nearestStation": "下丸子",
+    "adapter": {
+      "id": "ota",
+      "facilityCode": "131113_001_18"
+    },
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-07-19",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で2回利用（直近は2025-07-19）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2025-07-19",
+        "result": "allowed",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◎」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "大田区",
+    "facilityName": "嶺町文化センター",
+    "roomName": "第一集会室",
+    "capacity": null,
+    "nearestStation": "雪が谷大塚",
+    "adapter": {
+      "id": "ota",
+      "facilityCode": "131113_001_25"
+    },
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-02-15",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-02-15）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "drum-set-2025-02",
+        "kind": "usage",
+        "occurredOn": "2025-02-15",
+        "result": "prohibited",
+        "instruments": [
+          "drum_set"
+        ],
+        "note": "ドラムセットを使ったところ、施設から不可と案内された（日付はカレンダーの利用日）。",
+        "sourceUrl": null,
+        "reportedBy": "予約担当"
+      }
+    ]
+  },
+  {
+    "municipality": "大田区",
+    "facilityName": "池上文化センター",
+    "roomName": "第一集会室",
+    "capacity": null,
+    "nearestStation": "池上",
+    "adapter": {
+      "id": "ota",
+      "facilityCode": "131113_001_24"
+    },
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-01-11",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-01-11）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2025-01-11",
+        "result": "conditional",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「△」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "かわさき老人福祉・地域交流センター",
+    "roomName": "ホール（多目的室）",
+    "capacity": 210,
+    "nearestStation": "八丁畷",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-11-21",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で4回利用（直近は2026-11-21）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2026-11-21",
+        "result": "allowed",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "かわさき老人福祉・地域交流センター",
+    "roomName": "大広間",
+    "capacity": 72,
+    "nearestStation": "八丁畷",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-01-25",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-01-25）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2025-01-25",
+        "result": "conditional",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「△」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "カルッツかわさき",
+    "roomName": "音楽練習室１",
+    "capacity": 10,
+    "nearestStation": null,
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-01-24",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-01-24）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2026-01-24",
+        "result": "prohibited",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「✗」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "プラザ大師",
+    "roomName": "第１・第２学習室合併",
+    "capacity": 66,
+    "nearestStation": "川崎大師",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-08-08",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で14回利用（直近は2026-08-08）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2026-08-08",
+        "result": "allowed",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。過去の記載には △・◯・✗ が混在。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "中原市民館",
+    "roomName": "視聴覚室",
+    "capacity": 60,
+    "nearestStation": "武蔵小杉",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-02-21",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で5回利用（直近は2026-02-21）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2026-02-21",
+        "result": "allowed",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "中原市民館",
+    "roomName": "音楽室",
+    "capacity": 42,
+    "nearestStation": "武蔵小杉",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-10-17",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で6回利用（直近は2026-10-17）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2026-10-17",
+        "result": "allowed",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "多摩市民館",
+    "roomName": "大会議室",
+    "capacity": null,
+    "nearestStation": null,
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-08-22",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-08-22）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "宮前市民館",
+    "roomName": "視聴覚室",
+    "capacity": null,
+    "nearestStation": "宮前平",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2024-11-16",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-11-16）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2024-11-16",
+        "result": "allowed",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "幸市民館",
+    "roomName": "音楽室",
+    "capacity": 40,
+    "nearestStation": "矢向",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-06-27",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で4回利用（直近は2026-06-27）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2026-06-27",
+        "result": "conditional",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「△」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "高津市民館",
+    "roomName": "第１音楽室",
+    "capacity": 60,
+    "nearestStation": "溝の口",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-09-27",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-09-27）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2025-09-27",
+        "result": "prohibited",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「✗」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "高津市民館",
+    "roomName": "視聴覚室",
+    "capacity": 50,
+    "nearestStation": "溝の口",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-08-23",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-08-23）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2025-08-23",
+        "result": "prohibited",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「✗」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "川崎市",
+    "facilityName": "麻生市民館",
+    "roomName": "視聴覚室",
+    "capacity": null,
+    "nearestStation": null,
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-09-12",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-09-12）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "地域交流センター恵比寿",
+    "roomName": "コミュニティホール",
+    "capacity": null,
+    "nearestStation": null,
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2024-11-09",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-11-09）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "地域交流センター新橋",
+    "roomName": "コミュニティホール",
+    "capacity": null,
+    "nearestStation": "恵比寿",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-10-10",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-10-10）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2026-10-10",
+        "result": "allowed",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "地域交流センター新橋",
+    "roomName": "文化ふれあい広場",
+    "capacity": 100,
+    "nearestStation": "恵比寿",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-11-07",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で6回利用（直近は2026-11-07）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2026-11-07",
+        "result": "conditional",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「△」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "幡ケ谷社会教育館",
+    "roomName": "大学習室",
+    "capacity": 90,
+    "nearestStation": "幡ヶ谷",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-01-17",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-01-17）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "文化総合センター大和田",
+    "roomName": "大練習室",
+    "capacity": 70,
+    "nearestStation": "渋谷",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-03-29",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で2回利用（直近は2025-03-29）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2025-03-29",
+        "result": "allowed",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "渋谷区",
+    "facilityName": "文化総合センター大和田",
+    "roomName": "練習室３",
+    "capacity": null,
+    "nearestStation": "渋谷",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-01-18",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-01-18）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2025-01-18",
+        "result": "allowed",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "江戸川区",
+    "facilityName": "タワーホール船堀",
+    "roomName": "リハーサル室",
+    "capacity": null,
+    "nearestStation": "船堀",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-10-31",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で4回利用（直近は2026-10-31）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2026-10-31",
+        "result": "allowed",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "江戸川区",
+    "facilityName": "江戸川区総合文化センター",
+    "roomName": "リハーサル室",
+    "capacity": null,
+    "nearestStation": null,
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-12-14",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-12-14）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "品川区",
+    "facilityName": "品川区立中小企業センター",
+    "roomName": "音楽室",
+    "capacity": null,
+    "nearestStation": null,
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2026-09-19",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2026-09-19）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "文京区",
+    "facilityName": "アカデミー湯島",
+    "roomName": "視聴覚室",
+    "capacity": 56,
+    "nearestStation": "湯島",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-11-22",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で2回利用（直近は2025-11-22）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "calendar-percussion",
+        "kind": "usage",
+        "occurredOn": "2025-11-22",
+        "result": "allowed",
+        "instruments": [
+          "small_percussion",
+          "drum_set",
+          "large_percussion"
+        ],
+        "note": "楽団カレンダーからの取り込み。打楽器の記載は「◯」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "江東区",
+    "facilityName": "森下文化センター",
+    "roomName": "AVホール",
+    "capacity": null,
+    "nearestStation": null,
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-11-29",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-11-29）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "目黒区",
+    "facilityName": "めぐろパーシモンホール",
+    "roomName": "第１練習室",
+    "capacity": null,
+    "nearestStation": null,
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2025-11-16",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-11-16）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  }
+]

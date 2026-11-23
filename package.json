@@ -8,11 +8,16 @@
   },
   "scripts": {
     "test": "vitest run",
-    "typecheck": "tsc --noEmit",
-    "ota:search": "tsx scripts/ota-search.ts"
+    "typecheck": "tsc --noEmit && tsc --noEmit -p apps/web",
+    "ota:search": "tsx scripts/ota-search.ts",
+    "db:seed": "tsx scripts/db-seed.ts",
+    "dev": "pnpm --filter @resoom/web dev",
+    "build": "pnpm --filter @resoom/web build"
   },
   "dependencies": {
-    "@resoom/adapters": "workspace:*"
+    "@resoom/adapters": "workspace:*",
+    "@resoom/core": "workspace:*",
+    "@resoom/db": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",

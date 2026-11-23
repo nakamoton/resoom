@@ -7,24 +7,14 @@
  * --dates 特に見たい日。結果の先頭にまとめて表示する。
  * --json  結果をJSONでファイルに保存する。
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import { OtaClient, type AvailabilitySlot } from '@resoom/adapters';
+import { INSTRUMENT_LABELS, STATUS_LABELS, effectivePolicy, type InstrumentClass } from '@resoom/core';
+import { closeDb, getDb, listRooms, type RoomWithEvidences } from '@resoom/db';
 
-interface SeedRoom {
-  facilityCode: string;
-  facility: string;
-  room: string;
-  percussion: 'allowed' | 'conditional' | 'prohibited' | 'unknown';
-  note: string;
-}
-
-const PERCUSSION_LABEL: Record<SeedRoom['percussion'], string> = {
-  allowed: '可',
-  conditional: '条件付き',
-  prohibited: '不可',
-  unknown: '未確認',
-};
+/** 検索結果に添える打楽器の区分。 */
+const PERCUSSION: InstrumentClass[] = ['small_percussion', 'drum_set', 'large_percussion'];
 const WEEKDAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'] as const;
 const WEEKDAY_JA = ['日', '月', '火', '水', '木', '金', '土'];
 
@@ -52,9 +42,24 @@ if (wantedDays?.has(-1)) {
 }
 const focusDates = new Set((values.dates ?? '').split(',').map((d) => d.trim()).filter(Boolean));
 
-const seed = JSON.parse(readFileSync(new URL('../data/seed/ota-rooms.json', import.meta.url), 'utf8')) as SeedRoom[];
-const byFacility = new Map<string, SeedRoom[]>();
-for (const room of seed) byFacility.set(room.facilityCode, [...(byFacility.get(room.facilityCode) ?? []), room]);
+// 台帳のうち、大田区のアダプタで照会できる部屋を対象にする。
+const catalog = (await listRooms(await getDb(), { adapterId: 'ota' })).filter((r) => r.adapterFacilityCode);
+await closeDb();
+if (catalog.length === 0) {
+  console.error('台帳に大田区の部屋がありません。先に pnpm db:seed を実行してください。');
+  process.exit(1);
+}
+const byFacility = new Map<string, RoomWithEvidences[]>();
+for (const room of catalog) {
+  const code = room.adapterFacilityCode ?? '';
+  byFacility.set(code, [...(byFacility.get(code) ?? []), room]);
+}
+
+/** 例: 「小物打楽器:可 / ドラムセット:不可 / 大型打楽器:可」 */
+function percussionLabel(room: RoomWithEvidences): string {
+  const policy = effectivePolicy(room.evidences);
+  return PERCUSSION.map((cls) => `${INSTRUMENT_LABELS[cls]}:${STATUS_LABELS[policy[cls].status]}`).join(' / ');
+}
 
 const client = new OtaClient();
 const slots: AvailabilitySlot[] = [];
@@ -62,15 +67,15 @@ const slots: AvailabilitySlot[] = [];
 const coveredThrough = new Map<string, string | null>();
 let fetchedAt = '';
 for (const [facilityCode, rooms] of byFacility) {
-  console.error(`取得中: ${rooms[0]?.facility}（${rooms.map((r) => r.room).join('、')}）`);
+  console.error(`取得中: ${rooms[0]?.facilityName}（${rooms.map((r) => r.roomName).join('、')}）`);
   const result = await client.fetchAvailability({
     facilityCode,
-    rooms: rooms.map((r) => r.room),
+    rooms: rooms.map((r) => r.roomName),
     from: values.from,
     to: values.to,
   });
   slots.push(...result.slots);
-  for (const room of rooms) coveredThrough.set(room.facility, result.coveredThrough);
+  for (const room of rooms) coveredThrough.set(room.facilityName, result.coveredThrough);
   fetchedAt = result.fetchedAt;
 }
 
@@ -92,11 +97,11 @@ console.log('');
 /** 日付ごとに、台帳の各部屋の空きコマを並べる。 */
 function printDay(date: string): void {
   console.log(`${date}（${WEEKDAY_JA[weekdayOf(date)]}）`);
-  for (const room of seed) {
-    const label = `  ${room.facility} ${room.room}［打楽器: ${PERCUSSION_LABEL[room.percussion]}］`;
-    const ofRoom = slots.filter((s) => s.date === date && s.facility === room.facility && s.room === room.room);
+  for (const room of catalog) {
+    const label = `  ${room.facilityName} ${room.roomName}［${percussionLabel(room)}］`;
+    const ofRoom = slots.filter((s) => s.date === date && s.facility === room.facilityName && s.room === room.roomName);
     if (ofRoom.length === 0) {
-      const through = coveredThrough.get(room.facility);
+      const through = coveredThrough.get(room.facilityName);
       console.log(`${label} まだ照会できません${through ? `（${through} まで照会可）` : ''}`);
       continue;
     }
