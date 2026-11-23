@@ -21,6 +21,7 @@ import { T } from '../_i18n/texts';
 import { StatusChip } from '../rooms/_components/StatusChip';
 import { BOOKING_SITES } from './booking-sites';
 import { parseSearch, type RawParams } from './criteria';
+import { NOT_SEARCHED_REASONS, byReason, groupNotSearched } from './not-searched';
 
 export const metadata: Metadata = { title: `${T.searchTitle.en} · ${T.searchTitle.ja}` };
 export const dynamic = 'force-dynamic';
@@ -77,6 +78,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const snapshotOf = new Map<string, AvailabilitySnapshot>(snapshots.map((s) => [s.roomId, s]));
   const shown = criteria.needs.length > 0 ? criteria.needs : DEFAULT_SHOWN;
   const hasData = snapshots.some((s) => s.coveredThrough !== null);
+  // 自動で検索していない部屋（条件にかかわらず、ページ上部の案内に使う）
+  const tracked = new Set(snapshots.filter((s) => s.coveredThrough !== null).map((s) => s.roomId));
+  const notSearched = byReason(groupNotSearched(rooms.filter((room) => !tracked.has(room.id))));
+  const manualByCity = groupNotSearched(result.manual);
 
   return (
     <>
@@ -86,6 +91,39 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       <p className="lead">
         <Bi text={T.searchLead} />
       </p>
+
+      {notSearched.length > 0 ? (
+        <section className="not-searched" aria-labelledby="not-searched-title">
+          <h2 id="not-searched-title">
+            <Bi text={T.notSearchedTitle} stack />
+          </h2>
+          <p>
+            <Bi text={T.notSearchedLead} />
+          </p>
+          <ul>
+            {notSearched.map((group) => (
+              <li key={group.reason}>
+                <span className="cities">
+                  {group.cities.map((city) =>
+                    BOOKING_SITES[city.municipality] ? (
+                      <a key={city.municipality} href={BOOKING_SITES[city.municipality]} rel="noopener noreferrer" target="_blank">
+                        <Municipality name={city.municipality} /> ↗
+                      </a>
+                    ) : (
+                      <span key={city.municipality} className="city">
+                        <Municipality name={city.municipality} />
+                      </span>
+                    ),
+                  )}
+                </span>
+                <span className="reason">
+                  <Bi text={NOT_SEARCHED_REASONS[group.reason]} />
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <form className="card search-form" action="/search" method="get">
         {invalidDates ? (
@@ -197,7 +235,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           <Bi text={T.noData} />
         </p>
       ) : (
-        <section aria-live="polite">
+        <section className="results" aria-live="polite">
           <h2>
             <Bi text={result.days.length > 0 ? T.daysFound(result.days.length) : T.noOpenSlots} stack />
           </h2>
@@ -238,31 +276,42 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         </section>
       )}
 
-      {result.manual.length > 0 ? (
-        <section>
-          <h2>
-            <Bi text={T.checkYourself} stack />
+      {manualByCity.length > 0 ? (
+        <section className="manual-panel" aria-labelledby="manual-panel-title">
+          <h2 id="manual-panel-title">
+            <Bi text={T.manualPanelTitle} stack />
           </h2>
-          <p className="hint">
-            <Bi text={T.checkYourselfHint} />
+          <p className="manual-note">
+            <Bi text={T.manualPanelNote} />
           </p>
-          <ul className="room-list">
-            {result.manual.map((room) => (
-              <li key={room.id} className="card result">
-                <p className="room-title">
-                  <RoomName room={room} stack />
-                </p>
-                <p className="room-sub">
-                  <Municipality name={room.municipality} />
-                  <span className={`capacity ${room.capacity === null ? 'unknown' : ''}`}>
-                    <Bi text={capacityLabel(room.capacity)} />
-                  </span>
-                </p>
-                <InstrumentChips room={room} shown={shown} />
-                <RoomLinks room={room} showDetails={showDetails} />
-              </li>
-            ))}
-          </ul>
+          {manualByCity.map((city) => (
+            <div key={city.municipality} className="manual-city">
+              <h3>
+                <Municipality name={city.municipality} />
+                {BOOKING_SITES[city.municipality] ? (
+                  <a href={BOOKING_SITES[city.municipality]} rel="noopener noreferrer" target="_blank">
+                    <Bi text={T.book} /> ↗
+                  </a>
+                ) : null}
+              </h3>
+              <ul>
+                {city.rooms.map((room) => (
+                  <li key={room.id}>
+                    {showDetails ? (
+                      <Link href={`/rooms/${room.id}`}>
+                        <RoomName room={room} />
+                      </Link>
+                    ) : (
+                      <RoomName room={room} />
+                    )}
+                    <span className="capacity">
+                      <Bi text={capacityLabel(room.capacity)} />
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </section>
       ) : null}
 

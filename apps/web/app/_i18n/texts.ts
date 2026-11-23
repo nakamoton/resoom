@@ -157,10 +157,15 @@ export const T = {
   noOpenSlots: t('No open rooms match these conditions.', '条件に合う空きはありません。'),
   book: t('Booking site', '予約サイト'),
   roomDetails: t('Room details', '部屋の詳細'),
-  checkYourself: t('Check these rooms yourself', '各自で確認する部屋'),
-  checkYourselfHint: t(
-    'These rooms match your conditions, but we do not collect their availability automatically (the site does not allow it, or it is not supported yet).',
-    '条件に合う部屋ですが、空き状況を自動で集めていません（サイトが機械的なアクセスを認めていない、またはまだ対応していないため）。',
+  notSearchedTitle: t('Some cities are not searched automatically', '自動で検索していない自治体があります'),
+  notSearchedLead: t(
+    'Their rooms are not in the search results. Check them on each city’s official booking site (linked below).',
+    'これらの自治体の部屋は検索結果に出ません。各自治体の公式の予約サイト（下のリンク）で確認してください。',
+  ),
+  manualPanelTitle: t('Rooms that match, in cities we do not search', '自動で検索していない自治体の、条件に合う部屋'),
+  manualPanelNote: t(
+    'These are not search results. We do not know whether they are free. Check the official booking site.',
+    'これは検索結果ではありません。空いているかどうかは分からないので、公式の予約サイトで確認してください。',
   ),
   coverage: t('Data coverage', '照会できた範囲'),
   room: t('Room', '部屋'),

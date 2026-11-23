@@ -885,3 +885,108 @@ a.user-menu {
   font-size: 12px;
   color: var(--muted);
 }
+
+/* ---- 自動で検索していない自治体 ---- */
+:root {
+  --info-bg: #eaf1fb;
+  --info-border: #3d6bb3;
+  --info-text: #1d3557;
+  --panel-bg: #eef0ee;
+}
+
+.not-searched {
+  margin: 0 0 20px;
+  padding: 14px 16px;
+  border-left: 5px solid var(--info-border);
+  border-radius: 8px;
+  background: var(--info-bg);
+  color: var(--info-text);
+}
+
+.not-searched h2 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.not-searched > p {
+  margin: 0 0 10px;
+  font-size: 14px;
+}
+
+.not-searched ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.not-searched li {
+  display: grid;
+  gap: 2px;
+}
+
+.not-searched .cities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  font-weight: 600;
+}
+
+.not-searched .reason {
+  font-size: 13px;
+}
+
+.not-searched .bi .ja {
+  color: inherit;
+  opacity: 0.85;
+}
+
+.manual-panel {
+  margin-top: 32px;
+  padding: 14px 16px;
+  border: 1px dashed #9aa5a0;
+  border-radius: 10px;
+  background: var(--panel-bg);
+}
+
+.manual-panel h2 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.manual-note {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.manual-city h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 14px;
+  margin: 12px 0 4px;
+  font-size: 15px;
+}
+
+.manual-city h3 a {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.manual-city ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.manual-city li {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+.manual-city .capacity {
+  margin-left: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
