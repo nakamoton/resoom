@@ -10,12 +10,12 @@ import { T } from './_i18n/texts';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: { default: `${T.appName.en} · ${T.appName.ja}`, template: '%s | resoom' },
+  title: { default: `${T.appName.en} · ${T.appName.ja}`, template: '%s | Resoom' },
   description: `${T.searchLead.en} ${T.searchLead.ja}`,
   robots: { index: false, follow: false },
 };
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#131b2e' };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#050505' };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const member = await getCurrentMember();
@@ -31,7 +31,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <div className="container">
             <Link href="/search" className="brand">
               <BrandMark />
-              resoom
+              Resoom
             </Link>
             <NavLinks items={items} />
             <UserMenu member={member} />

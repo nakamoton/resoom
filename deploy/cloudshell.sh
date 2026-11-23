@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# resoom を Google Cloud（Cloud Run）に公開・更新するスクリプト。
+# Resoom を Google Cloud（Cloud Run）に公開・更新するスクリプト。
 # Google Cloud Shell で、リポジトリのルートから実行する。手順は docs/deploy.md を参照。
 #
 #   bash deploy/cloudshell.sh init     最初の公開（データベースの準備・初期データ・定期取得の設定まで）

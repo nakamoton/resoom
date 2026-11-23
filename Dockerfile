@@ -1,4 +1,4 @@
-# resoom のコンテナ。Cloud Run のサービス（画面）とジョブ（取得処理など）で同じものを使う。
+# Resoom のコンテナ。Cloud Run のサービス（画面）とジョブ（取得処理など）で同じものを使う。
 #   画面:             node apps/web/server.js（既定）
 #   空き状況の取得:   node scripts/crawl.mjs
 #   マイグレーション: node scripts/db-migrate.mjs
