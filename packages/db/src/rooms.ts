@@ -1,4 +1,4 @@
-import { asc, desc, eq, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, isNull, sql } from 'drizzle-orm';
 import type { NewEvidenceInput, NewRoomInput, RoomBasicsInput, RoomClosure, RoomFees } from '@resoom/core';
 import type { Db } from './client';
 import { policyEvidences, rooms, type PolicyEvidence, type Room } from './schema';
@@ -127,4 +127,47 @@ export async function importSeed(db: Db, seed: SeedRoom[]): Promise<{ rooms: num
     }
   }
   return { rooms: seed.length, evidences: evidenceCount };
+}
+
+/** 候補から外した部屋（data/seed/removed-candidates.json の1件）。 */
+export interface RemovedCandidate {
+  municipality: string;
+  facilityName: string;
+  roomName: string;
+  /** 外した理由 */
+  reason: string;
+  /** 外した日（YYYY-MM-DD） */
+  removedOn: string;
+}
+
+/**
+ * 候補から外した部屋を台帳から消す（取得した空き状況も一緒に消える）。初期データの取り込みは部屋を消さないので、
+ * 外した部屋はこの一覧で消す。何度実行しても同じ結果になる。
+ * 使ったことのある部屋（候補でない部屋）と、画面から記録が追加された部屋は、楽団の情報を失わないよう消さずに残す。
+ */
+export async function removeCandidateRooms(
+  db: Db,
+  removed: RemovedCandidate[],
+): Promise<{ removed: string[]; kept: string[] }> {
+  const result = { removed: [] as string[], kept: [] as string[] };
+  for (const { municipality, facilityName, roomName } of removed) {
+    const label = `${municipality} ${facilityName} ${roomName}`;
+    const [found] = await db
+      .select({ id: rooms.id, candidate: rooms.candidate })
+      .from(rooms)
+      .where(and(eq(rooms.municipality, municipality), eq(rooms.facilityName, facilityName), eq(rooms.roomName, roomName)));
+    if (!found) continue;
+    const added = await db
+      .select({ id: policyEvidences.id })
+      .from(policyEvidences)
+      .where(and(eq(policyEvidences.roomId, found.id), isNull(policyEvidences.seedKey)))
+      .limit(1);
+    if (!found.candidate || added.length > 0) {
+      result.kept.push(label);
+      continue;
+    }
+    await db.delete(rooms).where(eq(rooms.id, found.id));
+    result.removed.push(label);
+  }
+  return result;
 }

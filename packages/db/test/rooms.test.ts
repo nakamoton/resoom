@@ -9,6 +9,7 @@ import {
   listMunicipalities,
   listRooms,
   openDb,
+  removeCandidateRooms,
   updateRoomBasics,
   type Db,
   type SeedRoom,
@@ -270,5 +271,34 @@ describe('料金・候補・閉館の取り込み', () => {
     await importSeed(db, [base]);
 
     expect((await listRooms(db))[0]).toMatchObject({ candidate: false, fees: null, closure: null });
+  });
+});
+
+describe('候補から外した部屋', () => {
+  const candidate = { ...room({ municipality: '渋谷区', facilityName: '美竹の丘', roomName: '多目的ホール' }), candidate: true, evidences: [] };
+  const removed = [{ municipality: '渋谷区', facilityName: '美竹の丘', roomName: '多目的ホール', reason: '区内の団体だけが使える', removedOn: '2026-11-23' }];
+
+  it('一覧にある候補の部屋を消し、何度実行しても同じ結果になる', async () => {
+    await importSeed(db, [candidate, { ...room(), evidences: [] }]);
+
+    expect(await removeCandidateRooms(db, removed)).toEqual({ removed: ['渋谷区 美竹の丘 多目的ホール'], kept: [] });
+    expect((await listRooms(db)).map((r) => r.roomName)).toEqual(['第一集会室']);
+    expect(await removeCandidateRooms(db, removed)).toEqual({ removed: [], kept: [] });
+  });
+
+  it('使ったことのある部屋（候補でない部屋）は消さない', async () => {
+    await importSeed(db, [{ ...candidate, candidate: false }]);
+
+    expect(await removeCandidateRooms(db, removed)).toEqual({ removed: [], kept: ['渋谷区 美竹の丘 多目的ホール'] });
+    expect(await listRooms(db)).toHaveLength(1);
+  });
+
+  it('画面から記録が追加された部屋は消さない', async () => {
+    await importSeed(db, [candidate]);
+    const [saved] = await listRooms(db);
+    await addEvidence(db, saved!.id, evidence({ note: '画面から追加' }));
+
+    expect(await removeCandidateRooms(db, removed)).toEqual({ removed: [], kept: ['渋谷区 美竹の丘 多目的ホール'] });
+    expect(await listRooms(db)).toHaveLength(1);
   });
 });

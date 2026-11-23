@@ -19,7 +19,9 @@ export {
   importSeed,
   listMunicipalities,
   listRooms,
+  removeCandidateRooms,
   updateRoomBasics,
+  type RemovedCandidate,
   type RoomWithEvidences,
   type SeedRoom,
 } from './rooms';

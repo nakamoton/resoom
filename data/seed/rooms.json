@@ -3156,55 +3156,6 @@
     }
   },
   {
-    "municipality": "渋谷区",
-    "facilityName": "渋谷区シニア・いきいきコミュニティ・美竹の丘",
-    "facilityNameEn": "Shibuya Senior Community Mitake-no-Oka",
-    "roomName": "多目的ホール",
-    "roomNameEn": "Multipurpose Hall",
-    "capacity": 183,
-    "capacitySource": "Room list on the Shibuya City booking site (purpose: instrumental music), 2026-11-23 / 渋谷区施設予約システムの部屋一覧（目的: 器楽、2026-11-23）",
-    "nearestStation": null,
-    "candidate": true,
-    "adapter": {
-      "id": "shibuya",
-      "facilityCode": "50041"
-    },
-    "evidences": [],
-    "fees": {
-      "unit": "slot",
-      "slots": [
-        {
-          "label": "午前",
-          "start": "09:00",
-          "end": "12:00",
-          "yen": 4500
-        },
-        {
-          "label": "午後",
-          "start": "13:00",
-          "end": "17:00",
-          "yen": 6000
-        },
-        {
-          "label": "夜間",
-          "start": "18:00",
-          "end": "21:00",
-          "yen": 4500
-        }
-      ],
-      "note": {
-        "en": "Only groups of ward residents, workers or students can use this hall; groups from outside the ward cannot. Its listed uses are choir and dance; instruments are not mentioned. No evening slot on Sundays.",
-        "ja": "区内在住・在勤・在学の団体だけが使える（区外の団体は使えない）。用途は合唱・踊りの練習とされ、楽器演奏の記載はない。日曜は夜間なし。"
-      },
-      "sources": [
-        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/senior/senior_community.html",
-        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/c8a7709a70384394b3bd7d793a9dfc5f/mitake_guide.pdf",
-        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf"
-      ],
-      "checkedOn": "2026-11-23"
-    }
-  },
-  {
     "municipality": "品川区",
     "facilityName": "スクエア荏原",
     "facilityNameEn": "Square Ebara",

@@ -47,7 +47,7 @@ RESOOM_DEV_LOGIN=1 ADMIN_EMAILS=admin@example.com pnpm dev
 
 画面は英語を主に、日本語を併記しています（日本語が苦手なメンバーのため）。施設名・部屋名には英語名（楽団での訳）を付けており、部屋のページの「Edit basic information / 基本情報を直す」から直せます。
 
-- `pnpm db:seed` は初期データ（`data/seed/rooms.json`）を取り込みます。何度実行しても記録は重複せず、画面から追加した記録も消えません。
+- `pnpm db:seed` は初期データ（`data/seed/rooms.json`）を取り込みます。何度実行しても記録は重複せず、画面から追加した記録も消えません。候補から外した部屋（`data/seed/removed-candidates.json`）は、取り込みのときに台帳から消します。
 - データは `.data/pglite` に保存されます。消すと初期状態に戻ります。
 
 ## 施設台帳の考え方
