@@ -124,12 +124,19 @@ cmd_init() {
   gcloud config set project "$PROJECT_ID" >/dev/null
   save_config
 
-  say "必要な API を有効にします"
-  gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com \
-    secretmanager.googleapis.com cloudscheduler.googleapis.com
+  say "必要な API を有効にします（数分かかることがあります）"
+  # Compute Engine API は、Cloud Run と Cloud Build が使う既定のサービスアカウントを作るために有効にする（無料）
+  gcloud services enable compute.googleapis.com run.googleapis.com cloudbuild.googleapis.com \
+    artifactregistry.googleapis.com secretmanager.googleapis.com cloudscheduler.googleapis.com
 
   local sa
   sa=$(runtime_sa)
+  say "既定のサービスアカウントができるのを待ちます"
+  for _ in $(seq 1 36); do
+    gcloud iam service-accounts describe "$sa" >/dev/null 2>&1 && break
+    sleep 5
+  done
+  gcloud iam service-accounts describe "$sa" >/dev/null 2>&1 || die "サービスアカウント $sa が見つかりません。数分待ってから、もう一度 init を実行してください"
   say "サービスアカウントに権限を付けます: $sa"
   for role in roles/secretmanager.secretAccessor roles/cloudbuild.builds.builder roles/logging.logWriter; do
     gcloud projects add-iam-policy-binding "$PROJECT_ID" --member "serviceAccount:$sa" --role "$role" --condition=None >/dev/null

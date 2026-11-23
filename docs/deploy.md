@@ -16,7 +16,7 @@ resoom をインターネットに公開する手順です。所要時間は30�
 1. https://neon.com でアカウントを作ります（Google アカウントでも登録できます）。
 2. 「New project」でプロジェクトを作ります。
    - Project name: `resoom`
-   - Region: アジアのリージョン（東京があれば東京、なければシンガポール）
+   - Region: AWS の **Asia Pacific (Singapore)**（Neon には東京リージョンがないため、いちばん近いシンガポールにします）
 3. プロジェクトの画面で「Connect」を押し、**Connection pooling をオン**にして、表示された接続文字列（`postgresql://...?sslmode=require`）をコピーします。手順3で使います。
 
 ## 2. Google Cloud のプロジェクトを作る
