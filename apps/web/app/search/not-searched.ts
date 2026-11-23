@@ -28,9 +28,9 @@ export const NOT_SEARCHED_REASONS: Record<NotSearchedReason, LocalizedText> = {
 const REASON_BY_MUNICIPALITY: Record<string, NotSearchedReason> = {
   江戸川区: 'robots',
   目黒区: 'robots',
+  文京区: 'robots', // docs/bunkyo-investigation.md
   川崎市: 'paused',
-  文京区: 'unsupported',
-  江東区: 'unsupported',
+  江東区: 'unsupported', // 対応できる見込み。docs/koto-investigation.md
 };
 
 export interface NotSearchedCity<R> {

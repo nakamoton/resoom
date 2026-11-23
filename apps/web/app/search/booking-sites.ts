@@ -7,4 +7,7 @@ export const BOOKING_SITES: Record<string, string> = {
   品川区: 'https://www.cm9.eprs.jp/shinagawa/web/',
   目黒区: 'https://resv.city.meguro.tokyo.jp/web/Home',
   世田谷区: 'https://setagaya.keyakinet.net/Web/',
+  文京区: 'https://www.shisetsu.city.bunkyo.lg.jp/user/Home',
+  // 財団の案内ページ（利用規約に同意してから予約システムへ進む）
+  江東区: 'https://www.kcf.or.jp/yoyaku/shisetsu/',
 };

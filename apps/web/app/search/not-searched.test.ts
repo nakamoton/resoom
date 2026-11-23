@@ -40,9 +40,9 @@ describe('byReason', () => {
     const groups = byReason(groupNotSearched([room('目黒区', 'm1'), room('江戸川区', 'e1'), room('川崎市', 'k1'), room('文京区', 'b1'), room('江東区', 'koto')]));
 
     expect(groups.map((g) => [g.reason, g.cities.map((c) => c.municipality)])).toEqual([
-      ['robots', ['江戸川区', '目黒区']],
+      ['robots', ['江戸川区', '文京区', '目黒区']],
       ['paused', ['川崎市']],
-      ['unsupported', ['江東区', '文京区']],
+      ['unsupported', ['江東区']],
     ]);
   });
 });
