@@ -95,7 +95,7 @@ pnpm db:seed
 ```
 
 ```bash
-pnpm ota:search --from 2027-01-01 --to 2027-03-31 --days sat --dates 2027-01-16,2027-02-20
+pnpm availability --municipality 大田区 --from 2027-01-01 --to 2027-03-31 --days sat --dates 2027-01-16,2027-02-20
 ```
 
 対象は、施設台帳にある大田区の部屋です（初期データは `data/seed/rooms.json`）。1回の実行で送るリクエストは、会館ごとに4〜6回です。2秒間隔で直列に送ります。
