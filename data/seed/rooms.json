@@ -2516,7 +2516,41 @@
       "id": "shibuya",
       "facilityCode": "2"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3700
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 5000
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 3700
+        }
+      ],
+      "note": {
+        "en": "General rate. Groups from outside the ward pay the same. Free for registered ward social-education groups. No evening slot on Sundays.",
+        "ja": "一般の料金。区外の団体も同じ額。区内の社会教育団体（登録団体）は無料。日曜は夜間なし。"
+      },
+      "sources": [
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/60bc717474b54171920156cca6875d73/kyoikukan-shiyoryo.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/aacbc04e9d1d4879a53eaef1c6f0e53d/shakyokanriyouannai202603_kyoikukan.pdf",
+        "https://www.city.shibuya.tokyo.jp/shisetsu/bunka-shisetsu/bunka-shisetsu/kyoikukan.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2532,7 +2566,41 @@
       "id": "shibuya",
       "facilityCode": "3"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 5600
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 7500
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 5600
+        }
+      ],
+      "note": {
+        "en": "General rate. Groups from outside the ward pay the same. Free for registered ward social-education groups. No evening slot on Sundays. Grand piano, conductor's podium and music stands (no extra fee listed).",
+        "ja": "一般の料金。区外の団体も同じ額。区内の社会教育団体（登録団体）は無料。日曜は夜間なし。グランドピアノ・指揮台・譜面台あり（別料金の記載なし）。"
+      },
+      "sources": [
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/60bc717474b54171920156cca6875d73/kyoikukan-shiyoryo.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/aacbc04e9d1d4879a53eaef1c6f0e53d/shakyokanriyouannai202603_kyoikukan.pdf",
+        "https://www.city.shibuya.tokyo.jp/shisetsu/bunka-shisetsu/bunka-shisetsu/sk3_nagayado.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2548,7 +2616,47 @@
       "id": "shibuya",
       "facilityCode": "4"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2600
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 1700
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 1700
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 2600
+        }
+      ],
+      "note": {
+        "en": "General rate. Groups from outside the ward pay the same. Free for registered ward social-education groups. The afternoon is split into two slots. No evening slot on Sundays.",
+        "ja": "一般の料金。区外の団体も同じ額。区内の社会教育団体（登録団体）は無料。午後は2区分。日曜は夜間なし。"
+      },
+      "sources": [
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/60bc717474b54171920156cca6875d73/kyoikukan-shiyoryo.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/aacbc04e9d1d4879a53eaef1c6f0e53d/shakyokanriyouannai202603_kyoikukan.pdf",
+        "https://www.city.shibuya.tokyo.jp/shisetsu/bunka-shisetsu/bunka-shisetsu/kyoikukan.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2564,7 +2672,41 @@
       "id": "shibuya",
       "facilityCode": "5"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 4600
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 6200
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 4600
+        }
+      ],
+      "note": {
+        "en": "General rate. Groups from outside the ward pay the same. Free for registered ward social-education groups. No evening slot on Sundays.",
+        "ja": "一般の料金。区外の団体も同じ額。区内の社会教育団体（登録団体）は無料。日曜は夜間なし。"
+      },
+      "sources": [
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/60bc717474b54171920156cca6875d73/kyoikukan-shiyoryo.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/aacbc04e9d1d4879a53eaef1c6f0e53d/shakyokanriyouannai202603_kyoikukan.pdf",
+        "https://www.city.shibuya.tokyo.jp/shisetsu/bunka-shisetsu/bunka-shisetsu/kyoikukan.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2580,7 +2722,47 @@
       "id": "shibuya",
       "facilityCode": "2001"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 5400
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 3700
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 3700
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 9400
+        }
+      ],
+      "note": {
+        "en": "General (fixed) rate. Groups from outside the ward pay the same but cannot enter the lottery. Upright piano ¥1,000 per slot. Stage with 177 fixed seats; volume limits apply.",
+        "ja": "一般の料金（定額）。区外の団体も同じ額だが、抽選には申し込めない。アップライトピアノは1区分1,000円。舞台付き・固定177席、音量制限あり。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/kumin-shisetsu/yoyogi_newkumin.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/b2ded5d14df74f05ae867ee97a0971f7/20250701_usageguide_ycc.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/a6e5ae2487d1425fb6a4a0da505026ae/guide_of_kuminshisetsu_for_user.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2596,7 +2778,47 @@
       "id": "shibuya",
       "facilityCode": "13001"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 2800
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 1600
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 1600
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 2400
+        }
+      ],
+      "note": {
+        "en": "General (fixed) rate. Groups from outside the ward pay the same but cannot enter the lottery. Soundproof. Instrument practice OK, concerts not allowed. No evening slot on Sundays.",
+        "ja": "一般の料金（定額）。区外の団体も同じ額だが、抽選には申し込めない。防音。器楽は可、演奏会は不可。日曜は夜間なし。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/koryu-center/koryu_ebisu.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/60e256355a754dafbd457672695ce832/tiikikouryuusennta-riyouannnai.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/a6e5ae2487d1425fb6a4a0da505026ae/guide_of_kuminshisetsu_for_user.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2612,7 +2834,47 @@
       "id": "shibuya",
       "facilityCode": "14001"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 3100
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 1800
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 1800
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 2700
+        }
+      ],
+      "note": {
+        "en": "General (fixed) rate. Groups from outside the ward pay the same. Senior groups have priority: other groups book from the 22nd, three months ahead (evenings excepted). Closed on Sundays and Mondays. Instrument practice OK, concerts not allowed.",
+        "ja": "一般の料金（定額）。区外の団体も同じ額。シニアの団体が優先で、ほかの団体は夜間を除き3か月前の22日から予約。日曜・月曜は休館。器楽は可、演奏会は不可。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/koryu-center/koryu_omukai.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/60e256355a754dafbd457672695ce832/tiikikouryuusennta-riyouannnai.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/a6e5ae2487d1425fb6a4a0da505026ae/guide_of_kuminshisetsu_for_user.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2628,7 +2890,47 @@
       "id": "shibuya",
       "facilityCode": "16001"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 3700
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 2100
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 2100
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 3200
+        }
+      ],
+      "note": {
+        "en": "General (fixed) rate. Groups from outside the ward pay the same but cannot enter the lottery. Soundproof. Instrument practice OK, concerts not allowed. No evening slot on Sundays.",
+        "ja": "一般の料金（定額）。区外の団体も同じ額だが、抽選には申し込めない。防音。器楽は可、演奏会は不可。日曜は夜間なし。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/koryu-center/koryu_nishihara.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/60e256355a754dafbd457672695ce832/tiikikouryuusennta-riyouannnai.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/a6e5ae2487d1425fb6a4a0da505026ae/guide_of_kuminshisetsu_for_user.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2644,7 +2946,47 @@
       "id": "shibuya",
       "facilityCode": "16001"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 3700
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 2100
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 2100
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 3200
+        }
+      ],
+      "note": {
+        "en": "General (fixed) rate. Groups from outside the ward pay the same but cannot enter the lottery. Not listed as soundproof (room A is). Instrument practice OK, concerts not allowed. No evening slot on Sundays.",
+        "ja": "一般の料金（定額）。区外の団体も同じ額だが、抽選には申し込めない。防音の記載はない（Aは防音）。器楽は可、演奏会は不可。日曜は夜間なし。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/koryu-center/koryu_nishihara.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/60e256355a754dafbd457672695ce832/tiikikouryuusennta-riyouannnai.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/a6e5ae2487d1425fb6a4a0da505026ae/guide_of_kuminshisetsu_for_user.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2660,7 +3002,47 @@
       "id": "shibuya",
       "facilityCode": "20001"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 5400
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 3000
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 3000
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 4600
+        }
+      ],
+      "note": {
+        "en": "General (fixed) rate. Groups from outside the ward pay the same. Senior groups have priority: other groups book from the 22nd, three months ahead (evenings excepted). Soundproof. Instrument practice OK, concerts not allowed. No evening slot on Sundays.",
+        "ja": "一般の料金（定額）。区外の団体も同じ額。シニアの団体が優先で、ほかの団体は夜間を除き3か月前の22日から予約。防音。器楽は可、演奏会は不可。日曜は夜間なし。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/koryu-center/koryu_sasazuka.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/60e256355a754dafbd457672695ce832/tiikikouryuusennta-riyouannnai.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/a6e5ae2487d1425fb6a4a0da505026ae/guide_of_kuminshisetsu_for_user.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2676,7 +3058,47 @@
       "id": "shibuya",
       "facilityCode": "50003"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 7500
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 5100
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 5100
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 12900
+        }
+      ],
+      "note": {
+        "en": "General (fixed) rate, from the ward's facility page. Groups from outside the ward pay the same but cannot enter the lottery. Upright piano ¥1,000 per slot. Volume limits apply.",
+        "ja": "一般の料金（定額。区の施設のページの現行料金）。区外の団体も同じ額だが、抽選には申し込めない。アップライトピアノは1区分1,000円。音量制限あり。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/kumin-shisetsu/scc_sendagaya.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/a68565a7b6dc42e180b22a2985e0757b/scc_riyouannnai.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/a6e5ae2487d1425fb6a4a0da505026ae/guide_of_kuminshisetsu_for_user.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/1a35f3ab48a6472cb2899a43ae7c1231/siyouryousanteikijyun07.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2692,7 +3114,46 @@
       "id": "shibuya",
       "facilityCode": "50003"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:30",
+          "yen": 2600
+        },
+        {
+          "label": "午後1",
+          "start": "13:00",
+          "end": "15:00",
+          "yen": 1700
+        },
+        {
+          "label": "午後2",
+          "start": "15:30",
+          "end": "17:30",
+          "yen": 1700
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 4600
+        }
+      ],
+      "note": {
+        "en": "Total for rooms 3 and 4 used together (general fixed rate). The ward's guide allows instruments only in room 4. Volume limits apply.",
+        "ja": "サークルルーム3と4を一緒に使うときの合計（一般の料金・定額）。区のガイドでは、器楽ができるのはサークルルーム4だけ。音量制限あり。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/kumin-shisetsu/scc_sendagaya.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/a68565a7b6dc42e180b22a2985e0757b/scc_riyouannnai.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/a6e5ae2487d1425fb6a4a0da505026ae/guide_of_kuminshisetsu_for_user.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "渋谷区",
@@ -2708,7 +3169,40 @@
       "id": "shibuya",
       "facilityCode": "50041"
     },
-    "evidences": []
+    "evidences": [],
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 4500
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 6000
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "21:00",
+          "yen": 4500
+        }
+      ],
+      "note": {
+        "en": "Only groups of ward residents, workers or students can use this hall; groups from outside the ward cannot. Its listed uses are choir and dance; instruments are not mentioned. No evening slot on Sundays.",
+        "ja": "区内在住・在勤・在学の団体だけが使える（区外の団体は使えない）。用途は合唱・踊りの練習とされ、楽器演奏の記載はない。日曜は夜間なし。"
+      },
+      "sources": [
+        "https://www.city.shibuya.tokyo.jp/shisetsu/chiiki-shisetsu/senior/senior_community.html",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/c8a7709a70384394b3bd7d793a9dfc5f/mitake_guide.pdf",
+        "https://files.city.shibuya.tokyo.jp/assets/12995aba8b194961be709ba879857f70/15859647182e4546a88446ce8de08cc2/siyouryoukaiteiichiran07.pdf"
+      ],
+      "checkedOn": "2026-11-23"
+    }
   },
   {
     "municipality": "品川区",
