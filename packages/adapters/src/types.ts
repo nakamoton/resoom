@@ -42,6 +42,11 @@ export interface AvailabilityQuery {
   from: string;
   /** YYYY-MM-DD（この日を含む） */
   to: string;
+  /**
+   * 照会したい日だけ true を返す関数（引数は YYYY-MM-DD）。省略するとすべての日。
+   * アダプタは false の日のコマを返さず、その日のための問い合わせも省く。
+   */
+  wantsDate?: (date: string) => boolean;
 }
 
 export interface AvailabilityResult {

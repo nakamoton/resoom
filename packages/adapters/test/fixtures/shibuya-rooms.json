@@ -1,0 +1,11 @@
+{
+  "_comment": "渋谷区施設予約システムの GET /api/reservations/facilities/{施設ID}/room_areas と同じ構造に縮めた、テスト用のサンプル。値は架空。",
+  "messages": [],
+  "errors": [],
+  "warns": [],
+  "content": [
+    { "id": 90011, "name": "第一練習室", "max_amount": 60, "guest_max_amount": 0, "usage_amount": 1, "guest_reservation": false, "code": "10" },
+    { "id": 90012, "name": "第二練習室", "max_amount": 8, "guest_max_amount": 8, "usage_amount": 1, "guest_reservation": true, "code": "20" },
+    { "id": 90013, "name": "屋外広場", "max_amount": 0, "guest_max_amount": 0, "usage_amount": 1, "guest_reservation": false, "code": "30" }
+  ]
+}

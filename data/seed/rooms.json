@@ -512,6 +512,10 @@
     "roomName": "コミュニティホール",
     "capacity": null,
     "nearestStation": null,
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "13001"
+    },
     "evidences": [
       {
         "key": "calendar-usage",
@@ -533,6 +537,10 @@
     "roomName": "コミュニティホール",
     "capacity": null,
     "nearestStation": "恵比寿",
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "12001"
+    },
     "evidences": [
       {
         "key": "calendar-usage",
@@ -568,6 +576,10 @@
     "roomName": "文化ふれあい広場",
     "capacity": 100,
     "nearestStation": "恵比寿",
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "12001"
+    },
     "evidences": [
       {
         "key": "calendar-usage",
@@ -603,6 +615,10 @@
     "roomName": "大学習室",
     "capacity": 90,
     "nearestStation": "幡ヶ谷",
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "1"
+    },
     "evidences": [
       {
         "key": "calendar-usage",
@@ -624,6 +640,10 @@
     "roomName": "大練習室",
     "capacity": 70,
     "nearestStation": "渋谷",
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "29001"
+    },
     "evidences": [
       {
         "key": "calendar-usage",
@@ -659,6 +679,10 @@
     "roomName": "練習室３",
     "capacity": null,
     "nearestStation": "渋谷",
+    "adapter": {
+      "id": "shibuya",
+      "facilityCode": "29001"
+    },
     "evidences": [
       {
         "key": "calendar-usage",

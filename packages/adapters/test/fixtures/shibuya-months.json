@@ -1,0 +1,7 @@
+{
+  "_comment": "渋谷区施設予約システムの GET /api/reservations/facilities/reservable_month と同じ構造の、テスト用のサンプル。値は架空。",
+  "messages": [],
+  "errors": [],
+  "warns": [],
+  "content": ["2026/11", "2026/12", "2027/01", "2027/02"]
+}

@@ -1,0 +1,54 @@
+{
+  "_comment": "日を指定した空き照会（POST .../reservable_frames, use_date あり）と同じ構造に縮めた、テスト用のサンプル。空いているコマだけが部屋ごとに返る。値は架空。",
+  "messages": [],
+  "errors": [],
+  "warns": [],
+  "content": [
+    {
+      "use_date": "2027/01/16",
+      "facility_id": 90001,
+      "facility_name": "サンプル文化センター（練習室）",
+      "reservable": true,
+      "tel": "00-0000-0000",
+      "room_area_id": 90011,
+      "room_area_name": "第一練習室",
+      "reservable_frames": [
+        { "id": 801, "start_time": "9:00", "end_time": "12:00", "room_area_code_names": null, "usage_fee": 3000, "vacancy_amount": 1 },
+        { "id": 803, "start_time": "18:00", "end_time": "22:00", "room_area_code_names": null, "usage_fee": 4000, "vacancy_amount": 1 }
+      ],
+      "code": "10",
+      "note3": null,
+      "reservable_period": true
+    },
+    {
+      "use_date": "2027/01/16",
+      "facility_id": 90001,
+      "facility_name": "サンプル文化センター（練習室）",
+      "reservable": true,
+      "tel": "00-0000-0000",
+      "room_area_id": 90012,
+      "room_area_name": "第二練習室",
+      "reservable_frames": [
+        { "id": 802, "start_time": "13:00", "end_time": "17:00", "room_area_code_names": null, "usage_fee": 500, "vacancy_amount": 1 }
+      ],
+      "code": "20",
+      "note3": null,
+      "reservable_period": false
+    },
+    {
+      "use_date": "2027/01/16",
+      "facility_id": 90001,
+      "facility_name": "サンプル文化センター（練習室）",
+      "reservable": false,
+      "tel": "00-0000-0000",
+      "room_area_id": 90013,
+      "room_area_name": "屋外広場",
+      "reservable_frames": [
+        { "id": 803, "start_time": "18:00", "end_time": "21:00", "room_area_code_names": null, "usage_fee": 0, "vacancy_amount": 1 }
+      ],
+      "code": "30",
+      "note3": null,
+      "reservable_period": true
+    }
+  ]
+}

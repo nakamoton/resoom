@@ -1,9 +1,11 @@
 import type { PoliteSessionOptions } from './http';
 import { OtaClient } from './ota/client';
+import { ShibuyaClient } from './shibuya/client';
 import type { AvailabilityAdapter } from './types';
 
 const FACTORIES: Record<string, (options?: PoliteSessionOptions) => AvailabilityAdapter> = {
   ota: (options) => new OtaClient(options),
+  shibuya: (options) => new ShibuyaClient(options),
 };
 
 /** 対応している adapterId の一覧。 */

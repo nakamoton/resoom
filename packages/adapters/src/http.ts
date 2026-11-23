@@ -71,6 +71,11 @@ export class PoliteSession {
     return this.now();
   }
 
+  /** あと何回リクエストを送れるか。 */
+  get remainingRequests(): number {
+    return Math.max(0, this.maxRequests - this.requestCount);
+  }
+
   /** Cookie を捨てて、新しい訪問としてやり直す。 */
   clearCookies(): void {
     this.cookies.clear();

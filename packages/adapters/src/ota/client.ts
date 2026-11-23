@@ -81,7 +81,7 @@ export class OtaClient implements AvailabilityAdapter {
 
     return {
       rooms,
-      slots: slots.filter((s) => s.date >= query.from && s.date <= query.to),
+      slots: slots.filter((s) => s.date >= query.from && s.date <= query.to && (query.wantsDate?.(s.date) ?? true)),
       coveredThrough: coveredThrough !== null && coveredThrough > query.to ? query.to : coveredThrough,
       fetchedAt: this.session.currentTime().toISOString(),
     };

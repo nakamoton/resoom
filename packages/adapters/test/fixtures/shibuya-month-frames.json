@@ -1,0 +1,11 @@
+{
+  "_comment": "月を指定した空き照会（POST .../reservable_frames, use_date が空）と同じ構造に縮めた、テスト用のサンプル。空きのある日だけが新しい順に返る。値は架空。",
+  "messages": [],
+  "errors": [],
+  "warns": [],
+  "content": [
+    { "use_date": "2027/01/30", "facility_id": null, "facility_name": null, "reservable": false, "tel": null, "room_area_id": null, "room_area_name": null, "reservable_frames": null, "code": null, "note3": null, "reservable_period": false },
+    { "use_date": "2027/01/16", "facility_id": null, "facility_name": null, "reservable": false, "tel": null, "room_area_id": null, "room_area_name": null, "reservable_frames": null, "code": null, "note3": null, "reservable_period": false },
+    { "use_date": "2027/01/05", "facility_id": null, "facility_name": null, "reservable": false, "tel": null, "room_area_id": null, "room_area_name": null, "reservable_frames": null, "code": null, "note3": null, "reservable_period": false }
+  ]
+}

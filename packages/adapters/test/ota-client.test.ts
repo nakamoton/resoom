@@ -113,6 +113,22 @@ describe('OtaClient.fetchAvailability', () => {
     expect(result.coveredThrough).toBe('2027-01-02');
   });
 
+  it('wantsDate が false を返す日のコマは返さない', async () => {
+    const site = fakeSite();
+    const client = new OtaClient({ fetchImpl: site.fetchImpl, now: noon, sleep: async () => {} });
+
+    const result = await client.fetchAvailability({
+      facilityCode: '999999_001_01',
+      rooms: ['第一音楽スタジオ'],
+      from: '2027-01-01',
+      to: '2027-01-31',
+      wantsDate: (date) => new Date(`${date}T00:00:00Z`).getUTCDay() === 6,
+    });
+
+    expect(result.slots.map((s) => s.date)).toEqual(['2027-01-02', '2027-01-09', '2027-01-16', '2027-01-23', '2027-01-30']);
+    expect(result.coveredThrough).toBe('2027-01-31');
+  });
+
   it('期間が31日を超えるときは、31日ごとに分けて問い合わせる', async () => {
     const site = fakeSite();
     const client = new OtaClient({ fetchImpl: site.fetchImpl, now: noon, sleep: async () => {} });

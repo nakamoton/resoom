@@ -1,0 +1,10 @@
+{
+  "_comment": "渋谷区施設予約システムの GET /api/use_types/facilities/reservation と同じ構造に縮めた、テスト用のサンプル。値は架空。",
+  "messages": [],
+  "errors": [],
+  "warns": [],
+  "content": [
+    { "use_type_code": "900010", "id": 90001, "name": "サンプル文化センター（練習室）" },
+    { "use_type_code": "900010", "id": 7, "name": "サンプル社会教育館" }
+  ]
+}

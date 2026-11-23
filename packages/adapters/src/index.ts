@@ -12,3 +12,5 @@ export { combineRooms } from './combine';
 export { ADAPTER_IDS, createAdapter } from './registry';
 export { OtaClient } from './ota/client';
 export type { OtaClientOptions } from './ota/client';
+export { ShibuyaClient } from './shibuya/client';
+export type { ShibuyaClientOptions } from './shibuya/client';

@@ -144,6 +144,16 @@ describe('PoliteSession', () => {
     expect(sent).toHaveLength(2);
   });
 
+  it('残りのリクエスト数が分かる', async () => {
+    const { fetchImpl } = fakeFetch([new Response('ok')]);
+    const session = new PoliteSession(SITE, { ...quiet, fetchImpl, maxRequests: 3 });
+
+    expect(session.remainingRequests).toBe(3);
+    await session.request('/a');
+    await session.request('/b');
+    expect(session.remainingRequests).toBe(1);
+  });
+
   it.each([
     ['2026-11-22T16:59:00Z', true], // 日本時間 1:59
     ['2026-11-22T17:00:00Z', false], // 2:00

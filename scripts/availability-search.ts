@@ -46,6 +46,8 @@ if (wantedDays?.has(-1)) {
   process.exit(1);
 }
 const focusDates = new Set(list(values.dates));
+/** 問い合わせる日。曜日の指定があれば、その曜日と、特に見たい日だけにする（自治体サイトへの問い合わせを減らす）。 */
+const wantsDate = wantedDays ? (date: string): boolean => wantedDays.has(weekdayOf(date)) || focusDates.has(date) : undefined;
 const municipalities = new Set(list(values.municipality));
 
 // 台帳のうち、空き照会の設定があり、対応するアダプタがある部屋を対象にする。
@@ -100,6 +102,7 @@ for (const rooms of groups.values()) {
       rooms: [...new Set(rooms.flatMap(siteRoomsOf))],
       from,
       to,
+      wantsDate,
     });
     fetchedAt = result.fetchedAt;
     for (const room of rooms) {
@@ -142,8 +145,10 @@ function printDay(date: string): void {
     }
     const ofDay = slots.filter((s) => s.date === date);
     if (ofDay.length === 0) {
-      const through = coveredThrough.get(nameOf(room));
-      console.log(`${label} まだ照会できません${through ? `（${through} まで照会可）` : ''}`);
+      const through = coveredThrough.get(nameOf(room)) ?? null;
+      // 空いているコマしか返さないサイトでは、照会できた範囲内でコマがない日は「空きなし」
+      if (through !== null && date <= through) console.log(`${label} 空きなし`);
+      else console.log(`${label} まだ照会できません${through ? `（${through} まで照会可）` : ''}`);
       continue;
     }
     const free = ofDay.filter((s) => s.status === 'available').map((s) => `${s.start}-${s.end}`);
