@@ -850,7 +850,7 @@
     "facilityName": "めぐろパーシモンホール",
     "roomName": "第１練習室",
     "capacity": null,
-    "nearestStation": null,
+    "nearestStation": "都立大学",
     "evidences": [
       {
         "key": "calendar-usage",
@@ -863,6 +863,130 @@
         "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2025-11-16）。",
         "sourceUrl": null,
         "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "目黒区",
+    "facilityName": "めぐろパーシモンホール",
+    "roomName": "リハーサル室",
+    "capacity": null,
+    "nearestStation": "都立大学",
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2023-11-11",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2023-11-11）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "目黒区",
+    "facilityName": "目黒本町社会教育館",
+    "roomName": "301視聴覚室（旧第1研修室）",
+    "capacity": 30,
+    "nearestStation": null,
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2023-08-26",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で3回利用（直近は2023-08-26）。当時の部屋名は「第１研修室（視聴覚室）」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "ward-page-drums",
+        "kind": "document",
+        "occurredOn": "2026-11-23",
+        "result": "prohibited",
+        "instruments": [
+          "drum_set",
+          "large_percussion",
+          "taiko"
+        ],
+        "note": "目黒区の施設案内に「簡易な防音設備のため大音量となる太鼓等は使用できません。」とある。太鼓類にドラムセットやティンパニが含まれると読んで記録した。",
+        "sourceUrl": "https://www.city.meguro.tokyo.jp/shougaigakushuu/shisetsu/bunkakouryuu/kyoiku_megurohonmachi.html",
+        "reportedBy": "公式ページからの取り込み"
+      },
+      {
+        "key": "ward-page-percussion",
+        "kind": "document",
+        "occurredOn": "2026-11-23",
+        "result": "conditional",
+        "instruments": [
+          "small_percussion"
+        ],
+        "note": "目黒区の施設案内に「太鼓類以外の打楽器2から3台まで使用可能です。」とある。",
+        "sourceUrl": "https://www.city.meguro.tokyo.jp/shougaigakushuu/shisetsu/bunkakouryuu/kyoiku_megurohonmachi.html",
+        "reportedBy": "公式ページからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "目黒区",
+    "facilityName": "上目黒住区センター",
+    "roomName": "B103（音楽室）",
+    "capacity": 48,
+    "nearestStation": null,
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2023-12-02",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2023-12-02）。当時の部屋名は「音楽室」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
+  },
+  {
+    "municipality": "目黒区",
+    "facilityName": "緑が丘文化会館",
+    "roomName": "別館203（音楽室）",
+    "capacity": 55,
+    "nearestStation": null,
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2024-04-27",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-04-27）。当時の部屋名は「別館 音楽室」。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      },
+      {
+        "key": "ward-page-drums",
+        "kind": "document",
+        "occurredOn": "2026-11-23",
+        "result": "prohibited",
+        "instruments": [
+          "drum_set",
+          "large_percussion",
+          "taiko"
+        ],
+        "note": "目黒区の施設案内に「太鼓、ドラムは全室利用ができません。」、この部屋について「太鼓や増幅器を必要とする楽器演奏はできません。」とある。ティンパニなども太鼓に含まれると読んで記録した。",
+        "sourceUrl": "https://www.city.meguro.tokyo.jp/shougaigakushuu/shisetsu/bunkakouryuu/kyoiku_midorigaoka.html",
+        "reportedBy": "公式ページからの取り込み"
       }
     ]
   }
