@@ -1,0 +1,28 @@
+<!-- うぐいすネットの施設選択画面と同じ構造に縮めた、テスト用のサンプル。値は架空。 -->
+<html>
+<head><title>公共施設予約システム（施設絞り込み（場所選択））</title></head>
+<body>
+<form name="yoyaku.ShisetsuMultiSelect.Form" method="post" action="/eshisetsu/yoyaku/ShisetsuMultiSelect.cgi" id="formMain">
+<table class="table_order" summary="照会する施設を選択するための表" id="multiShisetsuTable">
+<tbody>
+<tr><th>選択</th><th>会館<br />施設名</th><th>定員数</th><th>使用料</th><th>設備</th></tr>
+<tr class="btn_table" tabindex="0" title="サンプル会館リハーサル室を選択">
+  <td><input type="checkbox" id="r_record0" name="checkMeisaiUniqKey" value="999999_001_01_01_01" tabindex="-1" /></td>
+  <td><span>サンプル会館</span><span>リハーサル室</span></td>
+  <td nowrap>54名</td><td nowrap>－</td><td></td>
+</tr>
+<tr class="btn_table" tabindex="0" title="サンプル会館体育室を選択">
+  <td><input type="checkbox" id="r_record1" name="checkMeisaiUniqKey" value="999999_001_01_02_01" tabindex="-1" /></td>
+  <td><span>サンプル会館</span><span>体育室</span></td>
+  <td nowrap></td><td nowrap>－</td><td></td>
+</tr>
+<tr class="btn_table" tabindex="0" title="サンプル会館第一音楽スタジオを選択">
+  <td><input type="checkbox" id="r_record2" name="checkMeisaiUniqKey" value="999999_001_01_03_01" tabindex="-1" /></td>
+  <td><span>サンプル会館</span><span>第一音楽スタジオ</span></td>
+  <td nowrap>50名</td><td nowrap>－</td><td></td>
+</tr>
+</tbody>
+</table>
+</form>
+</body>
+</html>

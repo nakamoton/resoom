@@ -1,0 +1,38 @@
+<!-- うぐいすネットの空き照会画面と同じ構造に縮めた、テスト用のサンプル。値は架空。 -->
+<html>
+<head><title>公共施設予約システム（予約対象区分選択）</title></head>
+<body>
+<form name="yoyaku.CalendarStatusSelect.Form" method="post" action="/eshisetsu/yoyaku/CalendarStatusSelect.cgi" id="formMain">
+<input type="hidden" name="action" value="" id="action" />
+<input type="hidden" name="optYear" value="2026" id="optYear" />
+<input type="hidden" name="optMonth" value="12" id="optMonth" />
+<input type="hidden" name="optDay" value="30" id="optDay" />
+<input type="hidden" name="radioshow" value="month" id="radioshow" />
+<div class="box_legend"><ul>
+<li><img src='/eshisetsu/img/std/common/icn_scche_ok.png' alt="" />空き有り</li>
+<li><img src='/eshisetsu/img/std/common/icn_scche_noset.png' alt="" />予約済み</li>
+</ul></div>
+<h3><a href="#">サンプル会館<img src="../img/std/common/icn_outlink.png" alt="サンプル会館のホームページ(外部リンク)" /></a></h3><div class="box_order">
+<ul class="box_schedule">
+<li><div class="box_title"><h4>第一音楽スタジオ</h4></div><div class="inner_scroll_cal"><table class="box_calendar"><tbody>
+<tr class="date"><th class="th_sticky"></th><th><p class="day">12<span>月</span>30<span>日</span></p><p class="week">水</p></th><th><p class="day">12<span>月</span>31<span>日</span></p><p class="week">木</p></th><th class="holiday"><p class="day">1<span>月</span>1<span>日</span></p><p class="week">金</p></th><th class="satday"><p class="day">1<span>月</span>2<span>日</span></p><p class="week">土</p></th></tr>
+<tr><th class="th_sticky">09:30 - 11:30</th><td><img src="../img/std/common/icn_scche_ok.png" alt="空いています" title="空いています" /></td>
+<td><img src="../img/std/common/icn_scche_rest.png" alt="休館日です" title="休館日です" /></td>
+<td><img src="../img/std/common/icn_scche_rest.png" alt="休館日です" title="休館日です" /></td>
+<td><img src="../img/std/common/icn_scche_noset.png" alt="予約済みです" title="予約済みです" /></td>
+</tr><tr><th class="th_sticky">12:00 - 14:00</th><td><img src="../img/std/common/icn_scche_hoshu.png" alt="施設を利用できません" title="施設を利用できません" /></td>
+<td><img src="../img/std/common/icn_scche_rest.png" alt="休館日です" title="休館日です" /></td>
+<td><img src="../img/std/common/icn_scche_rest.png" alt="休館日です" title="休館日です" /></td>
+<td><img src="../img/std/common/icn_scche_ok.png" alt="空いています" title="空いています" /></td>
+</tr></tbody></table></div></li>
+<li><div class="box_title"><h4>リハーサル室</h4></div><div class="inner_scroll_cal"><table class="box_calendar"><tbody>
+<tr class="date"><th class="th_sticky"></th><th><p class="day">12<span>月</span>30<span>日</span></p><p class="week">水</p></th><th><p class="day">12<span>月</span>31<span>日</span></p><p class="week">木</p></th><th class="holiday"><p class="day">1<span>月</span>1<span>日</span></p><p class="week">金</p></th><th class="satday"><p class="day">1<span>月</span>2<span>日</span></p><p class="week">土</p></th></tr>
+<tr><th class="th_sticky">9:00 - 12:00</th><td><img src="../img/std/common/icn_scche_out.png" alt="予約申込対象外です" title="予約申込対象外です" /></td>
+<td><img src="../img/std/common/icn_scche_uten.png" alt="利用中止です" title="利用中止です" /></td>
+<td><img src="../img/std/common/icn_scche_haifun.png" alt="施設を利用できません" title="施設を利用できません" /></td>
+<td><img src="../img/std/common/icn_scche_new.png" alt="新しい表示" title="新しい表示" /></td>
+</tr></tbody></table></div></li>
+</ul></div>
+</form>
+</body>
+</html>
