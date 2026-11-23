@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { EVIDENCE_KIND_LABELS, INSTRUMENT_CLASSES, INSTRUMENT_LABELS, capacityLabel, effectivePolicy } from '@resoom/core';
+import { EVIDENCE_KIND_LABELS, INSTRUMENT_CLASSES, INSTRUMENT_LABELS, can, capacityLabel, effectivePolicy } from '@resoom/core';
 import { getDb, getRoom } from '@resoom/db';
+import { getCurrentMember, requirePermission } from '@/lib/session';
 import { Bi, Municipality, RoomName } from '../../_i18n/Bi';
 import { T } from '../../_i18n/texts';
 import { EvidenceForm } from '../_components/EvidenceForm';
@@ -14,6 +15,8 @@ export const dynamic = 'force-dynamic';
 type Props = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // 部屋の名前も楽団員にだけ見せる
+  if (!(await getCurrentMember())) return { title: `${T.signInTitle.en} · ${T.signInTitle.ja}` };
   const room = await getRoom(await getDb(), (await params).id);
   if (!room) return { title: `${T.notFoundTitle.en} · ${T.notFoundTitle.ja}` };
   const en = [room.facilityNameEn, room.roomNameEn].filter(Boolean).join(' ');
@@ -21,7 +24,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function RoomPage({ params }: Props) {
-  const room = await getRoom(await getDb(), (await params).id);
+  const { id } = await params;
+  const me = await requirePermission('viewCatalog', `/rooms/${id}`);
+  const canEdit = can(me.role, 'editCatalog');
+  const room = await getRoom(await getDb(), id);
   if (!room) notFound();
 
   const policy = effectivePolicy(room.evidences);
@@ -68,6 +74,7 @@ export default async function RoomPage({ params }: Props) {
             <dd>{room.nearestStation ?? <Bi text={T.unknown} />}</dd>
           </div>
         </dl>
+        {canEdit ? (
         <details className="edit">
           <summary>
             <Bi text={T.editBasics} />
@@ -81,6 +88,7 @@ export default async function RoomPage({ params }: Props) {
             nearestStation={room.nearestStation}
           />
         </details>
+        ) : null}
       </div>
       <p className="hint">
         <Bi text={T.capacityCaution} />
@@ -129,12 +137,20 @@ export default async function RoomPage({ params }: Props) {
         <Bi text={T.statusRule} />
       </p>
 
-      <h2>
-        <Bi text={T.addRecord} stack />
-      </h2>
-      <div className="card">
-        <EvidenceForm roomId={room.id} today={today} />
-      </div>
+      {canEdit ? (
+        <>
+          <h2>
+            <Bi text={T.addRecord} stack />
+          </h2>
+          <div className="card">
+            <EvidenceForm roomId={room.id} today={today} defaultReporter={me.name} />
+          </div>
+        </>
+      ) : (
+        <p className="notice">
+          <Bi text={T.readOnlyNote} />
+        </p>
+      )}
 
       <h2>
         <Bi text={T.history(room.evidences.length)} stack />

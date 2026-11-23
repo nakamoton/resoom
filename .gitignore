@@ -1,9 +1,9 @@
-node_modules/
-dist/
+*.log
+*.tsbuildinfo
+.data/
 .env
 .env.*
-*.log
-.data/
 .next/
+dist/
 next-env.d.ts
-*.tsbuildinfo
+node_modules/

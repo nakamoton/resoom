@@ -17,6 +17,12 @@
 - アクセスは `PoliteSession`（`packages/adapters/src/http.ts`）を通し、間隔を空けて1件ずつ送る。
 - 自治体ごとの調査結果は `docs/*-investigation.md` にある。新しい自治体を調べたら同じ形でまとめる。
 
+## ログインと権限
+
+- 空き状況の検索（`/search`）だけはログインなしで使える。ほかのページとサーバー側の処理は、`apps/web/lib/session.ts` の `requirePermission` / `memberWith` で権限を確かめる。
+- ログインなしで見られるページには、記録の文面や記録者の名前（楽団員の個人情報）を出さない。
+- 公開の手順と環境変数は `docs/deploy.md`。
+
 ## 確認
 
 ```bash

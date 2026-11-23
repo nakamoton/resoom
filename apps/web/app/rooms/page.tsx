@@ -3,12 +3,14 @@ import Link from 'next/link';
 import {
   INSTRUMENT_CLASSES,
   INSTRUMENT_SHORT_LABELS,
+  can,
   capacityLabel,
   effectivePolicy,
   filterByCapacity,
   parsePeople,
 } from '@resoom/core';
 import { getDb, listMunicipalities, listRooms, type RoomWithEvidences } from '@resoom/db';
+import { requirePermission } from '@/lib/session';
 import { Bi, Municipality, RoomName, plain } from '../_i18n/Bi';
 import { T } from '../_i18n/texts';
 import { StatusChip } from './_components/StatusChip';
@@ -36,6 +38,7 @@ function roomsHref(params: { m?: string; people?: number | null }): string {
 }
 
 export default async function RoomsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  const me = await requirePermission('viewCatalog', '/rooms');
   const { m, people: peopleParam } = await searchParams;
   const parsedPeople = parsePeople(typeof peopleParam === 'string' ? peopleParam : null);
   const people = parsedPeople ?? null;
@@ -56,9 +59,11 @@ export default async function RoomsPage({ searchParams }: { searchParams: Promis
             <Bi text={T.catalogLead} />
           </p>
         </div>
-        <Link href="/rooms/new" className="button">
-          <Bi text={T.addRoom} />
-        </Link>
+        {can(me.role, 'editCatalog') ? (
+          <Link href="/rooms/new" className="button">
+            <Bi text={T.addRoom} />
+          </Link>
+        ) : null}
       </div>
 
       <nav aria-label={plain(T.filterByMunicipality)}>

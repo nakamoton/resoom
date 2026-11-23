@@ -776,3 +776,112 @@ details.coverage summary {
     padding: 2px 0;
   }
 }
+
+/* ---- ログイン状態・名簿 ---- */
+.user-menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  margin-left: auto;
+  font-size: 14px;
+}
+
+a.user-menu {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.user-menu .who {
+  color: var(--muted);
+}
+
+.link-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.dev-login {
+  margin-top: 24px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+
+.dev-login h2 {
+  margin-top: 8px;
+}
+
+.member-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.member-email {
+  margin: 0;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.member-email .you {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.member-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+}
+
+.inline-form select {
+  padding: 8px 10px;
+  border: 1px solid #aab4af;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+}
+
+.inline-form .field-error {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.inline-form .saved {
+  color: var(--ok-text);
+  font-size: 14px;
+}
+
+.button.small {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.button.danger {
+  border-color: var(--error);
+  background: var(--surface);
+  color: var(--error);
+}
+
+.role-desc {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+}

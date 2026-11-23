@@ -12,6 +12,7 @@ import {
   updateRoomBasics,
   type Db,
   type SeedRoom,
+  disposeDb,
 } from '../src/index';
 
 const room = (overrides: Partial<NewRoomInput> = {}): NewRoomInput => ({
@@ -42,7 +43,7 @@ beforeEach(async () => {
   db = await openDb();
 });
 afterEach(async () => {
-  await db.$client.close();
+  await disposeDb(db);
 });
 
 describe('部屋の登録と取得', () => {

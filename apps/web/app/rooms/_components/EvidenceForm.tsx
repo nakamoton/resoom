@@ -16,7 +16,7 @@ import { FieldLabel, FormNotice, TextField } from './FormParts';
 
 const INITIAL: FormState = { status: 'idle', errors: {}, values: {} };
 
-export function EvidenceForm({ roomId, today }: { roomId: string; today: string }) {
+export function EvidenceForm({ roomId, today, defaultReporter }: { roomId: string; today: string; defaultReporter: string }) {
   const [state, action, pending] = useActionState(addEvidenceAction.bind(null, roomId), INITIAL);
   const { errors, values } = state;
   const text = (key: string, fallback = ''): string => (typeof values[key] === 'string' ? (values[key] as string) : fallback);
@@ -107,7 +107,7 @@ export function EvidenceForm({ roomId, today }: { roomId: string; today: string 
         id="reportedBy"
         name="reportedBy"
         label={T.yourName}
-        defaultValue={text('reportedBy')}
+        defaultValue={text('reportedBy', defaultReporter)}
         error={errors.reportedBy}
         extra={{ autoComplete: 'name' }}
       />

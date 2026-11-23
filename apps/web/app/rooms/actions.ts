@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { validateNewEvidence, validateNewRoom, validateRoomBasics, type FieldErrors, type LocalizedText } from '@resoom/core';
 import { DuplicateRoomError, addEvidence, createRoom, getDb, getRoom, updateRoomBasics } from '@resoom/db';
+import { memberWith } from '@/lib/session';
 import { T } from '../_i18n/texts';
 
 export interface FormState {
@@ -36,6 +37,7 @@ export async function addEvidenceAction(roomId: string, _prev: FormState, form: 
     sourceUrl: single(form, 'sourceUrl'),
     reportedBy: single(form, 'reportedBy'),
   };
+  if (!(await memberWith('editCatalog'))) return { status: 'error', message: T.notAllowedAction, errors: {}, values };
   const checked = validateNewEvidence(values, todayInJapan());
   if (!checked.ok) return { status: 'error', message: T.checkFields, errors: checked.errors, values };
 
@@ -64,6 +66,7 @@ export async function createRoomAction(_prev: FormState, form: FormData): Promis
     roomName: single(form, 'roomName'),
     ...roomFields(form),
   };
+  if (!(await memberWith('editCatalog'))) return { status: 'error', message: T.notAllowedAction, errors: {}, values };
   const checked = validateNewRoom(values);
   if (!checked.ok) return { status: 'error', message: T.checkFields, errors: checked.errors, values };
 
@@ -83,6 +86,7 @@ export async function createRoomAction(_prev: FormState, form: FormData): Promis
 /** 部屋の英語名・定員・定員の出典・最寄駅を直す。 */
 export async function updateRoomBasicsAction(roomId: string, _prev: FormState, form: FormData): Promise<FormState> {
   const values = roomFields(form);
+  if (!(await memberWith('editCatalog'))) return { status: 'error', message: T.notAllowedAction, errors: {}, values };
   const checked = validateRoomBasics(values);
   if (!checked.ok) return { status: 'error', message: T.checkFields, errors: checked.errors, values };
   if (!(await updateRoomBasics(await getDb(), roomId, checked.value))) {

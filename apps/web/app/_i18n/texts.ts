@@ -177,6 +177,55 @@ export const T = {
     '自治体ごとに受付の開始時期が違うため、「データの範囲」より後の日はまだ検索できません。',
   ),
 
+  // ログイン
+  signIn: t('Sign in', 'ログイン'),
+  signOut: t('Sign out', 'ログアウト'),
+  signInTitle: t('Sign in', 'ログイン'),
+  signInLead: t(
+    'Members sign in with their Google account. Only invited accounts can sign in. Searching availability does not need sign-in.',
+    '楽団員は Google アカウントでログインします。招待されたアカウントだけがログインできます。空き状況の検索はログインなしで使えます。',
+  ),
+  signInWithGoogle: t('Sign in with Google', 'Google でログイン'),
+  notInvited: t(
+    'Sign-in failed. Only invited members can sign in. Ask an admin to invite the email address of your Google account.',
+    'ログインできませんでした。招待された楽団員だけがログインできます。管理者に、Google アカウントのメールアドレスを招待してもらってください。',
+  ),
+  forbidden: t('You do not have permission to open that page.', 'そのページを開く権限がありません。'),
+  googleNotConfigured: t('Google sign-in is not set up yet.', 'Google でのログインはまだ設定されていません。'),
+  devLoginTitle: t('Local development sign-in', 'ローカル開発用のログイン'),
+  devLoginHint: t('Only available on a local machine. Never available in production.', 'ローカルの環境でだけ使えます。本番では使えません。'),
+  email: t('Email', 'メールアドレス'),
+  password: t('Password', 'パスワード'),
+  signingIn: t('Signing in…', 'ログインしています…'),
+  navMembers: t('Members', '楽団員'),
+  notAllowedAction: t('You do not have permission to do this.', 'この操作をする権限がありません。'),
+  readOnlyNote: t(
+    'You can view this page. To make changes, ask an admin for the Editor role.',
+    '閲覧のみできます。編集するには、管理者に「施設編集」のロールを付けてもらってください。',
+  ),
+
+  // 楽団員の名簿
+  membersTitle: t('Members', '楽団員'),
+  membersLead: t(
+    'Only people on this list can sign in with their Google account.',
+    'この名簿に載っている人だけが、Google アカウントでログインできます。',
+  ),
+  inviteTitle: t('Invite a member', '楽団員を招待'),
+  inviteHint: t(
+    'Enter the email address of their Google account. No email is sent, so tell them the site address yourself.',
+    'Google アカウントのメールアドレスを入力してください。招待してもメールは送られないので、サイトのアドレスを本人に伝えてください。',
+  ),
+  role: t('Role', 'ロール'),
+  invite: t('Invite', '招待する'),
+  invited: t('Invited.', '招待しました。'),
+  change: t('Change', '変更'),
+  roleChanged: t('Role changed.', 'ロールを変更しました。'),
+  remove: t('Remove', '外す'),
+  removed: t('Removed from the list.', '名簿から外しました。'),
+  invitedBy: t('Invited by', '招待した人'),
+  you: t('you', 'あなた'),
+  initialAdmin: t('Initial admin', '最初の管理者'),
+
   // その他
   notFoundTitle: t('Page not found', 'ページが見つかりません'),
   notFoundLead: t('The room may have been removed, or the URL may be wrong.', '部屋が削除されたか、URLが間違っている可能性があります。'),

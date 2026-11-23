@@ -13,7 +13,9 @@
     "dev": "pnpm --filter @resoom/web dev",
     "build": "pnpm --filter @resoom/web build",
     "availability": "tsx scripts/availability-search.ts",
-    "crawl": "tsx scripts/crawl.ts"
+    "crawl": "tsx scripts/crawl.ts",
+    "db:migrate": "tsx scripts/db-migrate.ts",
+    "bundle:scripts": "node scripts/bundle.mjs"
   },
   "dependencies": {
     "@resoom/adapters": "workspace:*",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.20.5",
+    "esbuild": "^0.28.2",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vitest": "^5.1.1"

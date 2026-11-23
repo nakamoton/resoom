@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { createRoom, loadAvailability, openDb, recordAvailabilityError, saveAvailability, type Db } from '../src/index';
+import { createRoom, disposeDb, loadAvailability, openDb, recordAvailabilityError, saveAvailability, type Db } from '../src/index';
 
 let db: Db;
 let roomId: string;
@@ -17,7 +17,7 @@ beforeEach(async () => {
   });
 });
 afterEach(async () => {
-  await db.$client.close();
+  await disposeDb(db);
 });
 
 const slot = (date: string, start: string, status: 'available' | 'reserved' = 'available') => ({

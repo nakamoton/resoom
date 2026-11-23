@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
-import { check, date, index, integer, pgTable, primaryKey, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
-import type { EvidenceKind, InstrumentClass, PolicyResult, SlotStatus } from '@resoom/core';
+import { boolean, check, date, index, integer, pgTable, primaryKey, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
+import type { EvidenceKind, InstrumentClass, MemberRole, PolicyResult, SlotStatus } from '@resoom/core';
 
 /** 施設台帳の部屋。 */
 export const rooms = pgTable(
@@ -94,7 +94,84 @@ export const availabilitySnapshots = pgTable('availability_snapshots', {
   lastErrorAt: timestamp('last_error_at', { withTimezone: true }),
 });
 
+/**
+ * 楽団員の名簿。ここに載っているメールアドレスの Google アカウントだけがログインできる（招待制）。
+ * メールアドレスは小文字にそろえて保存する。
+ */
+export const members = pgTable(
+  'members',
+  {
+    email: text('email').primaryKey(),
+    role: text('role').$type<MemberRole>().notNull(),
+    /** 招待した人のメールアドレス。最初の管理者（環境変数から登録）は null */
+    invitedBy: text('invited_by'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [check('members_role', sql`${t.role} in ('admin', 'editor', 'member')`)],
+);
+
+// ---- ログイン（Better Auth）のテーブル。項目は Better Auth の定義に合わせる ----
+
+export const authUsers = pgTable('auth_users', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull().unique(),
+  emailVerified: boolean('email_verified').notNull().default(false),
+  image: text('image'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const authSessions = pgTable(
+  'auth_sessions',
+  {
+    id: text('id').primaryKey(),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    token: text('token').notNull().unique(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull(),
+    ipAddress: text('ip_address'),
+    userAgent: text('user_agent'),
+    userId: text('user_id')
+      .notNull()
+      .references(() => authUsers.id, { onDelete: 'cascade' }),
+  },
+  (t) => [index('auth_sessions_user').on(t.userId)],
+);
+
+export const authAccounts = pgTable(
+  'auth_accounts',
+  {
+    id: text('id').primaryKey(),
+    accountId: text('account_id').notNull(),
+    providerId: text('provider_id').notNull(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => authUsers.id, { onDelete: 'cascade' }),
+    accessToken: text('access_token'),
+    refreshToken: text('refresh_token'),
+    idToken: text('id_token'),
+    accessTokenExpiresAt: timestamp('access_token_expires_at', { withTimezone: true }),
+    refreshTokenExpiresAt: timestamp('refresh_token_expires_at', { withTimezone: true }),
+    scope: text('scope'),
+    password: text('password'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull(),
+  },
+  (t) => [index('auth_accounts_user').on(t.userId)],
+);
+
+export const authVerifications = pgTable('auth_verifications', {
+  id: text('id').primaryKey(),
+  identifier: text('identifier').notNull(),
+  value: text('value').notNull(),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
 export type Room = typeof rooms.$inferSelect;
 export type PolicyEvidence = typeof policyEvidences.$inferSelect;
 export type AvailabilitySlotRow = typeof availabilitySlots.$inferSelect;
 export type AvailabilitySnapshot = typeof availabilitySnapshots.$inferSelect;
+export type Member = typeof members.$inferSelect;

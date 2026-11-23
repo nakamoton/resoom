@@ -5,6 +5,7 @@ import {
   INSTRUMENT_LABELS,
   INSTRUMENT_SHORT_LABELS,
   TIMES_OF_DAY,
+  can,
   capacityLabel,
   effectivePolicy,
   searchAvailability,
@@ -14,6 +15,7 @@ import {
   type TimeOfDay,
 } from '@resoom/core';
 import { getDb, listRooms, loadAvailability, type AvailabilitySnapshot, type RoomWithEvidences } from '@resoom/db';
+import { getCurrentMember } from '@/lib/session';
 import { Bi, Municipality, RoomName, plain } from '../_i18n/Bi';
 import { T } from '../_i18n/texts';
 import { StatusChip } from '../rooms/_components/StatusChip';
@@ -64,6 +66,7 @@ const timestampText = (at: Date | null): string =>
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<RawParams> }) {
   const params = await searchParams;
+  const showDetails = can((await getCurrentMember())?.role, 'viewCatalog');
   const db = await getDb();
   const rooms = await listRooms(db);
   const today = todayInJapan();
@@ -226,7 +229,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                       ))}
                     </ul>
                     <InstrumentChips room={room} shown={shown} />
-                    <RoomLinks room={room} />
+                    <RoomLinks room={room} showDetails={showDetails} />
                   </li>
                 ))}
               </ul>
@@ -256,7 +259,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                   </span>
                 </p>
                 <InstrumentChips room={room} shown={shown} />
-                <RoomLinks room={room} />
+                <RoomLinks room={room} showDetails={showDetails} />
               </li>
             ))}
           </ul>
@@ -328,7 +331,7 @@ function InstrumentChips({ room, shown }: { room: RoomWithEvidences; shown: Inst
   );
 }
 
-function RoomLinks({ room }: { room: RoomWithEvidences }) {
+function RoomLinks({ room, showDetails }: { room: RoomWithEvidences; showDetails: boolean }) {
   const site = BOOKING_SITES[room.municipality];
   return (
     <p className="room-links">
@@ -337,9 +340,11 @@ function RoomLinks({ room }: { room: RoomWithEvidences }) {
           <Bi text={T.book} /> ↗
         </a>
       ) : null}
-      <Link href={`/rooms/${room.id}`}>
-        <Bi text={T.roomDetails} />
-      </Link>
+      {showDetails ? (
+        <Link href={`/rooms/${room.id}`}>
+          <Bi text={T.roomDetails} />
+        </Link>
+      ) : null}
     </p>
   );
 }
