@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { KotoClient } from '../src/koto/client';
+import { KotoClient, planMoves } from '../src/koto/client';
 
 /** 実サイトは Shift_JIS で返すので、テストの画面も Shift_JIS のバイト列にする（TextDecoder の逆引き表を使う）。 */
 const SJIS_BYTES = (() => {
@@ -81,8 +81,9 @@ function fakeSite(labelOf: (date: string) => string[] = () => ['空き', '予約
       case '/rsvWInstSrchMonthVacantAction.do':
         return respond(page('施設空き状況１ヶ月表示画面'));
       case '/rsvWInstSrchVacantAction.do': {
-        if (body?.get('transVacantMode') === '13') {
-          current = new Date(Date.parse(`${current}T00:00:00Z`) + 86_400_000).toISOString().slice(0, 10);
+        const step = { '13': 1, '12': -1, '4': 7 }[body?.get('transVacantMode') ?? ''];
+        if (step !== undefined) {
+          current = new Date(Date.parse(`${current}T00:00:00Z`) + step * 86_400_000).toISOString().slice(0, 10);
         } else {
           const ymd = body?.get('srchSelectYMD') ?? '';
           current = `${ymd.slice(0, 4)}-${ymd.slice(4, 6)}-${ymd.slice(6, 8)}`;
@@ -163,7 +164,7 @@ describe('KotoClient.fetchAvailability', () => {
     expect(result.coveredThrough).toBe('2026-12-01');
   });
 
-  it('wantsDate が false の日のコマは返さない（「翌日」で進むので問い合わせは減らない）', async () => {
+  it('wantsDate が false の日のコマは返さない', async () => {
     const site = fakeSite();
 
     const result = await clientFor(site).fetchAvailability({
@@ -201,5 +202,32 @@ describe('KotoClient.fetchAvailability', () => {
 
   it('facilityCode の形式が違えば失敗する', async () => {
     await expect(clientFor(fakeSite()).fetchAvailability({ facilityCode: '1010-1050', rooms: ['ＡＶ・ホール'], from: '2026-11-28', to: '2026-11-28' })).rejects.toThrow('地域コード-館コード-館の順番');
+  });
+
+  it('土日祝だけを指定すると、「次の週」「前日」も使って、ほぼ1日1件でたどる', async () => {
+    const site = fakeSite();
+    const weekend = (date: string) => [0, 6].includes(new Date(`${date}T00:00:00Z`).getUTCDay()) || date === '2026-12-23';
+
+    const result = await clientFor(site).fetchAvailability({ facilityCode: FACILITY, rooms: ['ＡＶ・ホール'], from: '2026-11-23', to: '2026-12-31', wantsDate: weekend });
+
+    const visited = site.calls.filter((c) => c.path === '/rsvWInstSrchVacantAction.do');
+    expect([...new Set(result.slots.map((s) => s.date))]).toEqual([
+      '2026-11-28', '2026-11-29', '2026-12-05', '2026-12-06', '2026-12-12', '2026-12-13', '2026-12-19', '2026-12-20', '2026-12-23', '2026-12-26', '2026-12-27',
+    ]);
+    // 11日分を18件でたどる（全日なら39件）。平日の祝日（12/23 水）を挟む分だけ多くなる
+    expect(visited).toHaveLength(18);
+    expect(visited.map((c) => c.body?.get('transVacantMode'))).toContain('4');
+  });
+});
+
+describe('planMoves', () => {
+  it('「次の週」と「翌日」「前日」をいちばん少なく組み合わせる', () => {
+    const modes = (delta: number) => planMoves(delta).map((m) => m.days);
+    expect(modes(1)).toEqual([1]);
+    expect(modes(6)).toEqual([7, -1]);
+    expect(modes(7)).toEqual([7]);
+    expect(modes(8)).toEqual([7, 1]);
+    expect(modes(13)).toEqual([7, 7, -1]);
+    expect(() => planMoves(0)).toThrow();
   });
 });

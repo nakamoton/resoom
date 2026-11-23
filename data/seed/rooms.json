@@ -2709,5 +2709,650 @@
       "facilityCode": "50041"
     },
     "evidences": []
+  },
+  {
+    "municipality": "品川区",
+    "facilityName": "スクエア荏原",
+    "facilityNameEn": "Square Ebara",
+    "roomName": "第１スタジオ",
+    "roomNameEn": "Studio 1",
+    "capacity": 50,
+    "capacitySource": "Shinagawa City facility page, 2026-11-23 / 品川区の施設案内（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shinagawa",
+      "facilityCode": "1100_4020"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "品川区",
+    "facilityName": "五反田文化センター",
+    "facilityNameEn": "Gotanda Culture Center",
+    "roomName": "第１スタジオ",
+    "roomNameEn": "Studio 1",
+    "capacity": 120,
+    "capacitySource": "Shinagawa City facility page, 2026-11-23 / 品川区の施設案内（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shinagawa",
+      "facilityCode": "1300_2010"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "品川区",
+    "facilityName": "五反田文化センター",
+    "facilityNameEn": "Gotanda Culture Center",
+    "roomName": "第２スタジオ",
+    "roomNameEn": "Studio 2",
+    "capacity": 90,
+    "capacitySource": "Shinagawa City facility page, 2026-11-23 / 品川区の施設案内（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shinagawa",
+      "facilityCode": "1300_2010"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "品川区",
+    "facilityName": "こみゅにてぃぷらざ八潮",
+    "facilityNameEn": "Community Plaza Yashio",
+    "roomName": "第１音楽室",
+    "roomNameEn": "Music Room 1",
+    "capacity": 42,
+    "capacitySource": "Shinagawa City facility page, 2026-11-23 / 品川区の施設案内（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shinagawa",
+      "facilityCode": "1500_2190"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "品川区",
+    "facilityName": "八潮区民集会所",
+    "facilityNameEn": "Yashio Community Hall",
+    "roomName": "音楽室",
+    "roomNameEn": "Music Room",
+    "capacity": 40,
+    "capacitySource": "Shinagawa City facility page, 2026-11-23 / 品川区の施設案内（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "shinagawa",
+      "facilityCode": "1500_2180"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "世田谷区",
+    "facilityName": "烏山区民センター",
+    "facilityNameEn": "Karasuyama Ward Center",
+    "roomName": "音楽室",
+    "roomNameEn": "Music Room",
+    "capacity": 50,
+    "capacitySource": "Room list on the Setagaya City booking site (Keyaki-net), 2026-11-23 / けやきネットの部屋一覧（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "setagaya",
+      "facilityCode": "烏山区民センター"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "世田谷区",
+    "facilityName": "尾山台地区会館",
+    "facilityNameEn": "Oyamadai Community Hall",
+    "roomName": "音楽室",
+    "roomNameEn": "Music Room",
+    "capacity": 60,
+    "capacitySource": "Room list on the Setagaya City booking site (Keyaki-net), 2026-11-23 / けやきネットの部屋一覧（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "setagaya",
+      "facilityCode": "尾山台地区会館"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "大田区",
+    "facilityName": "大田区民プラザ",
+    "facilityNameEn": "Ota Civic Plaza",
+    "roomName": "リハーサル室",
+    "roomNameEn": "Rehearsal Room",
+    "capacity": 54,
+    "capacitySource": "Room list on the Ota City booking site (Uguisu-net), 2026-11-23 / 大田区 うぐいすネットの部屋一覧（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "ota",
+      "facilityCode": "131113_001_18"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "大田区",
+    "facilityName": "大田区民ホール・アプリコ",
+    "facilityNameEn": "Ota Civic Hall Aprico",
+    "roomName": "Ａスタジオ",
+    "roomNameEn": "Studio A",
+    "capacity": 40,
+    "capacitySource": "Room list on the Ota City booking site (Uguisu-net), 2026-11-23 / 大田区 うぐいすネットの部屋一覧（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "ota",
+      "facilityCode": "131113_001_19"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "大田区",
+    "facilityName": "大田区民ホール・アプリコ",
+    "facilityNameEn": "Ota Civic Hall Aprico",
+    "roomName": "小ホール（公演集会使用）",
+    "roomNameEn": "Small Hall (performances and meetings)",
+    "capacity": 175,
+    "capacitySource": "Room list on the Ota City booking site (Uguisu-net), 2026-11-23 / 大田区 うぐいすネットの部屋一覧（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "ota",
+      "facilityCode": "131113_001_19"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "大田区",
+    "facilityName": "糀谷文化センター",
+    "facilityNameEn": "Kojiya Culture Center",
+    "roomName": "第一集会室",
+    "roomNameEn": "Assembly Room 1",
+    "capacity": 50,
+    "capacitySource": "Room list on the Ota City booking site (Uguisu-net), 2026-11-23 / 大田区 うぐいすネットの部屋一覧（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "ota",
+      "facilityCode": "131113_001_28"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "江東区",
+    "facilityName": "江東区文化センター",
+    "facilityNameEn": "Koto Culture Center",
+    "roomName": "レクホール",
+    "roomNameEn": "Recreation Hall",
+    "capacity": 300,
+    "capacitySource": "Facility page of the Koto culture foundation, 2026-11-23 / 江東区文化コミュニティ財団の施設詳細ページ（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "koto",
+      "facilityCode": "1010-1010-1"
+    },
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 4550
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 9350
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 11500
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 5450
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 11000
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 13800
+        }
+      ],
+      "note": {
+        "en": "Main uses listed by the facility include orchestras and bands. No extra charge for non-residents. Piano and stage cost extra.",
+        "ja": "施設の主な利用目的に「オーケストラ・楽団」があります。区外の加算なし。ピアノ・舞台は別料金。"
+      },
+      "sources": [
+        "https://www.kcf.or.jp/koto/shisetsu/ichiran/detail/?id=18"
+      ],
+      "checkedOn": "2026-11-23"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "江東区",
+    "facilityName": "古石場文化センター",
+    "facilityNameEn": "Furuishiba Culture Center",
+    "roomName": "大研修室",
+    "roomNameEn": "Large Training Room",
+    "capacity": 240,
+    "capacitySource": "Facility page of the Koto culture foundation, 2026-11-23 / 江東区文化コミュニティ財団の施設詳細ページ（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "koto",
+      "facilityCode": "1010-1060-6"
+    },
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 4850
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 9600
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 12050
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 5750
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 11300
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 14400
+        }
+      ],
+      "note": {
+        "en": "Main uses listed by the facility include orchestras and bands. No extra charge for non-residents. Piano and stage cost extra.",
+        "ja": "施設の主な利用目的に「オーケストラ・楽団」があります。区外の加算なし。ピアノ・舞台は別料金。"
+      },
+      "sources": [
+        "https://www.kcf.or.jp/furuishiba/shisetsu/ichiran/detail/?id=85"
+      ],
+      "checkedOn": "2026-11-23"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "江東区",
+    "facilityName": "豊洲文化センター",
+    "facilityNameEn": "Toyosu Culture Center",
+    "roomName": "レクホール",
+    "roomNameEn": "Recreation Hall",
+    "capacity": 300,
+    "capacitySource": "Facility page of the Koto culture foundation, 2026-11-23 / 江東区文化コミュニティ財団の施設詳細ページ（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "koto",
+      "facilityCode": "1010-1035-3"
+    },
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 4300
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 8800
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 10950
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 5200
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 10500
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 13100
+        }
+      ],
+      "note": {
+        "en": "Main uses listed by the facility include orchestras and bands. No extra charge for non-residents. Piano and stage cost extra.",
+        "ja": "施設の主な利用目的に「オーケストラ・楽団」があります。区外の加算なし。ピアノ・舞台は別料金。"
+      },
+      "sources": [
+        "https://www.kcf.or.jp/toyosu/shisetsu/ichiran/detail/?id=55"
+      ],
+      "checkedOn": "2026-11-23"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "江東区",
+    "facilityName": "豊洲文化センター",
+    "facilityNameEn": "Toyosu Culture Center",
+    "roomName": "サブ・レクホール",
+    "roomNameEn": "Sub Recreation Hall",
+    "capacity": 136,
+    "capacitySource": "Facility page of the Koto culture foundation, 2026-11-23 / 江東区文化コミュニティ財団の施設詳細ページ（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "koto",
+      "facilityCode": "1010-1035-3"
+    },
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 2600
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 5300
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 7000
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3100
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 6350
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 8700
+        }
+      ],
+      "note": {
+        "en": "Main uses listed by the facility include orchestras and bands. No extra charge for non-residents. Piano and stage cost extra.",
+        "ja": "施設の主な利用目的に「オーケストラ・楽団」があります。区外の加算なし。ピアノ・舞台は別料金。"
+      },
+      "sources": [
+        "https://www.kcf.or.jp/toyosu/shisetsu/ichiran/detail/?id=56"
+      ],
+      "checkedOn": "2026-11-23"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "江東区",
+    "facilityName": "東大島文化センター",
+    "facilityNameEn": "Higashi-Ojima Culture Center",
+    "roomName": "レクホール",
+    "roomNameEn": "Recreation Hall",
+    "capacity": 250,
+    "capacitySource": "Facility page of the Koto culture foundation, 2026-11-23 / 江東区文化コミュニティ財団の施設詳細ページ（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "koto",
+      "facilityCode": "1010-1020-2"
+    },
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3800
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 7700
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 9750
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 4550
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 9350
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 11500
+        }
+      ],
+      "note": {
+        "en": "Main uses listed by the facility include orchestras and bands. No extra charge for non-residents. Piano and stage cost extra.",
+        "ja": "施設の主な利用目的に「オーケストラ・楽団」があります。区外の加算なし。ピアノ・舞台は別料金。"
+      },
+      "sources": [
+        "https://www.kcf.or.jp/higashiojima/shisetsu/ichiran/detail/?id=110"
+      ],
+      "checkedOn": "2026-11-23"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "江東区",
+    "facilityName": "東大島文化センター",
+    "facilityNameEn": "Higashi-Ojima Culture Center",
+    "roomName": "ＡＶ・ホール",
+    "roomNameEn": "AV Hall",
+    "capacity": 80,
+    "capacitySource": "Facility page of the Koto culture foundation, 2026-11-23 / 江東区文化コミュニティ財団の施設詳細ページ（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "koto",
+      "facilityCode": "1010-1020-2"
+    },
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3100
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 6300
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 8000
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 3800
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 7700
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 9750
+        }
+      ],
+      "note": {
+        "en": "Main uses listed by the facility include orchestras and bands. No extra charge for non-residents. Piano and stage cost extra.",
+        "ja": "施設の主な利用目的に「オーケストラ・楽団」があります。区外の加算なし。ピアノ・舞台は別料金。"
+      },
+      "sources": [
+        "https://www.kcf.or.jp/higashiojima/shisetsu/ichiran/detail/?id=111"
+      ],
+      "checkedOn": "2026-11-23"
+    },
+    "evidences": []
+  },
+  {
+    "municipality": "江東区",
+    "facilityName": "総合区民センター",
+    "facilityNameEn": "Koto Civic Center",
+    "roomName": "レクホール",
+    "roomNameEn": "Recreation Hall",
+    "capacity": 390,
+    "capacitySource": "Facility page of the Koto culture foundation, 2026-11-23 / 江東区文化コミュニティ財団の施設詳細ページ（2026-11-23）",
+    "nearestStation": null,
+    "candidate": true,
+    "adapter": {
+      "id": "koto",
+      "facilityCode": "1010-1080-8"
+    },
+    "fees": {
+      "unit": "slot",
+      "slots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 8150
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 16550
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 21100
+        }
+      ],
+      "holidaySlots": [
+        {
+          "label": "午前",
+          "start": "09:00",
+          "end": "12:00",
+          "yen": 10200
+        },
+        {
+          "label": "午後",
+          "start": "13:00",
+          "end": "17:00",
+          "yen": 20150
+        },
+        {
+          "label": "夜間",
+          "start": "18:00",
+          "end": "22:00",
+          "yen": 25400
+        }
+      ],
+      "note": {
+        "en": "Main uses listed by the facility include orchestras and bands. No extra charge for non-residents. Piano and stage cost extra.",
+        "ja": "施設の主な利用目的に「オーケストラ・楽団」があります。区外の加算なし。ピアノ・舞台は別料金。"
+      },
+      "sources": [
+        "https://www.kcf.or.jp/sogo/shisetsu/ichiran/detail/?id=126"
+      ],
+      "checkedOn": "2026-11-23"
+    },
+    "evidences": []
   }
 ]

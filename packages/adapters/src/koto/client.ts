@@ -28,8 +28,21 @@ const TWO_HOUR_SLOTS: ReadonlyArray<[string, string]> = [
 ];
 /** 照会できる範囲を過ぎたと判断するまでの、続けて「受付期間外」の日数。 */
 const OUT_OF_PERIOD_DAYS_TO_STOP = 7;
-/** 「翌日」の画面へ進むときの transVacantMode。 */
-const NEXT_DAY = '13';
+/** 日ごとの画面で日を移すときの transVacantMode と、移る日数（実サイトで確かめた）。 */
+const MOVES = { nextDay: { mode: '13', days: 1 }, previousDay: { mode: '12', days: -1 }, nextWeek: { mode: '4', days: 7 } } as const;
+type Move = (typeof MOVES)[keyof typeof MOVES];
+
+/** delta 日先へ移るための、いちばん少ない移り方（「次の週」と「翌日」「前日」の組み合わせ）。 */
+export function planMoves(delta: number): Move[] {
+  if (delta <= 0) throw new Error(`先の日へだけ移れます（${delta}日）`);
+  const weeks = Math.floor(delta / 7);
+  const rest = delta - weeks * 7;
+  // 「次の週」を1回多くして「前日」で戻るほうが少なければ、そちらにする
+  if (rest > 0 && 1 + (7 - rest) < rest) {
+    return [...Array<Move>(weeks + 1).fill(MOVES.nextWeek), ...Array<Move>(7 - rest).fill(MOVES.previousDay)];
+  }
+  return [...Array<Move>(weeks).fill(MOVES.nextWeek), ...Array<Move>(rest).fill(MOVES.nextDay)];
+}
 
 export type KotoClientOptions = PoliteSessionOptions;
 
@@ -47,6 +60,7 @@ interface Facility {
  * 川崎市と同じ系統だが、画面の順路を飛ばすと「遷移情報に誤りがあります」と返るため、
  * メニュー → 空き状況の検索 → 地域 → 館 → 1か月表示 → 日ごとの表示 と順にたどり、あとは「翌日」で1日ずつ進む。
  * 1回の照会で送るリクエストは「6 + 日数」。日ごとの表示には館の全部屋が出るので、部屋数は関係ない。
+ * wantsDate で日を絞ると、「次の週」「前日」も使って絞った日だけをたどる（土日祝だけなら、ほぼ1日1件）。
  */
 export class KotoClient implements AvailabilityAdapter {
   readonly id = 'koto';
@@ -77,12 +91,20 @@ export class KotoClient implements AvailabilityAdapter {
   async fetchAvailability(query: AvailabilityQuery): Promise<AvailabilityResult> {
     const facility = parseFacilityCode(query.facilityCode);
     const today = this.todayJst();
+    const wants = query.wantsDate ?? (() => true);
+    const nextWanted = (after: string): string | null => {
+      for (let d = after; d <= query.to; d = formatIsoDate(addDays(parseIsoDate(d), 1))) {
+        if (d > after && wants(d)) return d;
+      }
+      return null;
+    };
     const from = query.from < today ? today : query.from;
-    if (from > query.to) {
+    const first = wants(from) ? from : nextWanted(from);
+    if (first === null || first > query.to) {
       return { rooms: [], slots: [], coveredThrough: null, fetchedAt: this.session.currentTime().toISOString() };
     }
 
-    let page = await this.openDay(facility, from);
+    let page = await this.openDay(facility, first);
     const rooms = query.rooms.map((name) => {
       const found = page.rooms.find((r) => r.name === name);
       if (!found) throw new Error(`部屋「${name}」が見つかりません。候補: ${page.rooms.map((r) => r.name).join('、')}`);
@@ -92,7 +114,7 @@ export class KotoClient implements AvailabilityAdapter {
     const slots: AvailabilitySlot[] = [];
     let coveredThrough: string | null = null;
     let outOfPeriodRun = 0;
-    let expected = from;
+    let expected = first;
     for (;;) {
       if (page.date !== expected) throw new Error(`想定外の日の表示です（期待: ${expected} / 実際: ${page.date}）`);
       const dayRooms = rooms.map((room) => page.rooms.find((r) => r.key === room.key));
@@ -103,7 +125,7 @@ export class KotoClient implements AvailabilityAdapter {
       } else if (coveredThrough !== null) {
         outOfPeriodRun += 1;
       }
-      if (!query.wantsDate || query.wantsDate(page.date)) {
+      if (wants(page.date)) {
         rooms.forEach((room, i) => {
           const cells = dayRooms[i]?.cells ?? [];
           const times = cells.length === TWO_HOUR_SLOTS.length ? TWO_HOUR_SLOTS : PERIODS;
@@ -116,10 +138,18 @@ export class KotoClient implements AvailabilityAdapter {
           });
         });
       }
-      // 照会できる範囲を過ぎた（受付期間外が続く）か、指定の最後の日まで来たら終わる。問い合わせの上限が近づいたら、そこまでで返す
-      if (page.date >= query.to || outOfPeriodRun >= OUT_OF_PERIOD_DAYS_TO_STOP || this.session.remainingRequests < 1) break;
-      expected = formatIsoDate(addDays(parseIsoDate(page.date), 1));
-      page = await this.nextDay(page);
+      // 照会できる範囲を過ぎた（受付期間外が続く）か、指定の最後の日まで来たら終わる
+      const next = nextWanted(page.date);
+      if (next === null || outOfPeriodRun >= OUT_OF_PERIOD_DAYS_TO_STOP) break;
+      const moves = planMoves(daysBetween(page.date, next));
+      // 問い合わせの上限に届くなら、そこまでで返す
+      if (this.session.remainingRequests < moves.length) break;
+      for (const move of moves) {
+        expected = formatIsoDate(addDays(parseIsoDate(page.date), move.days));
+        page = await this.move(page, move);
+        if (page.date !== expected) throw new Error(`想定外の日の表示です（期待: ${expected} / 実際: ${page.date}）`);
+      }
+      expected = next;
     }
     return { rooms, slots, coveredThrough, fetchedAt: this.session.currentTime().toISOString() };
   }
@@ -174,11 +204,11 @@ export class KotoClient implements AvailabilityAdapter {
     return parseDay(await this.post('/rsvWInstSrchVacantAction.do', dayForm(date, '7'), TITLE_DAY));
   }
 
-  /** 日ごとの表示から「翌日」へ進む。 */
-  private async nextDay(page: DayPage): Promise<DayPage> {
+  /** 日ごとの表示から「翌日」「前日」「次の週」で日を移す。 */
+  private async move(page: DayPage, move: Move): Promise<DayPage> {
     const html = await this.post(
       '/rsvWInstSrchVacantAction.do',
-      { displayNo: 'prwca1000', transVacantMode: NEXT_DAY, srchSelectInstNo: page.srchSelectInstNo, selectBldNo: page.selectBldNo },
+      { displayNo: 'prwca1000', transVacantMode: move.mode, srchSelectInstNo: page.srchSelectInstNo, selectBldNo: page.selectBldNo },
       TITLE_DAY,
     );
     return parseDay(html);
@@ -217,6 +247,11 @@ function dayForm(date: string, mode: string): URLSearchParams {
     ['srchSelectYMD', `${y}${m}${d}`],
     ['transVacantMode', mode],
   ]);
+}
+
+/** a から b まで何日か（YYYY-MM-DD）。 */
+function daysBetween(a: string, b: string): number {
+  return Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000);
 }
 
 function parseFacilityCode(facilityCode: string): Facility {
