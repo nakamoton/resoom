@@ -8,6 +8,7 @@ import {
   can,
   capacityLabel,
   effectivePolicy,
+  municipalityName,
   searchAvailability,
   timeOfDayOf,
   type InstrumentClass,
@@ -18,9 +19,9 @@ import { getDb, listRooms, loadAvailability, type AvailabilitySnapshot, type Roo
 import { getCurrentMember } from '@/lib/session';
 import { Bi, Municipality, RoomName, plain } from '../_i18n/Bi';
 import { T } from '../_i18n/texts';
-import { StatusChip } from '../rooms/_components/StatusChip';
+import { StatusLegend, StatusMark } from '../rooms/_components/StatusChip';
 import { BOOKING_SITES } from './booking-sites';
-import { parseSearch, type RawParams } from './criteria';
+import { SUBMITTED_PARAM, parseSearch, type RawParams } from './criteria';
 import { NOT_SEARCHED_REASONS, byReason, groupNotSearched } from './not-searched';
 
 export const metadata: Metadata = { title: `${T.searchTitle.en} · ${T.searchTitle.ja}` };
@@ -38,15 +39,9 @@ const WEEKDAYS: { value: number; label: LocalizedText }[] = [
 ];
 
 const TIME_LABELS: Record<TimeOfDay, LocalizedText> = {
-  morning: { en: 'Morning (before 12:00)', ja: '午前（12時まで）' },
-  afternoon: { en: 'Afternoon (12:00–17:00)', ja: '午後（12〜17時）' },
-  evening: { en: 'Evening (after 17:00)', ja: '夜間（17時以降）' },
-};
-
-const TIME_SHORT: Record<TimeOfDay, LocalizedText> = {
-  morning: { en: 'Morning', ja: '午前' },
-  afternoon: { en: 'Afternoon', ja: '午後' },
-  evening: { en: 'Evening', ja: '夜間' },
+  morning: { en: 'Morning –12', ja: '午前' },
+  afternoon: { en: 'Afternoon 12–17', ja: '午後' },
+  evening: { en: 'Evening 17–', ja: '夜間' },
 };
 
 /** 結果に添える楽器（指定がなければ打楽器の3区分）。 */
@@ -57,9 +52,15 @@ const dateText = (date: string): LocalizedText => {
   const d = new Date(`${date}T00:00:00Z`);
   return {
     en: new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(d),
-    ja: new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short', timeZone: 'UTC' }).format(d),
+    ja: new Intl.DateTimeFormat('ja-JP', { month: 'numeric', day: 'numeric', weekday: 'short', timeZone: 'UTC' }).format(d),
   };
 };
+/** 日付の一覧（目次）向けの短い表記。例: Sat 28 Nov */
+const shortDate = (date: string): string =>
+  new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${date}T00:00:00Z`)).replace(',', '');
+/** 土日を色分けするための曜日（0 = 日曜）。 */
+const weekdayOf = (date: string): number => new Date(`${date}T00:00:00Z`).getUTCDay();
+const dayClass = (date: string): string => (weekdayOf(date) === 6 ? 'sat' : weekdayOf(date) === 0 ? 'sun' : '');
 const timestampText = (at: Date | null): string =>
   at
     ? `${new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(at)} JST`
@@ -71,7 +72,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const db = await getDb();
   const rooms = await listRooms(db);
   const today = todayInJapan();
-  const municipalityOptions = [...new Set(rooms.map((r) => r.municipality))].sort((a, b) => a.localeCompare(b, 'ja'));
+  // 英語を主にするので、英語名の順に並べる
+  const municipalityOptions = [...new Set(rooms.map((r) => r.municipality))].sort((a, b) =>
+    (municipalityName(a).en ?? a).localeCompare(municipalityName(b).en ?? b, 'en'),
+  );
   const { criteria, form, invalidDates, invalidPeople } = parseSearch(params, today, municipalityOptions);
   const { slots, snapshots } = await loadAvailability(db, { from: criteria.from, to: criteria.to });
   const result = searchAvailability(rooms, slots, snapshots, criteria);
@@ -85,20 +89,24 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 
   return (
     <>
-      <h1>
-        <Bi text={T.searchTitle} stack />
-      </h1>
-      <p className="lead">
-        <Bi text={T.searchLead} />
-      </p>
+      <div className="page-title">
+        <h1>
+          <Bi text={T.searchTitle} />
+        </h1>
+        <p className="lead">
+          <Bi text={T.searchLead} />
+        </p>
+      </div>
 
       {notSearched.length > 0 ? (
         <section className="not-searched" aria-labelledby="not-searched-title">
-          <h2 id="not-searched-title">
-            <Bi text={T.notSearchedTitle} stack />
-          </h2>
-          <p>
-            <Bi text={T.notSearchedLead} />
+          <p className="ns-head">
+            <strong id="not-searched-title">
+              <Bi text={T.notSearchedTitle} />
+            </strong>
+            <span className="ns-lead">
+              <Bi text={T.notSearchedLead} />
+            </span>
           </p>
           <ul>
             {notSearched.map((group) => (
@@ -126,89 +134,107 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       ) : null}
 
       <form className="card search-form" action="/search" method="get">
+        <input type="hidden" name={SUBMITTED_PARAM} value="1" />
         {invalidDates ? (
           <p className="notice error" role="status">
             <Bi text={T.searchInvalidDates} />
           </p>
         ) : null}
-        <div className="date-range">
-          <div className="field">
-            <label className="label" htmlFor="from">
-              <Bi text={T.fromDate} />
-            </label>
-            <input type="date" id="from" name="from" defaultValue={form.from} />
-          </div>
-          <div className="field">
-            <label className="label" htmlFor="to">
-              <Bi text={T.toDate} />
-            </label>
-            <input type="date" id="to" name="to" defaultValue={form.to} />
-          </div>
-          <div className="field">
-            <label className="label" htmlFor="people">
-              <Bi text={T.people} />
-              <span className="optional">
-                <Bi text={T.optional} />
+
+        <div className="form-row">
+          <span className="row-label" id="dates-label">
+            <Bi text={T.dates} />
+          </span>
+          <div className="row-body inputs">
+            <label className="inline-field">
+              <span className="sr-only">
+                <Bi text={T.fromDate} />
               </span>
+              <input type="date" id="from" name="from" defaultValue={form.from} aria-label={plain(T.fromDate)} />
             </label>
-            <input type="number" id="people" name="people" min={1} max={9999} inputMode="numeric" defaultValue={form.people} aria-describedby="people-hint" />
-            <p className="hint" id="people-hint">
-              <Bi text={invalidPeople ? T.peopleInvalid : T.peopleHint} />
-            </p>
+            <span aria-hidden="true">–</span>
+            <label className="inline-field">
+              <span className="sr-only">
+                <Bi text={T.toDate} />
+              </span>
+              <input type="date" id="to" name="to" defaultValue={form.to} aria-label={plain(T.toDate)} />
+            </label>
+            <label className="inline-field people" htmlFor="people">
+              <span className="field-name">
+                <Bi text={T.people} />
+              </span>
+              <input
+                type="number"
+                id="people"
+                name="people"
+                min={1}
+                max={9999}
+                inputMode="numeric"
+                defaultValue={form.people}
+                aria-describedby="people-hint"
+                placeholder="—"
+              />
+            </label>
+            <span className={invalidPeople ? 'hint field-error' : 'hint'} id="people-hint">
+              <Bi text={invalidPeople ? T.peopleInvalid : T.searchPeopleHint} />
+            </span>
           </div>
         </div>
 
-        <fieldset className="field">
-          <legend>
+        <fieldset className="form-row">
+          <legend className="row-label">
             <Bi text={T.daysOfWeek} />
           </legend>
-          <div className="choices compact">
+          <div className="row-body choices">
             {WEEKDAYS.map((d) => (
-              <label key={d.value}>
+              <label key={d.value} className={d.value === 6 ? 'sat' : d.value === 0 ? 'sun' : undefined}>
                 <input type="checkbox" name="d" value={d.value} defaultChecked={form.days.includes(d.value)} />
                 <Bi text={d.label} />
               </label>
             ))}
+            <span className="hint">
+              <Bi text={T.anyHint} />
+            </span>
           </div>
         </fieldset>
 
-        <fieldset className="field">
-          <legend>
+        <fieldset className="form-row">
+          <legend className="row-label">
             <Bi text={T.timeOfDay} />
           </legend>
-          <div className="choices">
+          <div className="row-body choices">
             {TIMES_OF_DAY.map((time) => (
               <label key={time}>
                 <input type="checkbox" name="t" value={time} defaultChecked={form.times.includes(time)} />
-                <Bi text={TIME_LABELS[time]} stack />
+                <Bi text={TIME_LABELS[time]} />
               </label>
             ))}
           </div>
         </fieldset>
 
-        <fieldset className="field" aria-describedby="need-hint">
-          <legend>
+        <fieldset className="form-row">
+          <legend className="row-label">
             <Bi text={T.needInstruments} />
           </legend>
-          <div className="choices">
+          <div className="row-body choices">
             {INSTRUMENT_CLASSES.map((cls) => (
               <label key={cls}>
                 <input type="checkbox" name="need" value={cls} defaultChecked={form.needs.includes(cls)} />
-                <Bi text={INSTRUMENT_LABELS[cls]} stack />
+                <Bi text={INSTRUMENT_LABELS[cls]} />
               </label>
             ))}
+            <label className="plain-check">
+              <input type="checkbox" name="unknown" value="1" defaultChecked={form.includeUnknown} />
+              <Bi text={T.includeUnknown} />
+            </label>
           </div>
-          <label className="inline-check">
-            <input type="checkbox" name="unknown" value="1" defaultChecked={form.includeUnknown} />
-            <Bi text={T.includeUnknown} />
-          </label>
         </fieldset>
 
-        <fieldset className="field">
-          <legend>
+        <fieldset className="form-row">
+          <legend className="row-label">
             <Bi text={T.municipalities} />
           </legend>
-          <div className="choices compact">
+          <div className="row-body choices">
             {municipalityOptions.map((m) => (
               <label key={m}>
                 <input type="checkbox" name="m" value={m} defaultChecked={form.municipalities.includes(m)} />
@@ -216,19 +242,17 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
               </label>
             ))}
           </div>
-          <p className="hint">
-            <Bi text={T.anyHint} />
-          </p>
         </fieldset>
 
-        <button type="submit" className="button">
-          <Bi text={T.search} />
-        </button>
+        <div className="form-actions">
+          <button type="submit" className="button">
+            <Bi text={T.search} />
+          </button>
+          <span className="hint">
+            <Bi text={T.searchDisclaimer} />
+          </span>
+        </div>
       </form>
-
-      <p className="hint">
-        <Bi text={T.searchDisclaimer} />
-      </p>
 
       {!hasData ? (
         <p className="empty">
@@ -236,37 +260,53 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         </p>
       ) : (
         <section className="results" aria-live="polite">
-          <h2>
-            <Bi text={result.days.length > 0 ? T.daysFound(result.days.length) : T.noOpenSlots} stack />
-          </h2>
+          <div className="results-head">
+            <h2>
+              <Bi text={result.days.length > 0 ? T.daysFound(result.days.length) : T.noOpenSlots} />
+            </h2>
+            {result.days.length > 0 ? <StatusLegend /> : null}
+          </div>
+          {result.days.length > 1 ? (
+            <nav className="day-index" aria-label={plain(T.jumpToDay)}>
+              {result.days.map((day) => (
+                <a key={day.date} href={`#day-${day.date}`} className={dayClass(day.date)}>
+                  {shortDate(day.date)} <span className="count">{day.rooms.length}</span>
+                </a>
+              ))}
+            </nav>
+          ) : null}
           {result.days.map((day) => (
-            <section key={day.date} className="day">
-              <h3>
+            <section key={day.date} className="day" id={`day-${day.date}`}>
+              <h3 className={dayClass(day.date)}>
                 <Bi text={dateText(day.date)} />
+                <span className="count">
+                  <Bi text={T.roomCount(day.rooms.length)} />
+                </span>
               </h3>
-              <ul className="room-list">
+              <ul className="rows">
                 {day.rooms.map(({ room, slots: roomSlots }) => (
-                  <li key={room.id} className="card result">
-                    <p className="room-title">
-                      <RoomName room={room} stack />
-                    </p>
-                    <p className="room-sub">
-                      <Municipality name={room.municipality} />
-                      <span className={`capacity ${room.capacity === null ? 'unknown' : ''}`}>
-                        <Bi text={capacityLabel(room.capacity)} />
-                      </span>
-                    </p>
-                    <ul className="slots" aria-label={plain(T.timeOfDay)}>
-                      {roomSlots.map((slot) => (
-                        <li key={slot.start} className="slot">
-                          <span className="time">
+                  <li key={room.id} className="row result">
+                    <div className="row-main">
+                      <p className="room-title">
+                        <RoomName room={room} />
+                      </p>
+                      <p className="room-sub">
+                        <Municipality name={room.municipality} />
+                        <span className={`capacity ${room.capacity === null ? 'unknown' : ''}`}>
+                          <Bi text={capacityLabel(room.capacity)} />
+                        </span>
+                      </p>
+                    </div>
+                    <div className="row-info">
+                      <ul className="slots" aria-label={plain(T.timeOfDay)}>
+                        {roomSlots.map((slot) => (
+                          <li key={slot.start} className="slot" title={`${TIME_LABELS[timeOfDayOf(slot.start)].en} / ${TIME_LABELS[timeOfDayOf(slot.start)].ja}`}>
                             {slot.start}–{slot.end}
-                          </span>
-                          <Bi text={TIME_SHORT[timeOfDayOf(slot.start)]} />
-                        </li>
-                      ))}
-                    </ul>
-                    <InstrumentChips room={room} shown={shown} />
+                          </li>
+                        ))}
+                      </ul>
+                      <InstrumentMarks room={room} shown={shown} />
+                    </div>
                     <RoomLinks room={room} showDetails={showDetails} />
                   </li>
                 ))}
@@ -279,7 +319,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       {manualByCity.length > 0 ? (
         <section className="manual-panel" aria-labelledby="manual-panel-title">
           <h2 id="manual-panel-title">
-            <Bi text={T.manualPanelTitle} stack />
+            <Bi text={T.manualPanelTitle} />
           </h2>
           <p className="manual-note">
             <Bi text={T.manualPanelNote} />
@@ -361,19 +401,18 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           </table>
         </details>
       ) : null}
-
     </>
   );
 }
 
 /** 楽器ごとの可否。記録の文面や記録者は出さない（このページはログインなしで見られるため）。 */
-function InstrumentChips({ room, shown }: { room: RoomWithEvidences; shown: InstrumentClass[] }) {
+function InstrumentMarks({ room, shown }: { room: RoomWithEvidences; shown: InstrumentClass[] }) {
   const policy = effectivePolicy(room.evidences);
   return (
-    <ul className="chips" aria-label={plain(T.instrumentsAria)}>
+    <ul className="marks" aria-label={plain(T.instrumentsAria)}>
       {shown.map((cls) => (
         <li key={cls}>
-          <StatusChip status={policy[cls].status} prefix={INSTRUMENT_SHORT_LABELS[cls]} />
+          <StatusMark status={policy[cls].status} label={INSTRUMENT_SHORT_LABELS[cls]} />
         </li>
       ))}
     </ul>

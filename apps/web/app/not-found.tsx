@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <>
       <h1>
-        <Bi text={T.notFoundTitle} stack />
+        <Bi text={T.notFoundTitle} />
       </h1>
       <p className="lead">
         <Bi text={T.notFoundLead} />

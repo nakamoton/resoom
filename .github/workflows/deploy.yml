@@ -1,0 +1,68 @@
+# main に入った変更を、テストしてから Google Cloud（Cloud Run）に公開する。
+# 鍵は保存しない（Workload Identity 連携で、このリポジトリの main からだけ公開できる）。
+# 動かすには、Cloud Shell で bash deploy/cloudshell.sh github を実行し、deploy/github.env の AUTO_DEPLOY を on にする。
+# 手順は docs/deploy.md の「自動公開」。
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# 公開は1つずつ。途中で止めると中途半端になるので、新しい変更は前の公開が終わるまで待つ
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      deploy: ${{ steps.config.outputs.deploy }}
+    steps:
+      - uses: actions/checkout@v6
+      - id: config
+        name: 自動公開がオンか確かめる
+        run: |
+          . deploy/github.env
+          if [ "$AUTO_DEPLOY" = on ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::自動公開はオフです（deploy/github.env の AUTO_DEPLOY）。テストだけ行います。"
+          fi
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm test
+
+  deploy:
+    needs: test
+    if: needs.test.outputs.deploy == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: production
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - name: 設定を読む
+        run: grep -E '^(PROJECT_ID|PROJECT_NUMBER|REGION)=' deploy/github.env >> "$GITHUB_ENV"
+      - uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/${{ env.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github/providers/resoom
+          service_account: resoom-deployer@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
+      - uses: google-github-actions/setup-gcloud@v3
+      - run: bash deploy/ci-deploy.sh

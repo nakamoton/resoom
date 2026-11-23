@@ -50,13 +50,13 @@ export default async function RoomPage({ params }: Props) {
       </p>
 
       <h2>
-        <Bi text={T.basicInfo} stack />
+        <Bi text={T.basicInfo} />
       </h2>
       <div className="card">
         <dl className="facts">
           <div>
             <dt>
-              <Bi text={T.capacity} stack />
+              <Bi text={T.capacity} />
             </dt>
             <dd>
               <Bi text={room.capacity === null ? T.unknown : T.capacityPeople(room.capacity)} />
@@ -69,7 +69,7 @@ export default async function RoomPage({ params }: Props) {
           </div>
           <div>
             <dt>
-              <Bi text={T.nearestStation} stack />
+              <Bi text={T.nearestStation} />
             </dt>
             <dd>{room.nearestStation ?? <Bi text={T.unknown} />}</dd>
           </div>
@@ -100,7 +100,7 @@ export default async function RoomPage({ params }: Props) {
       ) : null}
 
       <h2>
-        <Bi text={T.currentStatus} stack />
+        <Bi text={T.currentStatus} />
       </h2>
       <div className="card">
         <table className="status-table">
@@ -110,7 +110,7 @@ export default async function RoomPage({ params }: Props) {
               return (
                 <tr key={cls}>
                   <th scope="row">
-                    <Bi text={INSTRUMENT_LABELS[cls]} stack />
+                    <Bi text={INSTRUMENT_LABELS[cls]} />
                   </th>
                   <td className="status">
                     <StatusChip status={status} />
@@ -138,14 +138,13 @@ export default async function RoomPage({ params }: Props) {
       </p>
 
       {canEdit ? (
-        <>
-          <h2>
-            <Bi text={T.addRecord} stack />
-          </h2>
-          <div className="card">
-            <EvidenceForm roomId={room.id} today={today} defaultReporter={me.name} />
-          </div>
-        </>
+        // 記録の追加はときどきしか使わないので、たたんでおく（ページを短くして一覧しやすくするため）
+        <details className="card add-record">
+          <summary>
+            <Bi text={T.addRecord} />
+          </summary>
+          <EvidenceForm roomId={room.id} today={today} defaultReporter={me.name} />
+        </details>
       ) : (
         <p className="notice">
           <Bi text={T.readOnlyNote} />
@@ -153,7 +152,7 @@ export default async function RoomPage({ params }: Props) {
       )}
 
       <h2>
-        <Bi text={T.history(room.evidences.length)} stack />
+        <Bi text={T.history(room.evidences.length)} />
       </h2>
       {room.evidences.length === 0 ? (
         <p className="empty">

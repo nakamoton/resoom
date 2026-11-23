@@ -5,7 +5,7 @@ const TODAY = '2026-11-23';
 const CITIES = ['大田区', '渋谷区'];
 
 describe('parseSearch', () => {
-  it('何も指定しなければ、今日から31日間・すべての条件で検索する', () => {
+  it('何も指定しなければ、今日から31日間・和太鼓以外の楽器・可否が未確認の部屋も含めて検索する', () => {
     const { criteria, invalidDates, invalidPeople } = parseSearch({}, TODAY, CITIES);
 
     expect(criteria).toEqual({
@@ -14,11 +14,30 @@ describe('parseSearch', () => {
       weekdays: null,
       timesOfDay: null,
       people: null,
-      needs: [],
-      includeUnknown: false,
+      needs: ['wind', 'small_percussion', 'drum_set', 'large_percussion'],
+      includeUnknown: true,
       municipalities: null,
     });
     expect([invalidDates, invalidPeople]).toEqual([false, false]);
+  });
+
+  it('フォームから送られたときは、楽器をすべて外した・未確認を含めない、をそのまま読む', () => {
+    const { criteria, form } = parseSearch({ s: '1', d: '6' }, TODAY, CITIES);
+
+    expect([criteria.needs, criteria.includeUnknown]).toEqual([[], false]);
+    expect([form.needs, form.includeUnknown]).toEqual([[], false]);
+  });
+
+  it('フォームから送られたときも、選んだ楽器と未確認を含めるは読む', () => {
+    const { criteria } = parseSearch({ s: '1', need: ['taiko'], unknown: '1' }, TODAY, CITIES);
+
+    expect([criteria.needs, criteria.includeUnknown]).toEqual([['taiko'], true]);
+  });
+
+  it('楽器だけを指定したリンクでは、未確認を含めるは既定のまま', () => {
+    const { criteria } = parseSearch({ need: 'drum_set' }, TODAY, CITIES);
+
+    expect([criteria.needs, criteria.includeUnknown]).toEqual([['drum_set'], true]);
   });
 
   it('曜日・時間帯・人数・楽器・自治体を読む', () => {

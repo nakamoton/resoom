@@ -15,21 +15,21 @@ export default async function MembersPage() {
   return (
     <>
       <h1>
-        <Bi text={T.membersTitle} stack />
+        <Bi text={T.membersTitle} />
       </h1>
       <p className="lead">
         <Bi text={T.membersLead} />
       </p>
 
       <h2>
-        <Bi text={T.inviteTitle} stack />
+        <Bi text={T.inviteTitle} />
       </h2>
       <div className="card">
         <InviteForm />
       </div>
 
       <h2>
-        <Bi text={T.membersTitle} stack />
+        <Bi text={T.membersTitle} />
       </h2>
       <ul className="member-list">
         {members.map((m) => (

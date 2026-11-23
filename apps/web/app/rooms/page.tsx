@@ -4,7 +4,6 @@ import {
   INSTRUMENT_CLASSES,
   INSTRUMENT_SHORT_LABELS,
   can,
-  capacityLabel,
   effectivePolicy,
   filterByCapacity,
   parsePeople,
@@ -13,7 +12,7 @@ import { getDb, listMunicipalities, listRooms, type RoomWithEvidences } from '@r
 import { requirePermission } from '@/lib/session';
 import { Bi, Municipality, RoomName, plain } from '../_i18n/Bi';
 import { T } from '../_i18n/texts';
-import { StatusChip } from './_components/StatusChip';
+import { StatusLegend, StatusMark } from './_components/StatusChip';
 
 export const metadata: Metadata = { title: `${T.appName.en} · ${T.appName.ja}` };
 export const dynamic = 'force-dynamic';
@@ -51,16 +50,16 @@ export default async function RoomsPage({ searchParams }: { searchParams: Promis
   return (
     <>
       <div className="page-head">
-        <div>
+        <div className="page-title">
           <h1>
-            <Bi text={T.appName} stack />
+            <Bi text={T.appName} />
           </h1>
           <p className="lead">
             <Bi text={T.catalogLead} />
           </p>
         </div>
         {can(me.role, 'editCatalog') ? (
-          <Link href="/rooms/new" className="button">
+          <Link href="/rooms/new" className="button small">
             <Bi text={T.addRoom} />
           </Link>
         ) : null}
@@ -120,6 +119,7 @@ export default async function RoomsPage({ searchParams }: { searchParams: Promis
         </p>
       ) : (
         <>
+          <StatusLegend />
           {people ? (
             <p className="meta" role="status">
               <Bi text={T.peopleResult(people, fits.length, tooSmall.length)} />
@@ -135,7 +135,7 @@ export default async function RoomsPage({ searchParams }: { searchParams: Promis
           {unknown.length > 0 ? (
             <>
               <h2>
-                <Bi text={T.unknownCapacityHeading(unknown.length)} stack />
+                <Bi text={T.unknownCapacityHeading(unknown.length)} />
               </h2>
               <p className="hint">
                 <Bi text={T.unknownCapacityHint} />
@@ -151,36 +151,62 @@ export default async function RoomsPage({ searchParams }: { searchParams: Promis
 
 function RoomList({ rooms }: { rooms: RoomWithEvidences[] }) {
   return (
-    <ul className="room-list">
-      {rooms.map((room) => {
-        const policy = effectivePolicy(room.evidences);
-        const latest = room.evidences[0];
-        return (
-          <li key={room.id}>
-            <Link href={`/rooms/${room.id}`} className="card">
-              <p className="room-title">
-                <RoomName room={room} stack />
-              </p>
-              <p className="room-sub">
-                <Municipality name={room.municipality} />
-                <span className={`capacity ${room.capacity === null ? 'unknown' : ''}`}>
-                  <Bi text={capacityLabel(room.capacity)} />
-                </span>
-              </p>
-              <ul className="chips" aria-label={plain(T.instrumentsAria)}>
+    <div className="table-wrap">
+      <table className="list-table">
+        <thead>
+          <tr>
+            <th scope="col">
+              <Bi text={T.room} />
+            </th>
+            <th scope="col" className="num">
+              <Bi text={T.capacity} />
+            </th>
+            {INSTRUMENT_CLASSES.map((cls) => (
+              <th key={cls} scope="col" className="mark-col">
+                <Bi text={INSTRUMENT_SHORT_LABELS[cls]} stack />
+              </th>
+            ))}
+            <th scope="col">
+              <Bi text={T.records} />
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {rooms.map((room) => {
+            const policy = effectivePolicy(room.evidences);
+            const latest = room.evidences[0];
+            return (
+              <tr key={room.id}>
+                <td className="room-cell">
+                  <Link href={`/rooms/${room.id}`} className="room-title">
+                    <RoomName room={room} />
+                  </Link>
+                  <span className="room-sub">
+                    <Municipality name={room.municipality} />
+                  </span>
+                </td>
+                <td className={`num capacity ${room.capacity === null ? 'unknown' : ''}`}>
+                  {room.capacity ?? '—'}
+                </td>
                 {INSTRUMENT_CLASSES.map((cls) => (
-                  <li key={cls}>
-                    <StatusChip status={policy[cls].status} prefix={INSTRUMENT_SHORT_LABELS[cls]} />
-                  </li>
+                  <td key={cls} className="mark-col">
+                    <StatusMark status={policy[cls].status} label={INSTRUMENT_SHORT_LABELS[cls]} />
+                  </td>
                 ))}
-              </ul>
-              <p className="meta">
-                <Bi text={latest ? T.recordCount(room.evidences.length, latest.occurredOn) : T.noRecordsShort} />
-              </p>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+                <td className="records">
+                  {latest ? (
+                    <>
+                      {room.evidences.length} · {latest.occurredOn}
+                    </>
+                  ) : (
+                    '—'
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }

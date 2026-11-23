@@ -19,7 +19,7 @@ export default async function NewRoomPage() {
         <Bi text={T.backToCatalog} />
       </Link>
       <h1>
-        <Bi text={T.addRoomHeading} stack />
+        <Bi text={T.addRoomHeading} />
       </h1>
       <p className="lead">
         <Bi text={T.addRoomLead} />

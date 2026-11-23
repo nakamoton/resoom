@@ -57,7 +57,7 @@ export function SignInButtons({ returnTo, google, devLogin }: Props) {
       {devLogin ? (
         <form action={devSignIn} className="dev-login" noValidate>
           <h2>
-            <Bi text={T.devLoginTitle} stack />
+            <Bi text={T.devLoginTitle} />
           </h2>
           <p className="hint">
             <Bi text={T.devLoginHint} />

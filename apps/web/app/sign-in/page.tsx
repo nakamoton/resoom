@@ -21,7 +21,7 @@ export default async function SignInPage({ searchParams }: Props) {
   return (
     <>
       <h1>
-        <Bi text={T.signInTitle} stack />
+        <Bi text={T.signInTitle} />
       </h1>
       <p className="lead">
         <Bi text={T.signInLead} />

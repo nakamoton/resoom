@@ -106,7 +106,8 @@ pnpm typecheck
 
 ```
 apps/web            画面（Next.js）。ログインは Better Auth
-deploy              Google Cloud への公開スクリプト（Cloud Shell で実行）
+deploy              Google Cloud への公開スクリプト（Cloud Shell で実行）と自動公開の設定
+.github/workflows   main に入った変更のテストと自動公開
 packages/core       楽器の可否の判定、入力の検証
 packages/db         データベースの定義と読み書き
 packages/adapters   自治体ごとの空き照会（いまは大田区）

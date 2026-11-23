@@ -50,7 +50,7 @@ export function InviteForm() {
             <label key={r}>
               <input type="radio" name="role" value={r} defaultChecked={role === r} />
               <span>
-                <Bi text={MEMBER_ROLE_LABELS[r]} stack />
+                <Bi text={MEMBER_ROLE_LABELS[r]} />
                 <span className="role-desc">
                   <Bi text={MEMBER_ROLE_DESCRIPTIONS[r]} />
                 </span>

@@ -35,7 +35,7 @@ export function EvidenceForm({ roomId, today, defaultReporter }: { roomId: strin
           {EVIDENCE_KINDS.map((kind) => (
             <label key={kind}>
               <input type="radio" name="kind" value={kind} defaultChecked={text('kind', 'usage') === kind} />
-              <Bi text={EVIDENCE_KIND_LABELS[kind]} stack />
+              <Bi text={EVIDENCE_KIND_LABELS[kind]} />
             </label>
           ))}
         </div>
@@ -60,7 +60,7 @@ export function EvidenceForm({ roomId, today, defaultReporter }: { roomId: strin
           {POLICY_RESULTS.map((result) => (
             <label key={result}>
               <input type="radio" name="result" value={result} defaultChecked={text('result') === result} />
-              <Bi text={STATUS_LABELS[result]} stack />
+              <Bi text={STATUS_LABELS[result]} />
             </label>
           ))}
         </div>
@@ -78,7 +78,7 @@ export function EvidenceForm({ roomId, today, defaultReporter }: { roomId: strin
           {INSTRUMENT_CLASSES.map((cls) => (
             <label key={cls}>
               <input type="checkbox" name="instruments" value={cls} defaultChecked={picked.includes(cls)} />
-              <Bi text={INSTRUMENT_LABELS[cls]} stack />
+              <Bi text={INSTRUMENT_LABELS[cls]} />
             </label>
           ))}
         </div>

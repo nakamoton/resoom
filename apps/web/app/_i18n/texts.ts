@@ -3,7 +3,7 @@ import type { LocalizedText } from '@resoom/core';
 const t = (en: string, ja: string): LocalizedText => ({ en, ja });
 const plural = (n: number, one: string, many: string): string => (n === 1 ? one : many);
 
-/** 画面の文言。英語を主に、日本語を併記する。 */
+/** 画面の文言。英語を主に、日本語は補助として小さく添える。 */
 export const T = {
   appName: t('Facility Catalog', '施設台帳'),
   backToCatalog: t('← Back to Facility Catalog', '施設台帳へ戻る'),
@@ -44,6 +44,7 @@ export const T = {
   recordCount: (n: number, latest: string): LocalizedText =>
     t(`${n} ${plural(n, 'record', 'records')} (latest ${latest})`, `記録 ${n}件（最新 ${latest}）`),
   noRecordsShort: t('No records', '記録なし'),
+  records: t('Records', '記録'),
 
   // 部屋のページ
   basicInfo: t('Basic information', '基本情報'),
@@ -127,23 +128,27 @@ export const T = {
   ),
 
   // ナビゲーション
-  navSearch: t('Search availability', '空き状況を検索'),
-  navCatalog: t('Facility Catalog', '施設台帳'),
+  navSearch: t('Availability', '空き状況'),
+  navCatalog: t('Catalog', '施設台帳'),
 
   // 空き状況の検索（ログインなしで使えるページ）
   searchTitle: t('Search availability', '空き状況を検索'),
   searchLead: t(
-    'Find open rooms across cities. No sign-in needed. Data is collected automatically from the official booking sites.',
-    '自治体をまたいで、空いている部屋を探せます。ログインは不要です。空き状況は公式の予約サイトから自動で集めています。',
+    'Open rooms across cities, collected from the official booking sites several times a day. No sign-in needed.',
+    '公式の予約サイトから1日に数回集めた空き状況を、自治体をまたいで探せます。ログイン不要。',
   ),
+  dates: t('Dates', '期間'),
+  searchPeopleHint: t('Rooms with unknown capacity are still shown.', '定員が分からない部屋も表示します。'),
+  roomCount: (n: number): LocalizedText => t(`${n} ${plural(n, 'room', 'rooms')}`, `${n}部屋`),
+  jumpToDay: t('Jump to a day', '日付へ移動'),
   fromDate: t('From', '開始日'),
   toDate: t('To', '終了日'),
-  daysOfWeek: t('Days of the week', '曜日'),
+  daysOfWeek: t('Days', '曜日'),
   timeOfDay: t('Time of day', '時間帯'),
-  needInstruments: t('Instruments you need', '使いたい楽器'),
-  includeUnknown: t('Also show rooms where this is not yet known', '可否が未確認の部屋も含める'),
+  needInstruments: t('Instruments', '使いたい楽器'),
+  includeUnknown: t('Include rooms not yet confirmed', '可否が未確認の部屋も含める'),
   municipalities: t('Cities', '自治体'),
-  anyHint: t('Leave all unchecked to include everything.', 'すべて外すと、すべてを対象にします。'),
+  anyHint: t('None checked = all', '未選択ならすべて'),
   search: t('Search', '検索'),
   searchInvalidDates: t(
     'Check the dates. The end date must be on or after the start date, within 400 days.',
@@ -157,15 +162,15 @@ export const T = {
   noOpenSlots: t('No open rooms match these conditions.', '条件に合う空きはありません。'),
   book: t('Booking site', '予約サイト'),
   roomDetails: t('Room details', '部屋の詳細'),
-  notSearchedTitle: t('Some cities are not searched automatically', '自動で検索していない自治体があります'),
+  notSearchedTitle: t('Not searched automatically', '自動で検索していない自治体'),
   notSearchedLead: t(
-    'Their rooms are not in the search results. Check them on each city’s official booking site (linked below).',
-    'これらの自治体の部屋は検索結果に出ません。各自治体の公式の予約サイト（下のリンク）で確認してください。',
+    'Rooms in these cities are not in the results. Check their booking sites.',
+    'これらの自治体の部屋は結果に出ません。予約サイトで確認してください。',
   ),
-  manualPanelTitle: t('Rooms that match, in cities we do not search', '自動で検索していない自治体の、条件に合う部屋'),
+  manualPanelTitle: t('Matching rooms in cities we do not search', '自動で検索していない自治体の、条件に合う部屋'),
   manualPanelNote: t(
-    'These are not search results. We do not know whether they are free. Check the official booking site.',
-    'これは検索結果ではありません。空いているかどうかは分からないので、公式の予約サイトで確認してください。',
+    'Not search results: we do not know if they are free. Check the booking site.',
+    '検索結果ではありません。空いているかは分からないので、予約サイトで確認してください。',
   ),
   coverage: t('Data coverage', '照会できた範囲'),
   room: t('Room', '部屋'),

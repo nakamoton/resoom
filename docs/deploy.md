@@ -90,7 +90,9 @@ bash deploy/cloudshell.sh google
 
 ## 6. 更新するとき
 
-`main` に新しい変更が入ったら、Cloud Shell で次を実行します。
+自動公開（手順7）を設定したあとは、`main` に変更が入ると自動で公開されます。Cloud Shell での操作は要りません。
+
+自動公開を設定する前や、環境変数・秘密情報・ジョブの設定を変えるときは、Cloud Shell で次を実行します。
 
 ```bash
 cd ~/resoom
@@ -106,6 +108,43 @@ bash deploy/cloudshell.sh deploy
 
 コンテナを作り直し、データベースのマイグレーションを当ててから、画面を更新します。
 
+## 7. 自動公開を設定する（1回だけ）
+
+GitHub Actions（`.github/workflows/deploy.yml`）が、`main` に入った変更をテストしてから公開するようにします。
+
+- **鍵は作りません。** GitHub と Google Cloud を Workload Identity 連携でつなぎ、このリポジトリの `main` からだけ公開できるようにします（リポジトリは番号で指定するので、名前が変わっても他人のリポジトリからは使えません）。
+- 公開用のサービスアカウント `resoom-deployer` に付ける権限は、公開に必要なものだけです。
+  - Cloud Run の更新とジョブの実行（`roles/run.developer`）
+  - コンテナの保存（`resoom` リポジトリの `roles/artifactregistry.writer`）
+  - 画面とジョブを動かすアカウントの指定（そのアカウントの `roles/iam.serviceAccountUser`）
+- 文書（`docs/` や `*.md`）だけの変更では公開しません。
+- 費用: リポジトリは公開なので GitHub Actions は無料です。Google Cloud 側は今までと同じです（コンテナは GitHub 側で作るため、Cloud Build も使いません）。
+
+### 手順
+
+1. Cloud Shell で次を実行します。設定のあと、続けて今の `main` を公開します（10分ほど）。
+
+```bash
+cd ~/resoom
+```
+
+```bash
+git pull
+```
+
+```bash
+bash deploy/cloudshell.sh github
+```
+
+2. 終わったら Claude に「設定しました」と伝えます。Claude が `deploy/github.env` の `AUTO_DEPLOY` を `on` にして `main` に入れると、最初の自動公開が動きます。
+   - 自分で行う場合は、`deploy/github.env` の `AUTO_DEPLOY=off` を `AUTO_DEPLOY=on` に変えて `main` に入れます。
+3. 公開の様子は、GitHub のリポジトリの「Actions」タブで見られます。失敗すると、GitHub からメールが届きます。
+
+### 自動公開をやめるとき
+
+- 一時的に止める: `deploy/github.env` の `AUTO_DEPLOY` を `off` にします（テストだけ動きます）。
+- 完全にやめる: Google Cloud コンソールの「IAM と管理」→「Workload Identity 連携」で `github` プールを削除し、「サービス アカウント」で `resoom-deployer` を削除します。
+
 ---
 
 ## 動いているもの
@@ -117,6 +156,7 @@ bash deploy/cloudshell.sh deploy
 | `resoom-migrate` | Cloud Run ジョブ | データベースのマイグレーション。更新のたびに実行します |
 | `resoom-seed` | Cloud Run ジョブ | 初期データ（部屋と記録）の取り込み。最初の公開で1回だけ実行します |
 | `resoom-*` | Secret Manager | データベースの接続文字列、ログインの鍵、OAuth の ID とシークレット |
+| `resoom-deployer` | サービスアカウント | GitHub からの自動公開に使う（手順7）。鍵はなく、このリポジトリの `main` からだけ使える |
 
 ## 困ったとき
 
@@ -126,6 +166,7 @@ bash deploy/cloudshell.sh deploy
 | Google の画面で `redirect_uri_mismatch` | OAuth クライアントのリダイレクト URI が `公開URL/api/auth/callback/google` と完全に一致しているか |
 | 検索ページで空き状況が古い | 検索ページ下の「Data coverage」で取得日時と失敗の有無を確認。Cloud Run の `resoom-crawl` ジョブのログも見る |
 | 画面がエラーになる | Cloud Run の `resoom` サービスのログを見る |
+| 自動公開が失敗した | GitHub の「Actions」タブで、失敗した手順のログを見る。権限のエラーなら `bash deploy/cloudshell.sh github` をもう一度実行する（何度実行しても同じ設定になる） |
 
 ## 参考: 環境変数
 

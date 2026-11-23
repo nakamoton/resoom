@@ -24,6 +24,12 @@ export interface ParsedSearch {
 const MAX_DAYS = 400;
 const DEFAULT_DAYS = 31;
 
+/** 最初に開いたときに選んでおく楽器（和太鼓以外。楽団のふだんの編成）。 */
+export const DEFAULT_NEEDS: InstrumentClass[] = INSTRUMENT_CLASSES.filter((c) => c !== 'taiko');
+
+/** フォームから送られたことを示す隠し項目。ないときは最初に開いたものとして既定の選択を使う。 */
+export const SUBMITTED_PARAM = 's';
+
 const many = (value: string | string[] | undefined): string[] => (Array.isArray(value) ? value : value === undefined ? [] : [value]);
 const one = (value: string | string[] | undefined): string => (Array.isArray(value) ? (value[0] ?? '') : (value ?? ''));
 
@@ -34,7 +40,10 @@ function isIsoDate(value: string): boolean {
 
 const addDays = (date: string, days: number): string => new Date(Date.parse(`${date}T00:00:00Z`) + days * 86_400_000).toISOString().slice(0, 10);
 
-/** URLの検索条件を読む。正しくない値は既定値に置き換え、そのことを知らせる。 */
+/**
+ * URLの検索条件を読む。正しくない値は既定値に置き換え、そのことを知らせる。
+ * 楽器と「可否が未確認の部屋も含める」は、指定がなければ和太鼓以外・含める、を既定にする。
+ */
 export function parseSearch(params: RawParams, today: string, municipalities: readonly string[]): ParsedSearch {
   const rawFrom = one(params.from);
   const rawTo = one(params.to);
@@ -49,11 +58,13 @@ export function parseSearch(params: RawParams, today: string, municipalities: re
 
   const days = [...new Set(many(params.d).map(Number))].filter((d) => Number.isInteger(d) && d >= 0 && d <= 6).sort();
   const times = TIMES_OF_DAY.filter((t) => many(params.t).includes(t));
-  const needs = INSTRUMENT_CLASSES.filter((c) => many(params.need).includes(c));
+  // チェックボックスは、すべて外すと何も送られない。フォームから送られたときは、送られたとおりに読む
+  const submitted = one(params[SUBMITTED_PARAM]) === '1';
+  const needs = submitted || params.need !== undefined ? INSTRUMENT_CLASSES.filter((c) => many(params.need).includes(c)) : DEFAULT_NEEDS;
   const chosenMunicipalities = municipalities.filter((m) => many(params.m).includes(m));
   const peopleText = one(params.people);
   const people = parsePeople(peopleText);
-  const includeUnknown = one(params.unknown) === '1';
+  const includeUnknown = submitted || params.unknown !== undefined ? one(params.unknown) === '1' : true;
 
   return {
     criteria: {

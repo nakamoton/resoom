@@ -5,6 +5,7 @@
 #   bash deploy/cloudshell.sh init     最初の公開（データベースの準備・初期データ・定期取得の設定まで）
 #   bash deploy/cloudshell.sh google   Google ログインの設定（OAuth クライアントを作ったあと）
 #   bash deploy/cloudshell.sh deploy   2回目以降の更新（main の最新を反映）
+#   bash deploy/cloudshell.sh github   GitHub からの自動公開の設定（1回だけ。設定のあと今の main を公開する）
 #
 # 秘密情報（データベースの接続文字列、OAuth のシークレット）は入力欄から Secret Manager に直接保存し、
 # 画面・履歴・ファイルには残さない。
@@ -215,6 +216,74 @@ $SERVICE_URL/sign-in を開き、最初の管理者（$ADMIN_EMAILS）の Google
 EOF
 }
 
+retry() { # retry コマンド...（作ったばかりのアカウントは反映に少し時間がかかるので、何度か試す）
+  local i
+  for i in 1 2 3 4 5 6; do
+    "$@" && return 0
+    sleep 10
+  done
+  return 1
+}
+
+cmd_github() {
+  # GitHub Actions が、鍵なしで（Workload Identity 連携）このリポジトリの main からだけ公開できるようにする。
+  # 公開用のサービスアカウントには、公開に必要な権限だけを付ける。
+  require_config
+  local env_file
+  env_file="$(dirname "$0")/github.env"
+  [ -f "$env_file" ] || die "$env_file がありません。git pull してから実行してください"
+  local GITHUB_REPOSITORY GITHUB_REPOSITORY_ID
+  GITHUB_REPOSITORY=$(sed -n 's/^DEPLOY_REPOSITORY=//p' "$env_file")
+  GITHUB_REPOSITORY_ID=$(sed -n 's/^DEPLOY_REPOSITORY_ID=//p' "$env_file")
+  local expected_project
+  expected_project=$(sed -n 's/^PROJECT_ID=//p' "$env_file")
+  [ "$expected_project" = "$PROJECT_ID" ] || die "deploy/github.env のプロジェクトID（$expected_project）が、このプロジェクト（$PROJECT_ID）と違います"
+  [[ "$GITHUB_REPOSITORY_ID" =~ ^[0-9]+$ ]] || die "deploy/github.env の DEPLOY_REPOSITORY_ID が正しくありません"
+
+  local number deployer pool=github provider=resoom
+  number=$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)')
+  deployer="resoom-deployer@$PROJECT_ID.iam.gserviceaccount.com"
+  local member="principalSet://iam.googleapis.com/projects/$number/locations/global/workloadIdentityPools/$pool/attribute.repository_id/$GITHUB_REPOSITORY_ID"
+  local mapping="google.subject=assertion.sub,attribute.repository_id=assertion.repository_id,attribute.ref=assertion.ref"
+  local condition="assertion.repository_id == '$GITHUB_REPOSITORY_ID' && assertion.ref == 'refs/heads/main'"
+
+  say "GitHub（$GITHUB_REPOSITORY の main）からの自動公開を設定します"
+  gcloud services enable iam.googleapis.com iamcredentials.googleapis.com sts.googleapis.com
+
+  if ! gcloud iam service-accounts describe "$deployer" >/dev/null 2>&1; then
+    gcloud iam service-accounts create resoom-deployer --display-name "resoom: GitHub からの自動公開" >/dev/null
+  fi
+  if ! gcloud iam workload-identity-pools describe "$pool" --location global >/dev/null 2>&1; then
+    gcloud iam workload-identity-pools create "$pool" --location global --display-name "GitHub Actions" >/dev/null
+  fi
+  if gcloud iam workload-identity-pools providers describe "$provider" --location global --workload-identity-pool "$pool" >/dev/null 2>&1; then
+    gcloud iam workload-identity-pools providers update-oidc "$provider" --location global --workload-identity-pool "$pool" \
+      --attribute-mapping "$mapping" --attribute-condition "$condition" >/dev/null
+  else
+    gcloud iam workload-identity-pools providers create-oidc "$provider" --location global --workload-identity-pool "$pool" \
+      --display-name "resoom (GitHub main)" --issuer-uri "https://token.actions.githubusercontent.com" \
+      --attribute-mapping "$mapping" --attribute-condition "$condition" >/dev/null
+  fi
+
+  say "公開用のアカウントに権限を付けます"
+  # GitHub（このリポジトリ）が公開用のアカウントとして動けるようにする
+  retry gcloud iam service-accounts add-iam-policy-binding "$deployer" \
+    --role roles/iam.workloadIdentityUser --member "$member" >/dev/null
+  # Cloud Run の更新とジョブの実行
+  retry gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+    --member "serviceAccount:$deployer" --role roles/run.developer --condition=None >/dev/null
+  # コンテナの保存（このリポジトリだけ）
+  retry gcloud artifacts repositories add-iam-policy-binding "$REPO" --location "$REGION" \
+    --member "serviceAccount:$deployer" --role roles/artifactregistry.writer >/dev/null
+  # 画面とジョブを動かすアカウントを指定して更新するため（そのアカウントだけ）
+  retry gcloud iam service-accounts add-iam-policy-binding "$(runtime_sa)" \
+    --member "serviceAccount:$deployer" --role roles/iam.serviceAccountUser >/dev/null
+
+  say "設定できました。続けて今の main を公開します"
+  cmd_deploy
+  printf '\nGitHub からの自動公開の準備ができました。Claude に「設定しました」と伝えてください（deploy/github.env の AUTO_DEPLOY を on にします）。\n'
+}
+
 cmd_deploy() {
   require_config
   [ -n "${SERVICE_URL:-}" ] || die "最初の公開が終わっていません。bash deploy/cloudshell.sh init を実行してください"
@@ -230,8 +299,9 @@ case "${1:-}" in
   init) cmd_init ;;
   google) cmd_google ;;
   deploy) cmd_deploy ;;
+  github) cmd_github ;;
   *)
-    sed -n '2,10p' "$0"
+    sed -n '2,11p' "$0"
     exit 1
     ;;
 esac
