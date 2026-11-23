@@ -8,10 +8,21 @@
  *
  * ログイン不要の照会だけを使い、自治体サイトごとに間隔を空けて1件ずつ問い合わせる。
  * 1つの施設で失敗しても、ほかの施設の取得は続け、失敗は部屋ごとに記録する（前回の結果は残す）。
+ * 取得の開始と終了は crawl_runs に記録する。別の取得が実行中なら、重ならないよう何もせずに終わる。
+ * 検索ページの「今すぐ最新を取得」で申し込まれた取得も、この処理で行う。
  */
 import { parseArgs } from 'node:util';
 import { ADAPTER_IDS, DEFAULT_ADAPTER_IDS, combineRooms, createAdapter } from '@resoom/adapters';
-import { closeDb, getDb, listRooms, recordAvailabilityError, saveAvailability, type RoomWithEvidences } from '@resoom/db';
+import {
+  beginCrawlRun,
+  closeDb,
+  finishCrawlRun,
+  getDb,
+  listRooms,
+  recordAvailabilityError,
+  saveAvailability,
+  type RoomWithEvidences,
+} from '@resoom/db';
 
 const { values } = parseArgs({
   options: {
@@ -45,6 +56,23 @@ const today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Tokyo' }).forma
 const to = new Date(Date.parse(`${today}T00:00:00Z`) + (days - 1) * 86_400_000).toISOString().slice(0, 10);
 
 const db = await getDb();
+
+// 取得の記録を始める。別の取得が実行中なら、重ならないよう何もしない
+let runId: string | null = null;
+try {
+  const run = await beginCrawlRun(db, new Date());
+  if (!run) {
+    console.log('別の取得が実行中のため、今回は取得しません。');
+    await closeDb();
+    process.exit(0);
+  }
+  runId = run.id;
+  console.log(run.trigger === 'manual' ? '手動で申し込まれた取得を始めます。' : '定期の取得を始めます。');
+} catch (error) {
+  // 記録できなくても（マイグレーションの前など）、取得そのものは行う
+  console.log(`取得の記録を始められませんでした: ${error instanceof Error ? error.message : String(error)}`);
+}
+
 const targets = (await listRooms(db)).filter(
   (r) =>
     r.adapterId !== null &&
@@ -54,6 +82,7 @@ const targets = (await listRooms(db)).filter(
 );
 if (targets.length === 0) {
   console.error('取得する部屋がありません。pnpm db:seed を実行したか、指定を確認してください。');
+  if (runId) await finishCrawlRun(db, runId, { ok: false, message: '取得する部屋がありません' }, new Date());
   await closeDb();
   process.exit(1);
 }
@@ -101,6 +130,9 @@ for (const rooms of groups.values()) {
     failed += rooms.length;
     console.log(`  NG  ${adapter.label} ${first.facilityName}: ${message}`);
   }
+}
+if (runId) {
+  await finishCrawlRun(db, runId, { ok: failed === 0, message: failed > 0 ? `失敗 ${failed}部屋` : undefined }, new Date());
 }
 await closeDb();
 console.log(`完了: 保存 ${saved}部屋、失敗 ${failed}部屋`);

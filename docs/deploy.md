@@ -159,6 +159,7 @@ bash deploy/cloudshell.sh github
 |---|---|---|
 | `resoom` | Cloud Run サービス | 画面。使われていない間は止まり、最初の表示に数秒かかります |
 | `resoom-crawl` | Cloud Run ジョブ | 空き状況の取得。毎日 7:15〜22:15 の3時間ごと（7:15・10:15・13:15・16:15・19:15・22:15、日本時間）に Cloud Scheduler が起動します。夜間は自治体サイトの受付時間外なので取得しません |
+| （同上） | | 検索ページの「今すぐ最新を取得」（ログインした楽団員だけ）でも1回動きます。画面のサービスアカウントが、定期取得用に付けた権限でこのジョブを起動します |
 | `resoom-migrate` | Cloud Run ジョブ | データベースのマイグレーション。更新のたびに実行します |
 | `resoom-seed` | Cloud Run ジョブ | 初期データ（部屋と記録）の取り込み。最初の公開で1回だけ実行します |
 | `resoom-*` | Secret Manager | データベースの接続文字列、ログインの鍵、OAuth の ID とシークレット |
@@ -172,6 +173,7 @@ bash deploy/cloudshell.sh github
 | Google の画面で `redirect_uri_mismatch` | OAuth クライアントのリダイレクト URI が `公開URL/api/auth/callback/google` と完全に一致しているか |
 | 検索ページで空き状況が古い | 検索ページ下の「Data coverage」で取得日時と失敗の有無を確認。Cloud Run の `resoom-crawl` ジョブのログも見る |
 | 画面がエラーになる | Cloud Run の `resoom` サービスのログを見る |
+| 「今すぐ最新を取得」で「取得を始められませんでした」 | Cloud Run の `resoom` サービスのログを見る。権限のエラーなら `bash deploy/cloudshell.sh schedule` を実行する（ジョブを起動する権限を付け直す） |
 | 自動公開が失敗した | GitHub の「Actions」タブで、失敗した手順のログを見る。権限のエラーなら `bash deploy/cloudshell.sh github` をもう一度実行する（何度実行しても同じ設定になる） |
 
 ## 参考: 環境変数

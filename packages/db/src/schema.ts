@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
 import { boolean, check, date, index, integer, pgTable, primaryKey, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
-import type { EvidenceKind, InstrumentClass, MemberRole, PolicyResult, SlotStatus } from '@resoom/core';
+import type { CrawlTrigger, EvidenceKind, InstrumentClass, MemberRole, PolicyResult, SlotStatus } from '@resoom/core';
 
 /** 施設台帳の部屋。 */
 export const rooms = pgTable(
@@ -98,6 +98,36 @@ export const availabilitySnapshots = pgTable('availability_snapshots', {
  * 楽団員の名簿。ここに載っているメールアドレスの Google アカウントだけがログインできる（招待制）。
  * メールアドレスは小文字にそろえて保存する。
  */
+export type CrawlRunStatus = 'requested' | 'running' | 'succeeded' | 'failed';
+
+/**
+ * 空き状況の取得（定期・手動）の記録。「今すぐ最新を取得」の間隔と回数の確認、取得の重なりの防止に使う。
+ * 申し込み済み・実行中の取得は、同時に1件までにする（部分ユニーク索引）。
+ */
+export const crawlRuns = pgTable(
+  'crawl_runs',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    trigger: text('trigger').$type<CrawlTrigger>().notNull(),
+    status: text('status').$type<CrawlRunStatus>().notNull(),
+    /** 手動の取得を申し込んだ楽団員の名前。定期の取得は null。ログインした楽団員にだけ見せる */
+    requestedBy: text('requested_by'),
+    requestedAt: timestamp('requested_at', { withTimezone: true }).notNull(),
+    startedAt: timestamp('started_at', { withTimezone: true }),
+    finishedAt: timestamp('finished_at', { withTimezone: true }),
+    /** 失敗したときの内容など */
+    message: text('message'),
+  },
+  (t) => [
+    check('crawl_runs_trigger', sql`${t.trigger} in ('schedule', 'manual')`),
+    check('crawl_runs_status', sql`${t.status} in ('requested', 'running', 'succeeded', 'failed')`),
+    uniqueIndex('crawl_runs_one_active').on(sql`(true)`).where(sql`${t.status} in ('requested', 'running')`),
+    index('crawl_runs_requested_at').on(t.requestedAt),
+  ],
+);
+
+export type CrawlRun = typeof crawlRuns.$inferSelect;
+
 export const members = pgTable(
   'members',
   {

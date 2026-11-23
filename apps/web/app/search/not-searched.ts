@@ -8,9 +8,11 @@ export const NOT_SEARCHED_REASONS: Record<NotSearchedReason, LocalizedText> = {
     en: 'The booking site does not allow automated access (robots.txt).',
     ja: '予約サイトが機械的なアクセスを認めていません（robots.txt）。',
   },
+  // 機械的なアクセスは禁止されていない（robots.txt なし）。今のサイトは送信元のIPアドレスが変わると画面遷移が続かず、
+  // このシステムのサーバーからは安定して取得できない。2027年3月に新システムに替わるので、それに合わせて対応する
   paused: {
-    en: 'Paused until the new booking system starts in March 2027.',
-    ja: '2027年3月に予約システムが新しくなるまで止めています。',
+    en: 'Paused: the current site does not work reliably from our server, and a new system starts in March 2027.',
+    ja: '今のサイトはこのシステムのサーバーから安定して取得できず、2027年3月に新システムに替わるため、止めています。',
   },
   unsupported: {
     en: 'Not supported yet.',

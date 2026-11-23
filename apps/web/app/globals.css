@@ -749,10 +749,38 @@ fieldset.form-row > .row-body {
   margin: 0 0 6px;
 }
 
-.last-fetched {
-  margin: -2px 0 8px;
+/* 情報の最終取得時刻と「今すぐ最新を取得」 */
+.fetch-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  margin: -6px 0 12px;
   font-size: 12px;
   color: var(--muted);
+}
+
+.refresh,
+.refresh-form {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+}
+
+.refresh .hint {
+  margin: 0;
+  font-size: 12px;
+}
+
+.refresh .field-error {
+  margin: 0;
+  font-size: 12px;
+}
+
+.refresh-running {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .day h3 .holiday-name {

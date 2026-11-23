@@ -9,6 +9,7 @@ import {
   capacityLabel,
   effectivePolicy,
   japaneseHoliday,
+  refreshAvailability,
   roomMatches,
   searchAvailability,
   timeOfDayOf,
@@ -16,13 +17,14 @@ import {
   type LocalizedText,
   type TimeOfDay,
 } from '@resoom/core';
-import { getDb, listRooms, loadAvailability, type AvailabilitySnapshot, type RoomWithEvidences } from '@resoom/db';
+import { getDb, listRooms, loadAvailability, loadRefreshState, type AvailabilitySnapshot, type RoomWithEvidences } from '@resoom/db';
 import { getCurrentMember } from '@/lib/session';
 import { Bi, Municipality, RoomName, plain } from '../_i18n/Bi';
 import { T } from '../_i18n/texts';
 import { StatusLegend, StatusMark } from '../rooms/_components/StatusChip';
 import { BOOKING_SITES } from './booking-sites';
 import { AutoSearchForm } from './AutoSearchForm';
+import { RefreshControl, type RefreshView } from './RefreshControl';
 import { HOLIDAY_VALUE, SUBMITTED_PARAM, parseSearch, type RawParams } from './criteria';
 import { NOT_SEARCHED_REASONS, byReason, groupNotSearched, searchableMunicipalities } from './not-searched';
 
@@ -65,6 +67,9 @@ const weekdayOf = (date: string): number => new Date(`${date}T00:00:00Z`).getUTC
 /** 土曜は青、日曜と祝日は赤で示すためのクラス。 */
 const dayClass = (date: string): string =>
   weekdayOf(date) === 0 || japaneseHoliday(date) ? 'sun' : weekdayOf(date) === 6 ? 'sat' : '';
+/** 日本時間の HH:MM。 */
+const clockText = (at: Date): string =>
+  new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(at);
 const timestampText = (at: Date | null): string =>
   at
     ? `${new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(at)} JST`
@@ -72,7 +77,8 @@ const timestampText = (at: Date | null): string =>
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<RawParams> }) {
   const params = await searchParams;
-  const showDetails = can((await getCurrentMember())?.role, 'viewCatalog');
+  const member = await getCurrentMember();
+  const showDetails = can(member?.role, 'viewCatalog');
   const db = await getDb();
   const rooms = await listRooms(db);
   const today = todayInJapan();
@@ -87,6 +93,9 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const snapshotOf = new Map<string, AvailabilitySnapshot>(snapshots.map((s) => [s.roomId, s]));
   const shown = criteria.needs.length > 0 ? criteria.needs : DEFAULT_SHOWN;
   const hasData = snapshots.some((s) => s.coveredThrough !== null);
+  // 「今すぐ最新を取得」はログインした楽団員にだけ出す（申し込んだ人の名前も楽団員にだけ見せる）
+  const now = new Date();
+  const refreshView = showDetails ? toRefreshView(refreshAvailability(await loadRefreshState(db, now), now)) : null;
   // 情報の最終取得時刻（空き状況を集めた時刻のうち、いちばん新しいもの）
   const lastFetchedAt = snapshots.reduce<Date | null>(
     (latest, s) => (s.fetchedAt && (!latest || s.fetchedAt > latest) ? s.fetchedAt : latest),
@@ -271,6 +280,17 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         </div>
       </AutoSearchForm>
 
+      {lastFetchedAt || refreshView ? (
+        <div className="fetch-status">
+          {lastFetchedAt ? (
+            <span className="last-fetched">
+              <Bi text={T.lastFetched} />: {timestampText(lastFetchedAt)}
+            </span>
+          ) : null}
+          {refreshView ? <RefreshControl view={refreshView} /> : null}
+        </div>
+      ) : null}
+
       {!hasData ? (
         <p className="empty">
           <Bi text={T.noData} />
@@ -283,11 +303,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             </h2>
             {result.days.length > 0 ? <StatusLegend /> : null}
           </div>
-          {lastFetchedAt ? (
-            <p className="last-fetched">
-              <Bi text={T.lastFetched} />: {timestampText(lastFetchedAt)}
-            </p>
-          ) : null}
+
           {result.days.length > 1 ? (
             <nav className="day-index" aria-label={plain(T.jumpToDay)}>
               {result.days.map((day) => (
@@ -430,6 +446,18 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       ) : null}
     </>
   );
+}
+
+/** 「今すぐ最新を取得」の判定を、画面に渡す形（時刻は日本時間の HH:MM）にする。 */
+function toRefreshView(availability: ReturnType<typeof refreshAvailability>): RefreshView {
+  switch (availability.kind) {
+    case 'running':
+      return { kind: 'running', since: clockText(availability.since), requestedBy: availability.requestedBy, manual: availability.trigger === 'manual' };
+    case 'cooldown':
+      return { kind: 'cooldown', availableAt: clockText(availability.availableAt) };
+    default:
+      return { kind: availability.kind };
+  }
 }
 
 /** 楽器ごとの可否。記録の文面や記録者は出さない（このページはログインなしで見られるため）。 */
