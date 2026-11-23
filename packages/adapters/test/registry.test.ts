@@ -24,8 +24,8 @@ describe('アダプタの登録', () => {
     expect(adapterNote('shinagawa')).toContain('robots.txt');
   });
 
-  it('大田区と渋谷区は既定の検索対象', () => {
-    expect(DEFAULT_ADAPTER_IDS).toEqual(expect.arrayContaining(['ota', 'shibuya']));
+  it('大田区・渋谷区・世田谷区は既定の検索対象', () => {
+    expect(DEFAULT_ADAPTER_IDS).toEqual(expect.arrayContaining(['ota', 'shibuya', 'setagaya']));
     expect(adapterNote('ota')).toBeNull();
   });
 });

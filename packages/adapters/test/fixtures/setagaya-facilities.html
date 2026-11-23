@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="utf-8" /><title>
+	けやきネット
+</title></head>
+<body>
+<form action="/Web/Yoyaku/WgR_ShisetsuKensaku" id="form1" method="post">
+<input name="__RequestVerificationToken" type="hidden" value="TOKEN+search/abc==" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<div class="content_head"><h2>施設検索</h2></div>
+<div id="ichiran">
+<table id ="shisetsu" class="shisetsu">
+	<thead><tr><th class="comment">お知らせ</th><th class="shisetsu">施設名<span>複数選択可</span></th><th class="info">案内/リンク</th></tr></thead>
+	<tbody id="shisetsutbl">
+		<tr >
+			<td class="comment"></td>
+			<td class="shisetsu toggle"><input type="checkbox" name="checkShisetsu" id="checkShisetsu999001" value="999001" onclick="showNextTip();" ><label for="checkShisetsu999001" class="switch-off">サンプル区民センター</label></td>
+			<td class="info"><a href="https://example.com/a.html" target="_blank" class="info">案内</a></td>
+		</tr>
+		<tr  class="even">
+			<td class="comment"></td>
+			<td class="shisetsu toggle"><input type="checkbox" name="checkShisetsu" id="checkShisetsu999002" value="999002" onclick="showNextTip();" ><label for="checkShisetsu999002" class="switch-off">サンプル区民センター別館</label></td>
+			<td class="info"><a href="https://example.com/b.html" target="_blank" class="info">案内</a></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<input type="hidden" name="HyojiMode" id="HyojiMode" value="filterAll" />
+<div class="navbar"><ul>
+	<li class="next"><a href="javascript:__doPostBack('next','')" class="btnBlue" id="btnNext">次へ進む</a></li>
+	<li class="prev"><a href="javascript:__doPostBack('prev','')" class="btnBlue">前に戻る</a></li>
+</ul></div>
+</form>
+</body>
+</html>

@@ -18,3 +18,5 @@ export { KawasakiClient } from './kawasaki/client';
 export type { KawasakiClientOptions } from './kawasaki/client';
 export { ShinagawaClient } from './shinagawa/client';
 export type { ShinagawaClientOptions } from './shinagawa/client';
+export { SetagayaClient } from './setagaya/client';
+export type { SetagayaClientOptions } from './setagaya/client';

@@ -1,6 +1,7 @@
 import type { PoliteSessionOptions } from './http';
 import { KawasakiClient } from './kawasaki/client';
 import { OtaClient } from './ota/client';
+import { SetagayaClient } from './setagaya/client';
 import { ShibuyaClient } from './shibuya/client';
 import { ShinagawaClient } from './shinagawa/client';
 import type { AvailabilityAdapter } from './types';
@@ -22,6 +23,8 @@ const ENTRIES: Record<string, AdapterEntry> = {
     note: '送信元のIPアドレスが変わる環境では失敗します。固定のIPアドレスから使ってください',
   },
   ota: { create: (options) => new OtaClient(options), enabledByDefault: true },
+  // robots.txt は 403（空）。RFC 9309 では 4xx は「robots.txt なし（制限なし）」として扱う
+  setagaya: { create: (options) => new SetagayaClient(options), enabledByDefault: true },
   shibuya: { create: (options) => new ShibuyaClient(options), enabledByDefault: true },
   shinagawa: {
     create: (options) => new ShinagawaClient(options),

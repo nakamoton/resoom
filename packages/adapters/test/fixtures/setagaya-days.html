@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="utf-8" /><title>
+	けやきネット
+</title>
+<script type="text/javascript">
+    var maxCnt = 10;
+    var checkCnt = 0;
+</script>
+</head>
+<body>
+<form action="/Web/Yoyaku/WgR_ShisetsubetsuAkiJoukyou" id="form1" method="post">
+<input name="__RequestVerificationToken" type="hidden" value="TOKEN+days/abc==" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<div class="joken">
+	<input type="text" name="textDate" value="2026/12/29" id="dpStartDate" />
+	<ul class="toggle united">
+		<li><input type="radio" name="radioPeriod" value="1週間" id="radioPeriod1week" checked/><label for="radioPeriod1week" class="switch-off">1週間</label></li>
+		<li><input type="radio" name="radioPeriod" value="2週間" id="radioPeriod2weeks" /><label for="radioPeriod2weeks" class="switch-off">2週間</label></li>
+		<li><input type="radio" name="radioPeriod" value="1ヶ月" id="radioPeriod1month" /><label id="lblPeriod1month" for="radioPeriod1month" class="switch-off">1ヶ月</label></li>
+	</ul>
+	<div class="option">
+		<ul class="toggle united">
+			<li><input type="radio" name="radioDisplay" value="false" id="radioDisplayHorizontal" checked/><label for="radioDisplayHorizontal" class="switch-off">横表示</label></li>
+			<li><input type="radio" name="radioDisplay" value="true" id="radioDisplayCalendar" /><label for="radioDisplayCalendar" class="switch-off">カレンダー表示</label></li>
+		</ul>
+		<ul class="toggle united">
+			<li><input type="radio" name="radioJikan" value="am" id="radioJikan1" /><label for="radioJikan1" class="switch-off">午前</label></li>
+			<li><input type="radio" name="radioJikan" value="all" id="radioJikan4" checked/><label for="radioJikan4" class="switch-off">全日</label></li>
+		</ul>
+		<ul class="toggle united">
+			<li><input type="checkbox" name="checkYobi" value="sat" id="checkYobi6" /><label for="checkYobi6" class="switch-off">土</label></li>
+		</ul>
+	</div>
+	<ul>
+		<li><input type="button" id="btnShowDetail" class="btnGray" value="その他の条件で絞り込む"></li>
+		<li><input id="btnHyoji" type="button" onclick="__doPostBack('hyouji','');" class="btnSky large" value="表示"></li>
+	</ul>
+</div>
+<div class="example clearfix">
+	<h3>記号の見方</h3>
+	<ul>
+		<li class="lot"><span>○</span>空き</li>
+		<li><span>△</span>一部空き</li>
+		<li><span>×</span>空きなし</li>
+		<li><span>－</span>申込期間外</li>
+		<li><span>＊</span>公開対象外</li>
+	</ul>
+</div>
+<div class="item_body">
+<div class="item clearfix">
+	<h3>
+		<a href="javascript:void(window.open('https://example.com/a.html'))">サンプル区民センター</a><span class="info">《サンプル児童館併設》</span>
+	</h3>
+	<div class="notice"><h4>注意事項</h4><p>・サンプルの注意事項</p></div>
+	<div class="scroll-div clearfix">
+		<table class="calendar horizon toggle" _fixedhead="cols:1;rows:0;">
+			<thead>
+				<tr>
+					<th class="shisetsu">
+						<ul class="pagination">
+							<li class="prev"><a href="javascript:__doPostBack('period','prev')" class="btn"><i class="fa fa-chevron-left"></i></a></li>
+							<li class="month">2026年12月</li>
+							<li class="next"><a href="javascript:__doPostBack('period','next')" class="btn"><i class="fa fa-chevron-right"></i></a></li>
+						</ul>
+					</th>
+					<th class="day ">
+						<span>29</span><span class="week">火</span>
+					</th>
+					<th class="day ">
+						<span>30</span><span class="week">水</span>
+					</th>
+					<th class="day ">
+						<span>31</span><span class="week">木</span>
+					</th>
+					<th class="day sun">
+						<span>1</span><span class="week">金</span>
+					</th>
+					<th class="day sat">
+						<span>2</span><span class="week">土</span>
+					</th>
+					<th class="day sun">
+						<span>3</span><span class="week">日</span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="even">
+					<td class="shisetsu">
+					第１音楽室
+
+					<span class="info">（定員30）</span></td>
+					<td><input type="checkbox" name="checkdate" id="checkdate0" value="2026122900101   0"  ><label for="checkdate0" class="switch-off">○</label></td>
+					<td><input type="checkbox" name="checkdate" id="checkdate1" value="2026123000101   0" checked ><label for="checkdate1" class="switch-on">△</label></td>
+					<td class="closed chars2"><label>休館</label></td>
+					<td class="closed chars2"><label>休館</label></td>
+					<td><input type="checkbox" name="checkdate" id="checkdate4" value="2027010200101   0"  ><label for="checkdate4" class="switch-off">×</label></td>
+					<td class="closed"><label>－</label></td>
+				</tr>
+				<tr >
+					<td class="shisetsu">
+					第２音楽室
+
+					<span class="info">（定員30）</span></td>
+					<td><input type="checkbox" name="checkdate" id="checkdate6" value="2026122900102   0"  ><label for="checkdate6" class="switch-off">×</label></td>
+					<td><input type="checkbox" name="checkdate" id="checkdate7" value="2026123000102   0"  ><label for="checkdate7" class="switch-off">○</label></td>
+					<td class="closed chars2"><label>休館</label></td>
+					<td class="closed chars2"><label>休館</label></td>
+					<td class="closed"><label>＊</label></td>
+					<td class="closed"><label>－</label></td>
+				</tr>
+				<tr>
+					<th class="shisetsu">
+						<ul class="pagination">
+							<li class="prev"><a href="javascript:__doPostBack('period','prev')" class="btn"><i class="fa fa-chevron-left"></i></a></li>
+							<li class="month">2026年12月</li>
+							<li class="next"><a href="javascript:__doPostBack('period','next')" class="btn"><i class="fa fa-chevron-right"></i></a></li>
+						</ul>
+					</th>
+					<th class="day ">
+						<span>29</span><span class="week">火</span>
+					</th>
+					<th class="day ">
+						<span>30</span><span class="week">水</span>
+					</th>
+					<th class="day ">
+						<span>31</span><span class="week">木</span>
+					</th>
+					<th class="day sun">
+						<span>1</span><span class="week">金</span>
+					</th>
+					<th class="day sat">
+						<span>2</span><span class="week">土</span>
+					</th>
+					<th class="day sun">
+						<span>3</span><span class="week">日</span>
+					</th>
+				</tr>
+				<tr class="even">
+					<td class="shisetsu">
+					和室
+
+					<span class="info">（21畳）</span></td>
+					<td class="closed"><label>－</label></td>
+					<td class="closed"><label>－</label></td>
+					<td class="closed chars2"><label>休館</label></td>
+					<td class="closed chars2"><label>休館</label></td>
+					<td class="closed"><label>－</label></td>
+					<td class="closed"><label>－</label></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+<input type="hidden" name="staydate" id="staydate" value="" />
+<input type="hidden" name="hyoujiOpenCloseFlg" id="hyoujiOpenCloseFlg" value="close"/>
+<div class="navbar"><ul>
+	<li class="next"><a href="javascript:__doPostBack('next','')" class="btnBlue">次へ進む</a></li>
+	<li class="prev"><a href="javascript:__doPostBack('back','')" class="btnBlue">前に戻る</a></li>
+</ul></div>
+<div class="remodal stay" id="stay" data-remodal-id="stay">
+	<div><input type="text" class="spinner" id="spinnerStayDays" name="spinnerStayDays" maxlength="2" value="0"><span class="unit">泊</span></div>
+</div>
+</form>
+</body>
+</html>

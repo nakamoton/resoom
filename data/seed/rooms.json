@@ -1033,5 +1033,30 @@
         "reportedBy": "公式ページからの取り込み"
       }
     ]
+  },
+  {
+    "municipality": "世田谷区",
+    "facilityName": "弦巻区民センター",
+    "roomName": "第２音楽室",
+    "capacity": 30,
+    "nearestStation": null,
+    "adapter": {
+      "id": "setagaya",
+      "facilityCode": "弦巻区民センター"
+    },
+    "evidences": [
+      {
+        "key": "calendar-usage",
+        "kind": "usage",
+        "occurredOn": "2024-09-21",
+        "result": "allowed",
+        "instruments": [
+          "wind"
+        ],
+        "note": "楽団カレンダーからの取り込み。練習会で1回利用（直近は2024-09-21）。",
+        "sourceUrl": null,
+        "reportedBy": "カレンダーからの取り込み"
+      }
+    ]
   }
 ]

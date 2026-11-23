@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="utf-8" /><title>
+	けやきネット
+</title></head>
+<body>
+<form action="/Web/Home/WgR_ModeSelect" id="form1" method="post">
+<input name="__RequestVerificationToken" type="hidden" value="TOKEN+top/abc==" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<div class="guide"><p><a href="javascript:__doPostBack('login','')" class="btnBlue">ログイン</a></p></div>
+<div id="tabs">
+	<div class="category"><ul>
+		<li><input type="button" name="command" id="category_01" value="区民センター" onclick="__doPostBack('ssCategory','01');" class="btnSky"></li>
+	</ul></div>
+	<div class="purpose">
+		<ul class="toggle">
+			<li><input type="radio" name="radioPurposeLarge" id="radioPurposeLarge01" value="01" checked><label for="radioPurposeLarge01" class="switch-off">ダンス・軽体操系</label></li>
+			<li><input type="radio" name="radioPurposeLarge" id="radioPurposeLarge06" value="06" ><label for="radioPurposeLarge06" class="switch-off">芸術・音楽系</label></li>
+		</ul>
+		<ul class="toggle">
+			<li><input type="checkbox" name="checkPurposeMiddle" id="checkPurposeMiddle101" value="101" ><label for="checkPurposeMiddle101" class="switch-off">社交ダンス（音量大）</label></li>
+		</ul>
+	</div>
+	<div class="shisetsu">
+		<ul class="toggle">
+			<li><input type="radio" name="radioShisetsuLarge" id="radioShisetsuLarge01" value="01" checked><label for="radioShisetsuLarge01" class="switch-off">集会施設</label></li>
+		</ul>
+	</div>
+	<div class="kana">
+		<div><input type="text" name="shisetsuNameTxt" id="shisetsuNameTxt" value="" class="text"><input type="text" name="dummy" style="display:none;">
+		<input type="button" name="command" id="btnSearchShisetsuName" value="検索" class="btnSky" onclick="__doPostBack('searchShisetsuName','');"></div>
+	</div>
+</div>
+<div class="remodal policy" data-remodal-id="policy_user">
+	<h2>利用規約の確認</h2>
+	<textarea readonly name="kiyaku" id = "kiyaku" rows="11" cols="80">
+サンプルの利用規約
+</textarea>
+	<ul><li><input type="button" class="btnBlue remodal-confirm " name="doui" id="doui" value="利用規約に同意する" disabled></li></ul>
+</div>
+</form>
+</body>
+</html>
