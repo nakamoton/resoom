@@ -9,10 +9,10 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit && tsc --noEmit -p apps/web",
-    "ota:search": "tsx scripts/ota-search.ts",
     "db:seed": "tsx scripts/db-seed.ts",
     "dev": "pnpm --filter @resoom/web dev",
-    "build": "pnpm --filter @resoom/web build"
+    "build": "pnpm --filter @resoom/web build",
+    "availability": "tsx scripts/availability-search.ts"
   },
   "dependencies": {
     "@resoom/adapters": "workspace:*",

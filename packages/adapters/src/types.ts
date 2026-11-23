@@ -2,7 +2,7 @@
 export type SlotStatus =
   | 'available' // 空き
   | 'reserved' // 予約済み
-  | 'not_bookable' // 予約申込対象外（受付期間外など）
+  | 'not_bookable' // 予約申込対象外（受付期間外、抽選期間中など）
   | 'closed' // 休館日
   | 'maintenance' // 保守点検
   | 'suspended' // 利用中止
@@ -31,4 +31,39 @@ export interface RoomInfo {
   facility: string;
   room: string;
   capacity: number | null;
+}
+
+export interface AvailabilityQuery {
+  /** 自治体サイト内での施設（会館）の識別子 */
+  facilityCode: string;
+  /** 部屋名。自治体サイトの表示名と完全一致で指定する */
+  rooms: string[];
+  /** YYYY-MM-DD（この日を含む） */
+  from: string;
+  /** YYYY-MM-DD（この日を含む） */
+  to: string;
+}
+
+export interface AvailabilityResult {
+  rooms: RoomInfo[];
+  slots: AvailabilitySlot[];
+  /**
+   * 実際に照会できた最後の日（YYYY-MM-DD）。受付開始前などでサイトが表示しない期間は含まない。
+   * 1日も照会できなかった場合は null。
+   */
+  coveredThrough: string | null;
+  fetchedAt: string;
+}
+
+/**
+ * 自治体ごとの空き照会。ログイン不要の公開された照会だけを使うこと。
+ * 実装は PoliteSession を通してリクエストを送り、サイトに負荷をかけない。
+ */
+export interface AvailabilityAdapter {
+  /** 台帳の adapterId と対応する識別子（例: ota） */
+  readonly id: string;
+  /** 画面やログに出す名前（例: 大田区 うぐいすネット） */
+  readonly label: string;
+  listRooms(facilityCode: string): Promise<RoomInfo[]>;
+  fetchAvailability(query: AvailabilityQuery): Promise<AvailabilityResult>;
 }

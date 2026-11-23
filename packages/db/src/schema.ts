@@ -16,6 +16,11 @@ export const rooms = pgTable(
     adapterId: text('adapter_id'),
     /** アダプタ側での会館コード */
     adapterFacilityCode: text('adapter_facility_code'),
+    /**
+     * 自治体サイトでの部屋名。台帳の部屋名と違う場合や、複数の部屋を合わせて使う場合に指定する。
+     * null なら台帳の部屋名をそのまま使う
+     */
+    adapterRoomNames: text('adapter_room_names').array(),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [uniqueIndex('rooms_identity').on(t.municipality, t.facilityName, t.roomName)],

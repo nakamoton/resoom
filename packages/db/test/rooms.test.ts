@@ -139,6 +139,17 @@ describe('初期データの取り込み', () => {
     expect(plaza?.evidences).toHaveLength(1);
   });
 
+  it('自治体サイトでの部屋名を保存し、省略時は null にする', async () => {
+    await importSeed(db, [
+      { ...room({ municipality: '川崎市', facilityName: 'プラザ大師', roomName: '第１・第２学習室合併' }), adapter: { id: 'kawasaki', facilityCode: 'X1', rooms: ['第1学習室', '第2学習室'] }, evidences: [] },
+      ...seed,
+    ]);
+
+    const all = await listRooms(db);
+    expect(all.find((r) => r.facilityName === 'プラザ大師')?.adapterRoomNames).toEqual(['第1学習室', '第2学習室']);
+    expect(all.find((r) => r.facilityName === '大田区民プラザ')?.adapterRoomNames).toBeNull();
+  });
+
   it('繰り返し実行しても、部屋も記録も増えない', async () => {
     await importSeed(db, seed);
 

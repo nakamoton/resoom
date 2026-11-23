@@ -8,6 +8,13 @@
       "when": 1795398056821,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795399421132,
+      "tag": "0001_adapter_room_names",
+      "breakpoints": true
     }
   ]
 }

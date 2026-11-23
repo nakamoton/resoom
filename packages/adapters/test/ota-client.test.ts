@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { OtaClient, assertServiceHours } from '../src/ota/client';
+import { OtaClient } from '../src/ota/client';
 
 const fixture = (name: string): string =>
   readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8');
@@ -214,18 +214,5 @@ describe('OtaClient.fetchAvailability', () => {
 
     await expect(client.listRooms('999999_001_01')).rejects.toThrow('受付時間外');
     expect(site.calls).toHaveLength(0);
-  });
-});
-
-describe('assertServiceHours', () => {
-  it.each([
-    ['2026-11-22T16:59:00Z', true], // 日本時間 1:59
-    ['2026-11-22T17:00:00Z', false], // 2:00
-    ['2026-11-22T19:59:00Z', false], // 4:59
-    ['2026-11-22T20:00:00Z', true], // 5:00
-  ])('%s', (iso, ok) => {
-    const run = () => assertServiceHours(new Date(iso));
-    if (ok) expect(run).not.toThrow();
-    else expect(run).toThrow();
   });
 });

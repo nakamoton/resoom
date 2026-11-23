@@ -1,4 +1,14 @@
-export type { AvailabilitySlot, RoomInfo, SlotStatus } from './types';
-export { OtaClient, assertServiceHours } from './ota/client';
-export type { FetchAvailabilityParams, FetchAvailabilityResult, OtaClientOptions } from './ota/client';
-export { parseAvailability, parseRoomList } from './ota/parse';
+export type {
+  AvailabilityAdapter,
+  AvailabilityQuery,
+  AvailabilityResult,
+  AvailabilitySlot,
+  RoomInfo,
+  SlotStatus,
+} from './types';
+export { PoliteSession, addDays, formatIsoDate, parseIsoDate } from './http';
+export type { PoliteSessionOptions, RequestOptions, SiteProfile, SiteResponse } from './http';
+export { combineRooms } from './combine';
+export { ADAPTER_IDS, createAdapter } from './registry';
+export { OtaClient } from './ota/client';
+export type { OtaClientOptions } from './ota/client';

@@ -60,7 +60,8 @@ export async function addEvidence(db: Db, roomId: string, input: NewEvidenceInpu
 }
 
 export interface SeedRoom extends NewRoomInput {
-  adapter?: { id: string; facilityCode: string };
+  /** rooms は自治体サイトでの部屋名。省略すると台帳の部屋名を使う */
+  adapter?: { id: string; facilityCode: string; rooms?: string[] };
   evidences: Array<NewEvidenceInput & { key: string }>;
 }
 
@@ -71,7 +72,12 @@ export interface SeedRoom extends NewRoomInput {
 export async function importSeed(db: Db, seed: SeedRoom[]): Promise<{ rooms: number; evidences: number }> {
   let evidenceCount = 0;
   for (const { adapter, evidences, ...room } of seed) {
-    const values = { ...room, adapterId: adapter?.id ?? null, adapterFacilityCode: adapter?.facilityCode ?? null };
+    const values = {
+      ...room,
+      adapterId: adapter?.id ?? null,
+      adapterFacilityCode: adapter?.facilityCode ?? null,
+      adapterRoomNames: adapter?.rooms ?? null,
+    };
     const [saved] = await db
       .insert(rooms)
       .values(values)
@@ -82,6 +88,7 @@ export async function importSeed(db: Db, seed: SeedRoom[]): Promise<{ rooms: num
           nearestStation: sql`excluded.nearest_station`,
           adapterId: sql`excluded.adapter_id`,
           adapterFacilityCode: sql`excluded.adapter_facility_code`,
+          adapterRoomNames: sql`excluded.adapter_room_names`,
         },
       })
       .returning({ id: rooms.id });
