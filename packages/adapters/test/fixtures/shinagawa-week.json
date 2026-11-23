@@ -1,0 +1,27 @@
+{"_comment":"週表示（1週間空き表示）の応答と同じ構造の、テスト用のサンプル。値は架空。","result":[
+{"tzoneNo":10,"tzoneName":"午前","timeResult":[
+  {"imgURL":"image/calendar/svg/calendar_available_outline.svg","rsvNum":0,"selectNum":0,"alt":"空き","startTime":900,"endTime":1200,"useDay":20261228,"status":0},
+  {"imgURL":"image/calendar/svg/calendar_full_outline.svg","rsvNum":0,"selectNum":0,"alt":"予約あり","startTime":900,"endTime":1200,"useDay":20261229,"status":210},
+  {"imgURL":"image/calendar/svg/calendar_closed_outline.svg","rsvNum":0,"selectNum":0,"alt":"休館日","startTime":900,"endTime":1200,"useDay":20261230,"status":2},
+  {"imgURL":"image/calendar/svg/calendar_closed_outline.svg","rsvNum":0,"selectNum":0,"alt":"休館日","startTime":900,"endTime":1200,"useDay":20261231,"status":2},
+  {"imgURL":"image/calendar/svg/calendar_closed_outline.svg","rsvNum":0,"selectNum":0,"alt":"休館日","startTime":900,"endTime":1200,"useDay":20270101,"status":2},
+  {"imgURL":"image/calendar/svg/calendar_maintenance_outline.svg","rsvNum":0,"selectNum":0,"alt":"保守","startTime":900,"endTime":1200,"useDay":20270102,"status":3},
+  {"imgURL":"image/calendar/svg/calendar_non-operatingtime_outline.svg","rsvNum":0,"selectNum":0,"alt":"受付期間外","startTime":900,"endTime":1200,"useDay":20270103,"status":700}]},
+{"tzoneNo":20,"tzoneName":"午後","timeResult":[
+  {"imgURL":"image/calendar/svg/calendar_off-hours_outline.svg","rsvNum":0,"selectNum":0,"alt":"時間外","startTime":1300,"endTime":1630,"useDay":20261228,"status":4},
+  {"imgURL":"image/calendar/svg/calendar_rain_outline.svg","rsvNum":0,"selectNum":0,"alt":"雨天","startTime":1300,"endTime":1630,"useDay":20261229,"status":5},
+  {"imgURL":"image/calendar/svg/calendar_delete_outline.svg","rsvNum":0,"selectNum":0,"alt":"取消処理中","startTime":1300,"endTime":1630,"useDay":20261230,"status":6},
+  {"imgURL":"image/calendar/svg/calendar_open_outline.svg","rsvNum":0,"selectNum":0,"alt":"一般開放","startTime":1300,"endTime":1630,"useDay":20261231,"status":7},
+  {"imgURL":"image/calendar/svg/calendar_tel_outline.svg","rsvNum":0,"selectNum":0,"alt":"電話問合せ","startTime":1300,"endTime":1630,"useDay":20270101,"status":8},
+  {"imgURL":"image/calendar/svg/calendar_new_outline.svg","rsvNum":0,"selectNum":0,"alt":"新しい表示","startTime":1300,"endTime":1630,"useDay":20270102,"status":999},
+  {"imgURL":"","rsvNum":0,"selectNum":0,"alt":"","startTime":1300,"endTime":1630,"useDay":20270103,"status":0}]},
+{"tzoneNo":30,"tzoneName":"夜間","timeResult":[
+  {"imgURL":"image/calendar/svg/calendar_available_outline.svg","rsvNum":0,"selectNum":0,"alt":"空き","startTime":1730,"endTime":2130,"useDay":20261228,"status":0},
+  {"imgURL":"image/calendar/svg/calendar_available_outline.svg","rsvNum":0,"selectNum":0,"alt":"空き","startTime":1730,"endTime":2130,"useDay":20261229,"status":0},
+  {"imgURL":"image/calendar/svg/calendar_closed_outline.svg","rsvNum":0,"selectNum":0,"alt":"休館日","startTime":1730,"endTime":2130,"useDay":20261230,"status":2},
+  {"imgURL":"image/calendar/svg/calendar_closed_outline.svg","rsvNum":0,"selectNum":0,"alt":"休館日","startTime":1730,"endTime":2130,"useDay":20261231,"status":2},
+  {"imgURL":"image/calendar/svg/calendar_closed_outline.svg","rsvNum":0,"selectNum":0,"alt":"休館日","startTime":1730,"endTime":2130,"useDay":20270101,"status":2},
+  {"imgURL":"image/calendar/svg/calendar_full_outline.svg","rsvNum":0,"selectNum":0,"alt":"予約あり","startTime":1730,"endTime":2130,"useDay":20270102,"status":210},
+  {"imgURL":"image/calendar/svg/calendar_non-operatingtime_outline.svg","rsvNum":0,"selectNum":0,"alt":"受付期間外","startTime":1730,"endTime":2130,"useDay":20270103,"status":700}]}],
+"beforeWeekStartDay":20261221,"imstRsvMediaFlg":3,
+"weekDay":[{"dispWeekDay":"月曜","holidayFlg":1,"dispMonth":"12月","holiday":"月曜","dispDay":"28日","useDay":20261228},{"dispWeekDay":"火曜","holidayFlg":1,"dispMonth":"12月","holiday":"火曜","dispDay":"29日","useDay":20261229},{"dispWeekDay":"水曜","holidayFlg":1,"dispMonth":"12月","holiday":"水曜","dispDay":"30日","useDay":20261230},{"dispWeekDay":"木曜","holidayFlg":1,"dispMonth":"12月","holiday":"木曜","dispDay":"31日","useDay":20261231},{"dispWeekDay":"金曜","holidayFlg":4,"dispMonth":"1月","holiday":"祝日","dispDay":"1日","useDay":20270101},{"dispWeekDay":"土曜","holidayFlg":2,"dispMonth":"1月","holiday":"土曜","dispDay":"2日","useDay":20270102},{"dispWeekDay":"日曜","holidayFlg":3,"dispMonth":"1月","holiday":"日曜","dispDay":"3日","useDay":20270103}],"nextStartDay":20261229,"dayNum":7,"nextWeekStartDay":20270104,"equipFg":0,"lendType":1,"title":"時間帯","beforeStartDay":20261227}

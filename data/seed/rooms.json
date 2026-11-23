@@ -814,6 +814,10 @@
     "roomName": "音楽室",
     "capacity": null,
     "nearestStation": null,
+    "adapter": {
+      "id": "shinagawa",
+      "facilityCode": "1400_2400"
+    },
     "evidences": [
       {
         "key": "calendar-usage",

@@ -1,0 +1,21 @@
+<!-- 品川区施設予約システムのホーム画面と同じ構造に縮めた、テスト用のサンプル。値は架空。 -->
+<!doctype html><html lang="ja"><!-- pawab2000.jsp --><head><title>サンプル区施設予約システム&nbsp;ホーム画面</title><meta charset="Shift_JIS"></head>
+<body><form name="form1" method="post" action="index.jsp" onsubmit="return false;" autocomplete="off">
+<article id="free-search"><h2>空き状況検索</h2>
+<div id="when"><input type="radio" name="date" id="thisweek" value="3" checked><label for="thisweek">1週間</label>
+<input id="daystart" type="date" name="daystart" value="2026-11-23">
+<select id="days" name="days"><option value="1">1日</option><option value="7" selected>1週間</option><option value="31">1か月</option></select>
+<input type="hidden" name="dayofweekClearFlg" value="0" id="dayofweekClearFlg"><input type="hidden" name="timezoneClearFlg" value="0" id="timezoneClearFlg"></div>
+<div id="where"><select id="bname" class="custom-select" onchange="filterInst()"><option  value="0">選択してください。</option>
+<optgroup label="東地区"><option value="9100_0" data-areacd="9100" data-bldcd="0" >東地区(すべて)</option>
+<option value="9100_9010" data-areacd="9100" data-bldcd="9010" >サンプル産業センター</option>
+<option value="9100_9020" data-areacd="9100" data-bldcd="9020" >サンプル文化センター</option></optgroup>
+<optgroup label="西地区"><option value="9200_0" data-areacd="9200" data-bldcd="0" >西地区(すべて)</option>
+<option value="9200_9030" data-areacd="9200" data-bldcd="9030" >サンプル体育館</option></optgroup></select>
+<input type="hidden" name="selectAreaBcd" id="selectAreaBcd" value="">
+<select id="iname" class="custom-select"></select><input type="hidden" name="selectIcd" id="selectIcd" value=""></div>
+<div id="what"><select id="purpose" class="custom-select"><option value="0">選択してください。</option>
+<optgroup label="文化・スポーツ"><option value="31000000_31000100" >会議・会合・研修</option><option value="31000000_31004500" >楽器演奏</option></optgroup></select>
+<input type="hidden" name="selectPpsClPpscd" id="selectPpsClPpscd" value=""></div>
+<button id="btn-go" type="button" onclick="javascript:doSearch(document.form1, gRsvWOpeInstSrchVacantAction);">検索</button></article>
+<input type="hidden" name="displayNo" value="pawab2000"><input type="hidden" name="displayNoFrm" value="pawab2000"></form></body></html>

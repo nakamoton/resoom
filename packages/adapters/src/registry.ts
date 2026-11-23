@@ -2,6 +2,7 @@ import type { PoliteSessionOptions } from './http';
 import { KawasakiClient } from './kawasaki/client';
 import { OtaClient } from './ota/client';
 import { ShibuyaClient } from './shibuya/client';
+import { ShinagawaClient } from './shinagawa/client';
 import type { AvailabilityAdapter } from './types';
 
 interface AdapterEntry {
@@ -22,6 +23,13 @@ const ENTRIES: Record<string, AdapterEntry> = {
   },
   ota: { create: (options) => new OtaClient(options), enabledByDefault: true },
   shibuya: { create: (options) => new ShibuyaClient(options), enabledByDefault: true },
+  shinagawa: {
+    create: (options) => new ShinagawaClient(options),
+    // サイトの robots.txt がサーバーエラー（502）で取得できず、機械的なアクセスの可否を確認できていない。
+    // 使うかどうかの判断がつくまで、明示的に指定したときだけ使う。
+    enabledByDefault: false,
+    note: 'robots.txt が取得できず（502）、機械的なアクセスの可否を確認できていません',
+  },
 };
 
 /** 対応している adapterId の一覧。 */

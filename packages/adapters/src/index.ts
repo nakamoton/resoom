@@ -16,3 +16,5 @@ export { ShibuyaClient } from './shibuya/client';
 export type { ShibuyaClientOptions } from './shibuya/client';
 export { KawasakiClient } from './kawasaki/client';
 export type { KawasakiClientOptions } from './kawasaki/client';
+export { ShinagawaClient } from './shinagawa/client';
+export type { ShinagawaClientOptions } from './shinagawa/client';
