@@ -26,13 +26,9 @@ const ENTRIES: Record<string, AdapterEntry> = {
   // robots.txt は 403（空）。RFC 9309 では 4xx は「robots.txt なし（制限なし）」として扱う
   setagaya: { create: (options) => new SetagayaClient(options), enabledByDefault: true },
   shibuya: { create: (options) => new ShibuyaClient(options), enabledByDefault: true },
-  shinagawa: {
-    create: (options) => new ShinagawaClient(options),
-    // サイトの robots.txt がサーバーエラー（502）で取得できず、機械的なアクセスの可否を確認できていない。
-    // 使うかどうかの判断がつくまで、明示的に指定したときだけ使う。
-    enabledByDefault: false,
-    note: 'robots.txt が取得できず（502）、機械的なアクセスの可否を確認できていません',
-  },
+  // robots.txt はサーバーエラー（502）で取得できない。共用サーバーで robots.txt が置かれていないと判断し、
+  // 楽団の判断（2026-11-23）で既定で有効にした。経緯は docs/shinagawa-investigation.md
+  shinagawa: { create: (options) => new ShinagawaClient(options), enabledByDefault: true },
 };
 
 /** 対応している adapterId の一覧。 */
